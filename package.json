@@ -3,15 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "description": "",
-  "homepage": "https://github.com/WildCodeSchool/toulouse-geocode#readme",
-  "bugs": {
-    "url": "https://github.com/WildCodeSchool/toulouse-geocode/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WildCodeSchool/toulouse-geocode.git"
-  },
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "postinstall": "husky install || true",
     "db:migrate": "npm run db:migrate --workspace=server",
