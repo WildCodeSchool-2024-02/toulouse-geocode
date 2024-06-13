@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
 import Connect from "./pages/Connect";
+import Map from "./pages/Map";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/connect",
     element: <Connect />,
+  },
+  {
+    path: "/map",
+    element: <Map />,
   },
 ]);
 
