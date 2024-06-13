@@ -5,14 +5,12 @@ function Connect() {
   return (
     <div className="boxConnect">
       <img className="logoCSS" src={logo} alt="Logo du site WEB" />
-      <label>
-        Nom d'utilisateur
-        <input type="text" name="name" />
-      </label>
-      <label>
-        Mot de passe
-        <input type="text" name="name" />
-      </label>
+      <label htmlFor="username">Nom d'utilisateur</label>
+      <input type="text" id="username" />
+
+      <label htmlFor="password">Mot de passe</label>
+      <input type="text" id="password" />
+
       <p>Mot de passe oublié ?</p>
       <button type="button">Connexion</button>
       <button type="button">S'inscrire</button>
