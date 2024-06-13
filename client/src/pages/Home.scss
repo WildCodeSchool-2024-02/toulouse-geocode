@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap");
+
+$green: #24331d;
+$judson: "Judson";
+$crem-white: #fff7ec;
+
+.boxHome {
+  background-color: $crem-white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  padding: 20px;
+}
+
+.textHome {
+  font-family: $judson;
+  font-size: 38px;
+  text-align: center;
+}
+
+.buttonHome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $green;
+  color: white;
+  font-size: 32px;
+  border-radius: 80px;
+  width: 17rem;
+  height: 4.5rem;
+  font-family: $judson;
+}
+
+.logoCSS {
+  width: 19rem;
+  height: 19rem;
+}
+
+.boxConnect {
+  background-color: $crem-white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  .userName {
+    font-family: $judson;
+  }
+}
