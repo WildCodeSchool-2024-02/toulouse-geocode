@@ -1,8 +1,9 @@
-import "./App.css";
-import Map from "./pages/Map";
+import "./App.scss";
+import Home from "./pages/Home";
+import "./reset.scss";
 
 function App() {
-  return <Map />;
+  return <Home />;
 }
 
 export default App;

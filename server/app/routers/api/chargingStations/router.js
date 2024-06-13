@@ -3,14 +3,17 @@ const express = require("express");
 const router = express.Router();
 
 /* ************************************************************************* */
-// Import And Use Routers Here
+// Define Your API Routes Here
 /* ************************************************************************* */
 
-const itemsRouter = require("./items/router");
-const chargingStationsRouter = require("./chargingStations/router");
+// Import item-related actions
+const { browse, read } = require("../../../controllers/chargingStationActions");
 
-router.use("/items", itemsRouter);
-router.use("/charging-stations", chargingStationsRouter);
+// Route to get a list of items
+router.get("/", browse);
+
+// Route to get a specific item by ID
+router.get("/:id", read);
 
 /* ************************************************************************* */
 
