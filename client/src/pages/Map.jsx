@@ -23,7 +23,11 @@ function Map({ geojsonData }) {
   }, []);
 
   if (!position) {
-    return <div className="loader" />;
+    return (
+      <div className="loaderBox">
+        <div className="loader" />
+      </div>
+    );
   }
   return (
     <MapContainer
