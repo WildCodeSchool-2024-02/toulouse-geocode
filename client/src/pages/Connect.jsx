@@ -1,9 +1,10 @@
 import "./Home.scss";
+import logo from "../../public/logo.svg";
 
 function Connect() {
   return (
     <div className="boxConnect">
-      <img className="logoCSS" src="public/logo.svg" alt="Logo du site WEB" />
+      <img className="logoCSS" src={logo} alt="Logo du site WEB" />
       <label htmlFor="username">Nom d'utilisateur :</label>
       <input type="text" id="username" />
       <label htmlFor="password">Mot de passe :</label>
