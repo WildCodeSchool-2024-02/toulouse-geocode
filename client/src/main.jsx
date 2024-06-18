@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Connect from "./pages/Connect";
 import Map from "./pages/Map";
+import ContactForm from "./pages/ContactForm";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/map",
     element: <Map />,
+  },
+  {
+    path: "/contact",
+    element: <ContactForm />,
   },
 ]);
 
