@@ -1,5 +1,7 @@
 import "./ContactForm.scss";
 import { useNavigate } from "react-router-dom";
+import "./button.scss";
+import "./input.scss";
 
 function ContactForm() {
   const navigate = useNavigate();
@@ -18,7 +20,12 @@ function ContactForm() {
           <h1>Contacter le support</h1>
           <section className="name">
             <label htmlFor="name">Nom</label>
-            <input id="name" name="name" placeholder="Entrer votre nom" />
+            <input
+              id="name"
+              name="name"
+              placeholder="Entrer votre nom"
+              className="input-sm-gray-outlined"
+            />
             <p>Requis</p>
           </section>
           <section className="email">
@@ -27,6 +34,7 @@ function ContactForm() {
               id="email"
               name="email"
               placeholder="Entrer votre adresse mail"
+              className="input-sm-gray-outlined"
             />
             <p>Requis</p>
           </section>
@@ -38,7 +46,7 @@ function ContactForm() {
                 type="button"
                 name="assistance"
                 value="Assistance technique"
-                className="button-green"
+                className="button-md-olive-outlined"
               />
 
               <input
@@ -46,7 +54,7 @@ function ContactForm() {
                 type="button"
                 name="account"
                 value="Mon compte"
-                className="button-green"
+                className="button-md-olive-outlined"
               />
 
               <input
@@ -54,7 +62,7 @@ function ContactForm() {
                 type="button"
                 name="review"
                 value="Donner mon avis"
-                className="button-green"
+                className="button-md-olive-outlined"
               />
             </div>
           </section>
@@ -68,7 +76,7 @@ function ContactForm() {
             type="submit"
             name="submit"
             value="Valider"
-            className="button-green-main"
+            className="button-lg-olive-fullfilled"
           />
         </form>
       </div>

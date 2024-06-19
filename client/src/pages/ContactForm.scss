@@ -3,6 +3,7 @@
 
 body {
   height: 100dvh;
+  background-color: #fff7ec;
 }
 
 .back-button {
@@ -69,26 +70,6 @@ form {
     width: 100%;
   }
 
-  #name {
-    border-radius: 30px;
-    color: grey;
-    padding-inline: 1rem;
-    padding-block: 0.45rem;
-    width: 100%;
-    margin-block: 0.5rem;
-    border: #24331d20 2px solid;
-  }
-
-  #email {
-    border-radius: 30px;
-    color: grey;
-    padding-inline: 1rem;
-    padding-block: 0.45rem;
-    width: 100%;
-    margin-block: 0.5rem;
-    border: #24331d20 2px solid;
-  }
-
   p {
     color: gray;
     font-size: small;
@@ -106,6 +87,7 @@ form {
     font-family: Roboto;
     font-size: 14px;
     font-style: italic;
+    background-color: #fdf7ef;
   }
 
   #submit {
@@ -115,43 +97,10 @@ form {
     border-radius: 30px;
   }
 
-  .button-green {
-    background-color: #d5dfd6;
-    font-family: Judson;
-    font-size: 1rem;
-    border: none;
-
-    &:focus {
-      outline: 1px solid #24331d;
-    }
-
-    &:hover {
-      cursor: pointer;
-      outline: 1px solid #24331d;
-    }
-  }
-
-  .button-green-main {
-    background-color: #24331d;
-    color: white;
-    font-family: Roboto;
-    font-size: 1rem;
-    border: none;
-    box-shadow: 0 3px 8px 0 #000000;
-    margin-bottom: 1rem;
-
-    &:hover {
-      background-color: #d5dfd6;
-      color: #000000;
-      cursor: pointer;
-    }
-  }
-
   h1 {
     font-family: Judson;
     font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
+    text-align: center;
     width: 100%;
   }
 
