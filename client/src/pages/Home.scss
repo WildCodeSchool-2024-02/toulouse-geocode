@@ -2,11 +2,11 @@
 
 $green: #24331d;
 $judson: "Judson";
-$crem-white: #fff7ec;
+$cream-white: #fff7ec;
 
 .boxHome {
-  background-color: $crem-white;
-  height: 100vh;
+  background-color: $cream-white;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,14 +40,15 @@ $crem-white: #fff7ec;
 }
 
 .boxConnect {
-  background-color: $crem-white;
-  height: 100vh;
+  background-color: $cream-white;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
   padding: 20px;
+
   .userName {
     font-family: $judson;
   }
