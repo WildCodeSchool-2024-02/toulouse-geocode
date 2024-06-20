@@ -9,14 +9,17 @@ function Map({ geojsonData }) {
   const [position, setPosition] = useState(null);
 
   useEffect(() => {
-    const getLocation = () => {
+    const getLocation = async () => {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((positions) => {
-          const crd = positions.coords;
-          const lat = crd.latitude;
-          const lng = crd.longitude;
-          setPosition([lat, lng]);
-        });
+        try {
+          const positions = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+          });
+          const { latitude, longitude } = await positions.coords;
+          setPosition([latitude, longitude]);
+        } catch (error) {
+          console.error("Erreur de géolocalisation", error);
+        }
       }
     };
     getLocation();
