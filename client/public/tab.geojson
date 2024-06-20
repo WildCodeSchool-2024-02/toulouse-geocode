@@ -42,9 +42,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "nom": "haut du zizi"
-      },
+      "properties": {},
       "geometry": {
         "coordinates": [1.4366992517536232, 43.66948675732286],
         "type": "Point"
@@ -64,9 +62,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "nom": "testicule gauche"
-      },
+      "properties": {},
       "geometry": {
         "coordinates": [1.4114009622919355, 43.581412096218486],
         "type": "Point"
@@ -75,9 +71,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "nom": "testicule  droit"
-      },
+      "properties": {},
       "geometry": {
         "coordinates": [1.450352296860956, 43.58228475505152],
         "type": "Point"
