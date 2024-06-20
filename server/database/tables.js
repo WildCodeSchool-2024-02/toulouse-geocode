@@ -1,5 +1,6 @@
 // Import the repository modules responsible for handling data operations on the tables
 const ChargingStationRepository = require("./models/ChargingStationRepository");
+const ClusterRepository = require("./models/ClusterRepository");
 const ContactFormRepository = require("./models/ContactFormRepository");
 const ItemRepository = require("./models/ItemRepository");
 
@@ -13,6 +14,7 @@ const tables = {};
 // Register each repository as data access point for its table
 tables.item = new ItemRepository();
 tables.chargingStation = new ChargingStationRepository();
+tables.cluster = new ClusterRepository();
 tables.contact_message = new ContactFormRepository();
 
 /* ************************************************************************* */

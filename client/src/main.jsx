@@ -23,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/map",
     element: <Map />,
+    loader: async () =>
+      fetch("http://localhost:3310/api/charging-stations/")
+        .then((r) => r.json())
+        .then((d) => d),
   },
   {
     path: "/contact",
@@ -36,5 +40,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
