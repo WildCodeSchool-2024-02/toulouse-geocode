@@ -43,6 +43,13 @@ plug_type_2 TINYINT NULL,
 plug_type_combo_ccs TINYINT NULL,
 plug_type_chadeLu TINYINT NULL,
 plug_type_autre TINYINT NULL
+);
+
+CREATE TABLE contact_message(id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+name VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+message TEXT NOT NULL,
+topic VARCHAR(255) NOT NULL
 )
 
 
