@@ -11,7 +11,7 @@ const browse = async (_, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const cluster = await tables.cluster.readBycoord(req.params.id);
+    const cluster = await 777;
     if (cluster == null) {
       res.sendStatus(404);
     } else {

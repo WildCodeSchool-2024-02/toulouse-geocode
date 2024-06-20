@@ -3,10 +3,11 @@ const express = require("express");
 const router = express.Router();
 
 const { browse, read } = require("../../../controllers/clusterActions");
+const { manageCoord } = require("../../../services/manageCoord");
 
 router.get("/", browse);
 
-router.get("/:coor", read);
+router.get("/:coor", manageCoord, read);
 
 /* ************************************************************************* */
 
