@@ -6,7 +6,7 @@ const { browse, read } = require("../../../controllers/clusterActions");
 
 router.get("/", browse);
 
-router.get("/:id", read);
+router.get("/:coor", read);
 
 /* ************************************************************************* */
 
