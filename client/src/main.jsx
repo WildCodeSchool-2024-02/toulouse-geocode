@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 import App from "./App";
 import Connect from "./pages/Connect";
 import Map from "./pages/Map";
-import ContactForm from "./pages/ContactForm";
+import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,7 @@ const router = createBrowserRouter([
   {
     path: "/contact",
     element: <ContactForm />,
+    action: postMessageToAdmin,
   },
 ]);
 

@@ -1,7 +1,11 @@
 import "./ContactForm.scss";
-import { useNavigate } from "react-router-dom";
 import "./button.scss";
 import "./input.scss";
+import "./radio.scss";
+import { useNavigate, Form, redirect } from "react-router-dom";
+
+
+const hostUrl = import.meta.env.VITE_API_URL;
 
 function ContactForm() {
   const navigate = useNavigate();
@@ -16,7 +20,7 @@ function ContactForm() {
         &#x3c;
       </button>
       <div className="contactFormDiv">
-        <form>
+        <Form method="post">
           <h1>Contacter le support</h1>
           <section className="name">
             <label htmlFor="name">Nom</label>
@@ -25,6 +29,7 @@ function ContactForm() {
               name="name"
               placeholder="Entrer votre nom"
               className="input-sm-gray-outlined"
+              required
             />
             <p>Requis</p>
           </section>
@@ -35,40 +40,49 @@ function ContactForm() {
               name="email"
               placeholder="Entrer votre adresse mail"
               className="input-sm-gray-outlined"
+              required
             />
             <p>Requis</p>
           </section>
           <section>
             <h2>Type de requête</h2>
             <div className="supportButtons">
+              <label htmlFor="assistance">Assistance</label>
               <input
                 id="assistance"
-                type="button"
-                name="assistance"
+                type="radio"
+                name="topic"
                 value="Assistance technique"
-                className="button-md-olive-outlined"
+                className="radio"
               />
 
+              <label htmlFor="account">Mon compte</label>
               <input
                 id="account"
-                type="button"
-                name="account"
+                type="radio"
+                name="topic"
                 value="Mon compte"
-                className="button-md-olive-outlined"
+                className="radio"
               />
 
+              <label htmlFor="review">Donner mon avis</label>
               <input
                 id="review"
-                type="button"
-                name="review"
+                type="radio"
+                name="topic"
                 value="Donner mon avis"
-                className="button-md-olive-outlined"
+                className="radio"
               />
             </div>
           </section>
           <section>
             <h2>Message </h2>
-            <textarea placeholder="Votre message" />
+            <textarea
+              placeholder="Votre message"
+              required
+              id="message"
+              name="message"
+            />
             <p>500 caractères maximum</p>
           </section>
           <input
@@ -78,10 +92,42 @@ function ContactForm() {
             value="Valider"
             className="button-lg-olive-fullfilled"
           />
-        </form>
+        </Form>
       </div>
     </>
   );
+}
+
+export async function postMessageToAdmin({ request }) {
+  const formData = await request.formData();
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const message = formData.get("message");
+  const topic = formData.get("topic");
+
+  const requestBody = {
+    name,
+    email,
+    message,
+    topic,
+  };
+  try {
+    const response = await fetch(`${hostUrl}/api/contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+    await response.json();
+
+    if (response.ok) {
+      return redirect(`/contact`);
+    }
+  } catch (e) {
+    console.error(e.message);
+  }
+  return null;
 }
 
 export default ContactForm;
