@@ -5,6 +5,8 @@ import { useLoaderData } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./Map.scss";
 
+const hostUrl = import.meta.env.VITE_API_URL;
+
 function Map() {
   const datas = useLoaderData();
   const cachedValue = useMemo(() => datas, [datas]);
@@ -15,7 +17,7 @@ function Map() {
         const zoomLvl = map.getZoom();
         const { lat } = map.getCenter();
         const { lng } = map.getCenter();
-        fetch(`http://localhost:3310/api/clusters/${zoomLvl}-${lat}-${lng}`)
+        fetch(`${hostUrl}/api/clusters/${zoomLvl}-${lat}-${lng}`)
           .then((r) => r.json)
           .then((d) => d);
       },
