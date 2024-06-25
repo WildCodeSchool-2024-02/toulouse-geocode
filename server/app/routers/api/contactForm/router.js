@@ -7,10 +7,19 @@ const router = express.Router();
 /* ************************************************************************* */
 
 // Import item-related actions
-const { add } = require("../../../controllers/contactFormActions");
+const {
+  add,
+  browse,
+  read,
+  destroy,
+} = require("../../../controllers/contactFormActions");
 
 // Route to get a list of items
+router.get("/", browse);
+router.get("/:id", read);
 router.post("/", add);
+router.delete("/:id", destroy);
+
 /* ************************************************************************* */
 
 module.exports = router;
