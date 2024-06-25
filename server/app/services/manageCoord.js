@@ -1,6 +1,8 @@
 const manageCoord = (req, res, next) => {
   const { coor } = req.params;
-  const arr = coor.split("-").map((el, i) => (i === 0 ? parseInt(el, 10) : parseFloat(el, 10)));
+  const arr = coor
+    .split("-")
+    .map((el, i) => (i === 0 ? parseInt(el, 10) : parseFloat(el, 10)));
   const [zoom, lat, lng] = arr;
 
   const addOffSet = (coord, offSet) => coord + offSet;
