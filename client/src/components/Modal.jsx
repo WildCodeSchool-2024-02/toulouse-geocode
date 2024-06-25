@@ -3,7 +3,7 @@ import "./Modal.scss";
 import PropTypes from "prop-types";
 import BackButton from "./BackButton";
 
-function Modal({ isOpen, onClose }) {
+function Modal({ isOpen, onClose, message }) {
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
       onClose();
@@ -20,7 +20,7 @@ function Modal({ isOpen, onClose }) {
     >
       <div className="modal-content">
         <BackButton />
-        <p>Votre message a été envoyé avec succès !</p>
+        <p>{message}</p>
       </div>
     </Link>
   ) : null;
@@ -28,6 +28,7 @@ function Modal({ isOpen, onClose }) {
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired
 };
 
 export default Modal;

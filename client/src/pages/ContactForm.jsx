@@ -93,7 +93,15 @@ function ContactForm() {
           />
         </Form>
       </div>
-      <Modal isOpen={!!actionResponse} onClose={closeModal} />
+      <Modal
+        isOpen={!!actionResponse}
+        onClose={closeModal}
+        message={
+          actionResponse?.error
+            ? "Une erreur s'est produite lors de l'envoi du message."
+            : "Votre message a été envoyé avec succès."
+        }
+      />
     </>
   );
 }
@@ -122,11 +130,11 @@ export async function postMessageToAdmin({ request }) {
     const responseBody = await response.json();
 
     if (response.ok) {
-      // setShowModal(true);
       return responseBody;
     }
   } catch (e) {
     console.error(e.message);
+    return { error: true };
   }
   return null;
 }
