@@ -10,7 +10,7 @@ $buttons: (
   md: (
     padding: 0.75rem 1.5rem,
     fontSize: 1rem,
-    borderRadius: 0.5rem,
+    borderRadius: 1.5rem,
     gap: 0.75rem,
   ),
   lg: (
@@ -40,18 +40,18 @@ $buttons: (
     &:hover {
       background-color: var(--#{$color}-100);
       color: #000000;
-      // outline: 1px solid var(--#{$color}-900);
       cursor: pointer;
+      box-shadow: 0 1px 6px 0 #797979;
+    }
+
+    &:active {
+      box-shadow: none;
     }
   } @else if $type == "outlined" {
     background-color: var(--#{$color}-100);
     color: var(--#{$color}-600);
     border: 1px solid var(--#{$color}-200);
     font-family: Judson;
-
-    &:focus {
-      outline: 1px solid var(--#{$color}-900);
-    }
 
     &:hover {
       cursor: pointer;
