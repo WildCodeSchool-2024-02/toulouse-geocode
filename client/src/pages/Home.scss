@@ -3,6 +3,8 @@
 $green: #24331d;
 $judson: "Judson";
 $cream-white: #fff7ec;
+$color-signup: #d5dfd6;
+$kaki: #505a46;
 
 .boxHome {
   background-color: $cream-white;
@@ -35,21 +37,148 @@ $cream-white: #fff7ec;
 }
 
 .logoCSS {
-  width: 19rem;
-  height: 19rem;
+  width: clamp(100px, 14rem, 200px);
 }
 
-.boxConnect {
+.container {
+  min-height: 100vh;
   background-color: $cream-white;
-  height: 100dvh;
+}
+.boxConnect {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 30px;
+  padding-top: 70px;
+  .text-username {
+    font-family: $judson;
+    font-size: 20px;
+  }
+  .text-password {
+    font-family: $judson;
+    font-size: 20px;
+  }
+}
 
-  .userName {
+.buttonPage {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  .buttonConnect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $green;
+    color: white;
+    font-size: 20px;
+    border-radius: 80px;
+    width: 21rem;
+    height: 3rem;
+    font-family: $judson;
+  }
+  .buttonSignUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-signup;
+    color: black;
+    font-size: 20px;
+    border-radius: 80px;
+    width: 21rem;
+    height: 3rem;
+    font-family: $judson;
+  }
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+
+  #mdp {
+    text-decoration: underline;
+    font-family: $judson;
+  }
+  #username {
+    border-radius: 30px;
+    width: 20rem;
+    height: 2rem;
+    border: 2px solid #bcb8b8;
+    padding-left: 10px;
+  }
+  #password {
+    border-radius: 30px;
+    width: 20rem;
+    height: 2rem;
+    border: 2px solid #bcb8b8;
+    padding-left: 10px;
+  }
+  input:focus-within {
+    outline-color: $green;
+  }
+}
+.logo-menu {
+  display: flex;
+  justify-content: space-between;
+  background-color: $cream-white;
+  padding: 15px;
+  font-size: 2.5rem;
+  color: $kaki;
+}
+
+.full-input {
+  background-color: $cream-white;
+  height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 5px;
+  #input-form {
+    border-radius: 30px;
+    width: 25rem;
+    height: 2rem;
+    border: 2px solid #bcb8b8;
+    margin-bottom: 60px;
+    padding: 10px;
+  }
+  .text-input {
+    font-family: $judson;
+    margin: 10px;
+  }
+  #sous-titre {
+    padding: 5px;
+    color: #403d3b;
+  }
+}
+.title-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  #titre-form {
+    font-family: $judson;
+    font-size: 30px;
+    margin-bottom: 60px;
+  }
+}
+.buttonPage {
+  width: calc(100vw - 5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  .buttonConnect-form {
+    margin: 0 auto;
+    background-color: $green;
+    color: white;
+    font-size: 20px;
+    border-radius: 80px;
+    width: 21rem;
+    height: 3rem;
     font-family: $judson;
   }
 }
