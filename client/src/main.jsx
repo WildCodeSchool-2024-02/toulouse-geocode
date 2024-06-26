@@ -35,10 +35,6 @@ const router = createBrowserRouter([
     path: "/formulaire",
     element: <Formulaire />,
   },
-  {
-    path: "/formulaire",
-    element: <Formulaire />,
-  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
