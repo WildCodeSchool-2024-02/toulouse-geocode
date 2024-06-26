@@ -2,13 +2,13 @@
 
 $green: #24331d;
 $judson: "Judson";
-$crem-white: #fff7ec;
+$cream-white: #fff7ec;
 $color-signup: #d5dfd6;
 $kaki: #505a46;
 
 .boxHome {
-  background-color: $crem-white;
-  height: 100vh;
+  background-color: $cream-white;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +42,7 @@ $kaki: #505a46;
 
 .container {
   min-height: 100vh;
-  background-color: $crem-white;
+  background-color: $cream-white;
 }
 .boxConnect {
   display: flex;
@@ -124,15 +124,15 @@ $kaki: #505a46;
 .logo-menu {
   display: flex;
   justify-content: space-between;
-  background-color: $crem-white;
+  background-color: $cream-white;
   padding: 15px;
   font-size: 2.5rem;
   color: $kaki;
 }
 
 .full-input {
-  background-color: $crem-white;
-  height: 100vh;
+  background-color: $cream-white;
+  height: 100dvh;
   display: flex;
   align-items: flex-start;
   flex-direction: column;

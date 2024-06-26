@@ -1,53 +1,50 @@
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
+import { useLoaderData } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./Map.scss";
-import PropTypes from "prop-types";
 
-function Map({ geojsonData }) {
-  const [position, setPosition] = useState(null);
+const hostUrl = import.meta.env.VITE_API_URL;
 
-  useEffect(() => {
-    const getLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((positions) => {
-          const crd = positions.coords;
-          const lat = crd.latitude;
-          const lng = crd.longitude;
-          setPosition([lat, lng]);
-        });
-      }
-    };
-    getLocation();
-  }, []);
+function Map() {
+  const datas = useLoaderData();
+  const cachedValue = useMemo(() => datas, [datas]);
 
-  if (!position) {
-    return (
-      <div className="loaderBox">
-        <div className="loader" />
-      </div>
-    );
+  function ZoomListener() {
+    const map = useMapEvents({
+      zoomend: () => {
+        const zoomLvl = map.getZoom();
+        const { lat } = map.getCenter();
+        const { lng } = map.getCenter();
+        fetch(`${hostUrl}/api/clusters/${zoomLvl}-${lat}-${lng}`)
+          .then((r) => r.json)
+          .then((d) => d);
+      },
+    });
+
+    return null;
   }
+
   return (
     <MapContainer
-      center={position}
+      center={[43.58628850418765, 1.450417712407874]}
       zoom={13}
-      style={{ height: "100vh", width: "100vw" }}
+      style={{ height: "100dvh", width: "100dvw" }}
     >
       <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
-      <Marker position={position}>
-        <Popup>{position}</Popup>
-      </Marker>
+      <ZoomListener />
       <MarkerClusterGroup>
-        <GeoJSON data={geojsonData} />
+        {cachedValue.map((el) => (
+          <Marker
+            key={el.id}
+            position={[el.consolidated_latitude, el.consolidated_longitude]}
+            title={el.station_adress}
+          />
+        ))}
       </MarkerClusterGroup>
     </MapContainer>
   );
 }
-
-Map.propTypes = {
-  geojsonData: PropTypes.shape.isRequired,
-};
 
 export default Map;
