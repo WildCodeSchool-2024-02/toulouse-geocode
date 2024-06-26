@@ -5,6 +5,7 @@ import App from "./App";
 import Connect from "./pages/Connect";
 import Map from "./pages/Map";
 import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
+import Formulaire from "./pages/Formulaire";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <ContactForm />,
     action: postMessageToAdmin,
+  },
+  {
+    path: "/formulaire",
+    element: <Formulaire />,
   },
 ]);
 
