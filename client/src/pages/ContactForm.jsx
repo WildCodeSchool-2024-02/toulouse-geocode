@@ -3,7 +3,6 @@ import "./button.scss";
 import "./input.scss";
 import { useNavigate, Form, useActionData } from "react-router-dom";
 import Modal from "../components/Modal";
-import BackButton from "../components/BackButton";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
@@ -16,7 +15,6 @@ function ContactForm() {
 
   return (
     <>
-      <BackButton />
       <div className="contact-form-div">
         <Form method="post">
           <h1>Contacter le support</h1>

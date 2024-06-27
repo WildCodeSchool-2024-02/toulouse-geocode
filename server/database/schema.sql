@@ -1,14 +1,9 @@
 create table user (
-  id int unsigned primary key auto_increment not null,
-  email varchar(255) not null unique,
-  password varchar(255) not null
-);
-
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null,
-  user_id int unsigned not null,
-  foreign key(user_id) references user(id)
+  id int unsigned primary key auto_increment NOT NULL,
+  lastname varchar(255) NOT NULL,
+  firstname varchar(255) NOT NULL,
+  email varchar(255) NOT NULL UNIQUE,
+  password varchar(255) NOT NULL
 );
 
 CREATE TABLE charging_station(id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
