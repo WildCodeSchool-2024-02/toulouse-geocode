@@ -17,14 +17,14 @@ class PlugTypeSeeder extends AbstractSeeder {
         plugTypeEf,
         plugType2,
         plugTypeComboCcs,
-        plugTypeChadeLu,
+        plugTypeChademo,
         plugTypeAutre,
       ] = cols;
       const obj = {
         plug_type_ef: plugTypeEf,
         plug_type_2: plugType2,
         plug_type_combo_ccs: plugTypeComboCcs,
-        plug_type_chadeLu: plugTypeChadeLu,
+        plug_type_chademo: plugTypeChademo,
         plug_type_autre: plugTypeAutre,
       };
       this.insert(obj);
