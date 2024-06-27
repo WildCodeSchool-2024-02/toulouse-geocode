@@ -17,7 +17,7 @@ function ContactForm() {
   return (
     <>
       <BackButton />
-      <div className="contactFormDiv">
+      <div className="contact-form-div">
         <Form method="post">
           <h1>Contacter le support</h1>
           <section className="name">
@@ -44,7 +44,7 @@ function ContactForm() {
           </section>
           <section>
             <h2>Type de requête</h2>
-            <div className="supportButtons">
+            <div className="topic-buttons">
               <input
                 id="assistance"
                 type="radio"

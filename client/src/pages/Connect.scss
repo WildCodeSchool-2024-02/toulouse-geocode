@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+$green: #24331d;
+$cream-white: #fff7ec;
+$color-signup: #d5dfd6;
+$kaki: #505a46;
+
+body {
+  font-family: "Roboto";
+}
+
+.container {
+  min-height: 100dvh;
+  background-color: $cream-white;
+}
+
+.box-connect {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 85ch;
+  gap: 2rem;
+  padding-top: 3rem;
+
+  label {
+    font-family: "judson";
+    font-size: 1.25rem;
+  }
+}
+
+.button-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}

@@ -13,7 +13,7 @@ const browse = async (req, res, next) => {
 const read = async (req, res, next) => {
   try {
     const contactMessage = await tables.contact_message.read(req.params.id);
-    if (contactMessage == null) {
+    if (contactMessage === null) {
       res.sendStatus(404);
     } else {
       res.json(contactMessage);
