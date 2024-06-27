@@ -1,4 +1,4 @@
-import "./ContactForm.scss";
+import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
 import { useNavigate, Form, useActionData } from "react-router-dom";

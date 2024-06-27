@@ -1,6 +1,6 @@
 import { Form } from "react-router-dom";
 import BackButton from "../components/BackButton";
-import "./ContactForm";
+import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
 import "./Register.scss";
@@ -21,7 +21,6 @@ function Register() {
               className="input-sm-gray-outlined"
               required
             />
-            <p>Requis</p>
           </section>
           <section className="firstname">
             <label htmlFor="firstname">Prénom</label>
@@ -32,7 +31,6 @@ function Register() {
               className="input-sm-gray-outlined"
               required
             />
-            <p>Requis</p>
           </section>
           <section className="email">
             <label htmlFor="email">Email </label>
@@ -43,7 +41,6 @@ function Register() {
               className="input-sm-gray-outlined"
               required
             />
-            <p>Requis</p>
           </section>
           <section className="password-section">
             <label htmlFor="password">Mot de passe</label>
