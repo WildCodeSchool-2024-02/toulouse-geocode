@@ -14,12 +14,12 @@ function Connect() {
         <img className="logo-css" src={logo} alt="Logo du site WEB" />
 
         <h1>Se connecter</h1>
-        <section className="username">
-          <label htmlFor="username">Nom d'utilisateur</label>
+        <section className="email">
+          <label htmlFor="email">Adresse email</label>
           <input
-            id="username"
-            name="username"
-            placeholder="Entrer votre nom d'utilisateur"
+            id="email"
+            name="email"
+            placeholder="Entrer votre Adresse email"
             className="input-sm-gray-outlined"
             required
           />
@@ -36,8 +36,9 @@ function Connect() {
         </section>
         <section>
           <input
+            onClick={() => navigate("/map")}
             id="submit"
-            type="submit"
+            type="button"
             name="submit"
             value="Valider"
             className="button-lg-olive-fullfilled"
