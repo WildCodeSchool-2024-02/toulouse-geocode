@@ -9,6 +9,4 @@ router.get("/", browse);
 
 router.get("/:coor", manageCoord, read);
 
-/* ************************************************************************* */
-
 module.exports = router;
