@@ -2,7 +2,7 @@
 const ChargingStationRepository = require("./models/ChargingStationRepository");
 const ClusterRepository = require("./models/ClusterRepository");
 const ContactFormRepository = require("./models/ContactFormRepository");
-const ItemRepository = require("./models/ItemRepository");
+const UserRepository = require("./models/UserRepository");
 
 // Create an empty object to hold data repositories for different tables
 const tables = {};
@@ -12,10 +12,10 @@ const tables = {};
 /* ************************************************************************* */
 
 // Register each repository as data access point for its table
-tables.item = new ItemRepository();
 tables.chargingStation = new ChargingStationRepository();
 tables.cluster = new ClusterRepository();
 tables.contact_message = new ContactFormRepository();
+tables.user = new UserRepository();
 
 /* ************************************************************************* */
 

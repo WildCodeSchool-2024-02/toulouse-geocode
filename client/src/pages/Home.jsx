@@ -4,10 +4,12 @@ import "./Home.scss";
 
 function Home() {
   return (
-    <div className="boxHome">
-      <img className="logoCSS" src={logo} alt="Logo du site WEB" />
-      <p className="textHome">Trouvez une borne de recharge sur votre trajet</p>
-      <Link to="/map" className="buttonHome">
+    <div className="box-home">
+      <img className="logo-css" src={logo} alt="Logo du site WEB" />
+      <p className="text-home">
+        Trouvez une borne de recharge sur votre trajet
+      </p>
+      <Link to="/map" className="button-home">
         Commencer
       </Link>
     </div>

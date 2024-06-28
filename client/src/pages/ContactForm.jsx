@@ -1,25 +1,21 @@
-import "./ContactForm.scss";
+import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
-import "./radio.scss";
-import { useNavigate, Form, redirect } from "react-router-dom";
-
+import { useNavigate, Form, useActionData } from "react-router-dom";
+import Modal from "../components/Modal";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
 function ContactForm() {
   const navigate = useNavigate();
+  const actionResponse = useActionData();
+  const closeModal = () => {
+    navigate("/");
+  };
 
   return (
     <>
-      <button
-        onClick={() => navigate(-1)}
-        type="button"
-        className="back-button"
-      >
-        &#x3c;
-      </button>
-      <div className="contactFormDiv">
+      <div className="contact-form-div">
         <Form method="post">
           <h1>Contacter le support</h1>
           <section className="name">
@@ -46,33 +42,34 @@ function ContactForm() {
           </section>
           <section>
             <h2>Type de requête</h2>
-            <div className="supportButtons">
-              <label htmlFor="assistance">Assistance</label>
+            <div className="topic-buttons">
               <input
                 id="assistance"
                 type="radio"
                 name="topic"
                 value="Assistance technique"
-                className="radio"
               />
-
-              <label htmlFor="account">Mon compte</label>
+              <label htmlFor="assistance" className="button-md-olive-outlined">
+                Assistance
+              </label>
               <input
                 id="account"
                 type="radio"
                 name="topic"
                 value="Mon compte"
-                className="radio"
               />
-
-              <label htmlFor="review">Donner mon avis</label>
+              <label htmlFor="account" className="button-md-olive-outlined">
+                Mon compte
+              </label>
               <input
                 id="review"
                 type="radio"
                 name="topic"
                 value="Donner mon avis"
-                className="radio"
               />
+              <label htmlFor="review" className="button-md-olive-outlined">
+                Donner mon avis
+              </label>
             </div>
           </section>
           <section>
@@ -94,6 +91,15 @@ function ContactForm() {
           />
         </Form>
       </div>
+      <Modal
+        isOpen={!!actionResponse}
+        onClose={closeModal}
+        message={
+          actionResponse?.error
+            ? "Une erreur s'est produite lors de l'envoi du message."
+            : "Votre message a été envoyé avec succès."
+        }
+      />
     </>
   );
 }
@@ -119,13 +125,14 @@ export async function postMessageToAdmin({ request }) {
       },
       body: JSON.stringify(requestBody),
     });
-    await response.json();
+    const responseBody = await response.json();
 
     if (response.ok) {
-      return redirect(`/contact`);
+      return responseBody;
     }
   } catch (e) {
     console.error(e.message);
+    return { error: true };
   }
   return null;
 }
