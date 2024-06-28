@@ -3,26 +3,19 @@ import "./Navbar.scss";
 import logo from "../../public/logo.svg";
 
 function Navbar() {
+  const paths = ["/", "/map", "/contact", "/connect", "/register"];
+  const labels = ["Accueil", "Carte", "Contact", "Connexion", "S'inscrire"];
+
   return (
     <div className="navbar">
       <img src={logo} alt="Logo du site WEB" />
 
       <ul>
-        <li>
-          <NavLink to="/">Accueil</NavLink>
-        </li>
-        <li>
-          <NavLink to="/map">Carte</NavLink>
-        </li>
-        <li>
-          <NavLink to="/contact">Contact</NavLink>
-        </li>
-        <li>
-          <NavLink to="/connect">Connexion</NavLink>
-        </li>
-        <li>
-          <NavLink to="/register">S'inscrire</NavLink>
-        </li>
+        {paths.map((path, index) => (
+          <li key={path}>
+            <NavLink to={path}>{labels[index]}</NavLink>
+          </li>
+        ))}
       </ul>
     </div>
   );
