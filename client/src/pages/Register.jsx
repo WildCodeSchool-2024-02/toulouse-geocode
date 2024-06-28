@@ -1,22 +1,29 @@
-import { Form } from "react-router-dom";
-import BackButton from "../components/BackButton";
+import { Form, useActionData, useNavigate } from "react-router-dom";
 import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
 import "./Register.scss";
+import Modal from "../components/Modal";
+
+const hostUrl = import.meta.env.VITE_API_URL;
 
 function Register() {
+  const navigate = useNavigate();
+  const actionResponse = useActionData();
+  const closeModal = () => {
+    navigate("/map");
+  };
+
   return (
     <>
-      <BackButton />
       <div className="contact-form-div">
         <Form method="post">
           <h1>Formulaire d'inscription</h1>
           <section className="lastname">
-            <label htmlFor="name">Nom</label>
+            <label htmlFor="lastname">Nom</label>
             <input
-              id="name"
-              name="name"
+              id="lastname"
+              name="lastname"
               placeholder="Entrer votre nom"
               className="input-sm-gray-outlined"
               required
@@ -49,6 +56,7 @@ function Register() {
               name="password"
               placeholder="Entrer le mot de passe souhaité"
               className="input-sm-gray-outlined"
+              minLength="8"
               required
             />
             <label htmlFor="password-check">Vérification du mot de passe</label>
@@ -69,8 +77,50 @@ function Register() {
           />
         </Form>
       </div>
+      <Modal
+        isOpen={!!actionResponse}
+        onClose={closeModal}
+        message={
+          actionResponse?.error
+            ? "Une erreur s'est produite."
+            : "Votre compte à été créé avec succès."
+        }
+      />
     </>
   );
+}
+
+export async function postNewUser({ request }) {
+  const formData = await request.formData();
+  const lastname = formData.get("lastname");
+  const firstname = formData.get("firstname");
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  const requestBody = {
+    lastname,
+    firstname,
+    email,
+    password,
+  };
+  try {
+    const response = await fetch(`${hostUrl}/api/user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+    const responseBody = await response.json();
+
+    if (response.ok) {
+      return responseBody;
+    }
+  } catch (e) {
+    console.error(e.message);
+    return { error: true };
+  }
+  return null;
 }
 
 export default Register;

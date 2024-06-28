@@ -5,35 +5,43 @@ import App from "./App";
 import Connect from "./pages/Connect";
 import Map from "./pages/Map";
 import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
-import Register from "./pages/Register";
+import Register, { postNewUser } from "./pages/Register";
+import NavbarLayout from "./components/NavbarLayout";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "/connect",
-    element: <Connect />,
-  },
-  {
-    path: "/map",
-    element: <Map />,
-    loader: async () =>
-      fetch(`${hostUrl}/api/charging-stations/`)
-        .then((r) => r.json())
-        .then((d) => d),
-  },
-  {
-    path: "/contact",
-    element: <ContactForm />,
-    action: postMessageToAdmin,
-  },
-  {
-    path: "/register",
-    element: <Register />,
+    element: <NavbarLayout />,
+    children: [
+      {
+        path: "/",
+        element: <App />,
+      },
+      {
+        path: "/connect",
+        element: <Connect />,
+      },
+      {
+        path: "/map",
+        element: <Map />,
+        loader: async () =>
+          fetch(`${hostUrl}/api/charging-stations/`)
+            .then((r) => r.json())
+            .then((d) => d),
+      },
+      {
+        path: "/contact",
+        element: <ContactForm />,
+        action: postMessageToAdmin,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+        action: postNewUser,
+      },
+    ],
   },
 ]);
 
