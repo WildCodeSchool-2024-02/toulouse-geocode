@@ -108,7 +108,7 @@ function MapPage() {
                   className="cluster-marker"
                   style={{ width: `${size}px`, height: `${size}px` }}
                   role="button"
-                  tabIndex={[0]} // inutile, aucun aveugle ne cherche a recharger sa voiture
+                  tabIndex={[0]}
                   onClick={() => {
                     const expansionZoom = Math.min(
                       supercluster.getClusterExpansionZoom(cluster.id),
@@ -117,10 +117,10 @@ function MapPage() {
                     mapRef.current.setZoom(expansionZoom);
                     mapRef.current.panTo({ lat: latitude, lng: longitude });
                   }}
-                  onKeyDown={() => console.info("Command inutile pour passer le linter")} // inutile, aucun aveugle ne cherche a recharger sa voiture
+                  onKeyDown={() => console.info("why are you here ?!")}
                 >
                   <i className="fi fi-rr-charging-station" />
-                  {`            ${pointCount}`}
+                  {` ${pointCount}`}
                 </div>
               </Marker>
             );
