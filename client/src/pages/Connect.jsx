@@ -19,6 +19,7 @@ function Connect() {
           <input
             id="email"
             name="email"
+            type="email"
             placeholder="Entrer votre Adresse email"
             className="input-sm-gray-outlined"
             required
@@ -29,6 +30,7 @@ function Connect() {
           <input
             id="password"
             name="password"
+            type="password"
             placeholder="Entrer votre mot de passe"
             className="input-sm-gray-outlined"
             required
@@ -40,7 +42,7 @@ function Connect() {
             id="submit"
             type="button"
             name="submit"
-            value="Valider"
+            value="Se connecter"
             className="button-lg-olive-fullfilled"
           />
           <button

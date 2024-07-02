@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form, useActionData, useNavigate } from "react-router-dom";
 import "./Form.scss";
 import "./button.scss";
@@ -13,6 +14,7 @@ function Register() {
   const closeModal = () => {
     navigate("/map");
   };
+  const [pwd, setPwd] = useState("");
 
   return (
     <>
@@ -39,11 +41,23 @@ function Register() {
               required
             />
           </section>
+          <section className="username">
+            <label htmlFor="username">Nom d'utilisateur</label>
+            <input
+              id="username"
+              name="username"
+              placeholder="Entrer votre nom d'utilisateur"
+              className="input-sm-gray-outlined"
+              required
+            />
+          </section>
           <section className="email">
             <label htmlFor="email">Email </label>
             <input
               id="email"
               name="email"
+              type="email"
+              pattern="^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$"
               placeholder="Entrer votre adresse mail"
               className="input-sm-gray-outlined"
               required
@@ -54,15 +68,27 @@ function Register() {
             <input
               id="password"
               name="password"
+              type="password"
+              pattern="^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$"
+              value={pwd}
+              onChange={(e) => setPwd(e.target.value)}
               placeholder="Entrer le mot de passe souhaité"
               className="input-sm-gray-outlined"
               minLength="8"
               required
             />
+            <ul>
+              <li>Le mot de passe doit comporter au moins :</li>
+              <li>8 caractères</li>
+              <li>1 lettre</li>
+              <li>1 chiffre</li>
+            </ul>
             <label htmlFor="password-check">Vérification du mot de passe</label>
             <input
               id="password-check"
               name="password-check"
+              type="password"
+              pattern={pwd}
               placeholder="Entrer à nouveau le mot passe"
               className="input-sm-gray-outlined"
               required
