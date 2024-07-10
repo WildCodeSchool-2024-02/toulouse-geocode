@@ -4,6 +4,7 @@ import useSupercluster from "use-supercluster";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useLoaderData } from "react-router-dom";
 import "./MapPage.scss";
+import { motion } from "framer-motion";
 
 function MapPage() {
   const items = useLoaderData();
@@ -16,6 +17,7 @@ function MapPage() {
   const [bounds, setBounds] = useState(null);
   const [zoom, setZoom] = useState(10);
   const [selectedPoints, setSelectedPoints] = useState([]);
+  const [isOpenedCluster, setIsOpenedCluster] = useState(false);
 
   const points = useMemo(
     () =>
@@ -67,6 +69,7 @@ function MapPage() {
       !supercluster.getChildren(clusterId).some((el) => el.properties.cluster)
     ) {
       setSelectedPoints(supercluster.getChildren(clusterId));
+      setIsOpenedCluster(!isOpenedCluster);
     }
   };
 
@@ -152,13 +155,19 @@ function MapPage() {
               latitude={latitude}
               longitude={longitude}
               key={`point-modal-${point.properties.itemId}`}
+              onClick={() => setIsOpenedCluster(!isOpenedCluster)}
+              className="deep-cluster-marker"
             >
-              <div
-                style={{ transform: `translate(${x}px, ${y}px)` }}
+              <motion.div
+                animate={{
+                  x: isOpenedCluster ? x : 0,
+                  y: isOpenedCluster ? y : 0,
+                  opacity: isOpenedCluster ? 100 : 0,
+                }}
                 className="alone-marker"
               >
                 <i className="fi fi-rr-charging-station" />
-              </div>
+              </motion.div>
             </Marker>
           );
         })}

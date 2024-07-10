@@ -108,7 +108,9 @@
     line-height: 0;
   }
 }
-
+.deep-cluster-marker {
+  cursor: pointer;
+}
 .alone-marker {
   color: rgb(255, 255, 255);
   background: #19c822;
@@ -126,9 +128,4 @@
     background: red;
     cursor: pointer;
   }
-}
-
-.alone-marker,
-.cluster-marker {
-  transition: transform 500ms ease-out;
 }
