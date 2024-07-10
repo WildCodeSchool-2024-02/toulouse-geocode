@@ -1,25 +1,19 @@
 import { useState } from "react";
-import { Form, useActionData, useNavigate } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
 import "./Register.scss";
-import Modal from "../components/Modal";
 
-const hostUrl = import.meta.env.VITE_API_URL;
+export const hostUrl = import.meta.env.VITE_API_URL;
 
 function Register() {
-  const navigate = useNavigate();
-  const actionResponse = useActionData();
-  const closeModal = () => {
-    navigate("/map");
-  };
   const [pwd, setPwd] = useState("");
 
   return (
     <>
       <div className="contact-form-div">
-        <Form method="post">
+        <Form method="post" action="/register">
           <h1>Formulaire d'inscription</h1>
           <section className="lastname">
             <label htmlFor="lastname">Nom</label>
@@ -94,16 +88,12 @@ function Register() {
               required
             />
           </section>
-          <input
-            id="submit"
-            type="submit"
-            name="submit"
-            value="Valider"
-            className="button-lg-olive-fullfilled"
-          />
+          <button type="submit" className="button-lg-olive-fullfilled">
+            Valider
+          </button>
         </Form>
       </div>
-      <Modal
+      {/* <Modal
         isOpen={!!actionResponse}
         onClose={closeModal}
         message={
@@ -111,7 +101,7 @@ function Register() {
             ? "Une erreur s'est produite."
             : "Votre compte à été créé avec succès."
         }
-      />
+      /> */}
     </>
   );
 }
@@ -129,6 +119,7 @@ export async function postNewUser({ request }) {
     email,
     password,
   };
+
   try {
     const response = await fetch(`${hostUrl}/api/user`, {
       method: "POST",
@@ -137,16 +128,15 @@ export async function postNewUser({ request }) {
       },
       body: JSON.stringify(requestBody),
     });
-    const responseBody = await response.json();
 
-    if (response.ok) {
-      return responseBody;
+    if (!response.ok) {
+      return null;
     }
+    return redirect("/login");
   } catch (e) {
     console.error(e.message);
     return { error: true };
   }
-  return null;
 }
 
 export default Register;

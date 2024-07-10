@@ -7,7 +7,7 @@ function Navbar() {
     { path: "/", label: "Accueil" },
     { path: "/map", label: "Carte" },
     { path: "/contact", label: "Contact" },
-    { path: "/connect", label: "Connexion" },
+    { path: "/login", label: "Connexion" },
     { path: "/register", label: "S'inscrire" },
   ];
 
