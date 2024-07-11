@@ -16,7 +16,8 @@
     "express": "^4.19.2",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.6.7"
+    "mysql2": "^3.6.7",
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
