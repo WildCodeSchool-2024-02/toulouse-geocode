@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, redirect } from "react-router-dom";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
@@ -94,7 +94,6 @@ function Register() {
       </Form>
       <Toaster />
     </div>
-
   );
 }
 
