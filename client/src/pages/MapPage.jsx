@@ -4,6 +4,7 @@ import useSupercluster from "use-supercluster";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useLoaderData } from "react-router-dom";
 import "./MapPage.scss";
+import { motion } from "framer-motion";
 
 function MapPage() {
   const items = useLoaderData();
@@ -16,6 +17,7 @@ function MapPage() {
   const [bounds, setBounds] = useState(null);
   const [zoom, setZoom] = useState(10);
   const [selectedPoints, setSelectedPoints] = useState([]);
+  const [isOpenedCluster, setIsOpenedCluster] = useState(false);
 
   const points = useMemo(
     () =>
@@ -24,10 +26,13 @@ function MapPage() {
         properties: { cluster: false, itemId: item.id },
         geometry: {
           type: "Point",
-          coordinates: [item.consolidated_longitude, item.consolidated_latitude],
+          coordinates: [
+            item.consolidated_longitude,
+            item.consolidated_latitude,
+          ],
         },
       })),
-    [items],
+    [items]
   );
 
   const updateBounds = useCallback(() => {
@@ -60,8 +65,11 @@ function MapPage() {
   });
 
   const selectAcluster = (clusterId) => {
-    if (!supercluster.getChildren(clusterId).some((el) => el.properties.cluster)) {
+    if (
+      !supercluster.getChildren(clusterId).some((el) => el.properties.cluster)
+    ) {
       setSelectedPoints(supercluster.getChildren(clusterId));
+      setIsOpenedCluster(!isOpenedCluster);
     }
   };
 
@@ -93,7 +101,8 @@ function MapPage() {
       {clusters &&
         clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
-          const { cluster: isCluster, point_count: pointCount } = cluster.properties;
+          const { cluster: isCluster, point_count: pointCount } =
+            cluster.properties;
 
           if (isCluster) {
             const size = (pointCount * 200) / points.length;
@@ -112,7 +121,7 @@ function MapPage() {
                   onClick={() => {
                     const expansionZoom = Math.min(
                       supercluster.getClusterExpansionZoom(cluster.id),
-                      16,
+                      16
                     );
                     mapRef.current.setZoom(expansionZoom);
                     mapRef.current.panTo({ lat: latitude, lng: longitude });
@@ -146,10 +155,19 @@ function MapPage() {
               latitude={latitude}
               longitude={longitude}
               key={`point-modal-${point.properties.itemId}`}
+              onClick={() => setIsOpenedCluster(!isOpenedCluster)}
+              className="deep-cluster-marker"
             >
-              <div style={{ transform: `translate(${x}px, ${y}px)` }} className="alone-marker">
+              <motion.div
+                animate={{
+                  x: isOpenedCluster ? x : 0,
+                  y: isOpenedCluster ? y : 0,
+                  opacity: isOpenedCluster ? 100 : 0,
+                }}
+                className="alone-marker"
+              >
                 <i className="fi fi-rr-charging-station" />
-              </div>
+              </motion.div>
             </Marker>
           );
         })}
