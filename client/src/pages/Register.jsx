@@ -101,7 +101,6 @@ function Register() {
       </Form>
       <Toaster />
     </div>
-
   );
 }
 

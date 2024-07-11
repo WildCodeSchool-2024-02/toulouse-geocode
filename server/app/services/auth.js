@@ -30,7 +30,6 @@ const verifyPassword = async (req, res, next) => {
 
     if (!user) {
       throw new Error("User not found");
-
     }
     const isPasswordValid = await argon2.verify(user.hashed_password, password);
 
