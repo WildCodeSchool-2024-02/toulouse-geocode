@@ -63,7 +63,7 @@ function Navbar() {
   return (
     <>
       {!isDesktop ? (
-        <div className="merguez">
+        <div className="nav-container">
           <div className="navbar">
             <ul className="menu">
               <Link onClick={() => setIsOpen(false)} to="/">
