@@ -1,23 +1,19 @@
-import { Form, useActionData, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Form, redirect } from "react-router-dom";
 import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
 import "./Register.scss";
-import Modal from "../components/Modal";
 
-const hostUrl = import.meta.env.VITE_API_URL;
+export const hostUrl = import.meta.env.VITE_API_URL;
 
 function Register() {
-  const navigate = useNavigate();
-  const actionResponse = useActionData();
-  const closeModal = () => {
-    navigate("/map");
-  };
+  const [pwd, setPwd] = useState("");
 
   return (
     <>
       <div className="contact-form-div">
-        <Form method="post">
+        <Form method="post" action="/register">
           <h1>Formulaire d'inscription</h1>
           <section className="lastname">
             <label htmlFor="lastname">Nom</label>
@@ -39,11 +35,23 @@ function Register() {
               required
             />
           </section>
+          <section className="username">
+            <label htmlFor="username">Nom d'utilisateur</label>
+            <input
+              id="username"
+              name="username"
+              placeholder="Entrer votre nom d'utilisateur"
+              className="input-sm-gray-outlined"
+              required
+            />
+          </section>
           <section className="email">
             <label htmlFor="email">Email </label>
             <input
               id="email"
               name="email"
+              type="email"
+              pattern="^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$"
               placeholder="Entrer votre adresse mail"
               className="input-sm-gray-outlined"
               required
@@ -54,30 +62,38 @@ function Register() {
             <input
               id="password"
               name="password"
+              type="password"
+              pattern="^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$"
+              value={pwd}
+              onChange={(e) => setPwd(e.target.value)}
               placeholder="Entrer le mot de passe souhaité"
               className="input-sm-gray-outlined"
               minLength="8"
               required
             />
+            <ul>
+              <li>Le mot de passe doit comporter au moins :</li>
+              <li>8 caractères</li>
+              <li>1 lettre</li>
+              <li>1 chiffre</li>
+            </ul>
             <label htmlFor="password-check">Vérification du mot de passe</label>
             <input
               id="password-check"
               name="password-check"
+              type="password"
+              pattern={pwd}
               placeholder="Entrer à nouveau le mot passe"
               className="input-sm-gray-outlined"
               required
             />
           </section>
-          <input
-            id="submit"
-            type="submit"
-            name="submit"
-            value="Valider"
-            className="button-lg-olive-fullfilled"
-          />
+          <button type="submit" className="button-lg-olive-fullfilled">
+            Valider
+          </button>
         </Form>
       </div>
-      <Modal
+      {/* <Modal
         isOpen={!!actionResponse}
         onClose={closeModal}
         message={
@@ -85,7 +101,7 @@ function Register() {
             ? "Une erreur s'est produite."
             : "Votre compte à été créé avec succès."
         }
-      />
+      /> */}
     </>
   );
 }
@@ -103,6 +119,7 @@ export async function postNewUser({ request }) {
     email,
     password,
   };
+
   try {
     const response = await fetch(`${hostUrl}/api/user`, {
       method: "POST",
@@ -111,16 +128,15 @@ export async function postNewUser({ request }) {
       },
       body: JSON.stringify(requestBody),
     });
-    const responseBody = await response.json();
 
-    if (response.ok) {
-      return responseBody;
+    if (!response.ok) {
+      return null;
     }
+    return redirect("/login");
   } catch (e) {
     console.error(e.message);
     return { error: true };
   }
-  return null;
 }
 
 export default Register;

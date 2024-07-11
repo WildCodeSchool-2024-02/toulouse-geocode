@@ -1,16 +1,17 @@
-import { Form, useNavigate } from "react-router-dom";
+import { Form, redirect, useNavigate } from "react-router-dom";
 import "./Form.scss";
 import "./Connect.scss";
 import "./button.scss";
 import "./input.scss";
 import logo from "../../public/logo.svg";
+import { hostUrl } from "./Register";
 
 function Connect() {
   const navigate = useNavigate();
 
   return (
     <div className="contact-form-div">
-      <Form method="post">
+      <Form method="post" action="/login">
         <img className="logo-css" src={logo} alt="Logo du site WEB" />
 
         <h1>Se connecter</h1>
@@ -19,6 +20,7 @@ function Connect() {
           <input
             id="email"
             name="email"
+            type="email"
             placeholder="Entrer votre Adresse email"
             className="input-sm-gray-outlined"
             required
@@ -29,31 +31,52 @@ function Connect() {
           <input
             id="password"
             name="password"
+            type="password"
             placeholder="Entrer votre mot de passe"
             className="input-sm-gray-outlined"
             required
           />
         </section>
         <section>
-          <input
-            onClick={() => navigate("/map")}
-            id="submit"
-            type="button"
-            name="submit"
-            value="Valider"
-            className="button-lg-olive-fullfilled"
-          />
-          <button
-            type="button"
-            onClick={() => navigate("/register")}
-            className="button-md-olive-outlined"
-          >
-            S'inscrire
+          <button type="submit" className="button-lg-olive-fullfilled">
+            Se connecter
           </button>
         </section>
       </Form>
+      <button
+        type="button"
+        onClick={() => navigate("/register")}
+        className="button-md-olive-outlined"
+      >
+        S'inscrire
+      </button>
     </div>
   );
 }
 
 export default Connect;
+
+export async function login({ request }) {
+  const formData = await request.formData();
+
+  const requestBody = Object.fromEntries(formData);
+
+  try {
+    const response = await fetch(`${hostUrl}/api/user/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+    return redirect("/map");
+  } catch (e) {
+    console.error(e.message);
+    return { error: true };
+  }
+}
