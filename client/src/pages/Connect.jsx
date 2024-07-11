@@ -3,6 +3,7 @@ import "./Form.scss";
 import "./Connect.scss";
 import "./button.scss";
 import "./input.scss";
+import toast, { Toaster } from 'react-hot-toast';
 import logo from "../../public/logo.svg";
 import { hostUrl } from "./Register";
 
@@ -50,6 +51,7 @@ function Connect() {
       >
         S'inscrire
       </button>
+      <Toaster />
     </div>
   );
 }
@@ -72,8 +74,18 @@ export async function login({ request }) {
     });
 
     if (!response.ok) {
+      toast.error("Oops. Une erreur s'est produite", {
+        duration: 4000,
+        position: "bottom-right",
+      })
+
       return null;
     }
+    toast.success("Connexion réussie", {
+      duration: 4000,
+      position: "bottom-right",
+    })
+
     return redirect("/map");
   } catch (e) {
     console.error(e.message);
