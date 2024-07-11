@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import logo from "../../public/logo.svg";
 
 function Navbar() {
-  const paths = ["/map", "/contact", "/connect", "/register"];
+  const paths = ["/map", "/contact", "/login", "/register"];
   const labels = ["Carte", "Contact", "Connexion", "S'inscrire"];
 
   const [animation, setAnimation] = useState("closed");
@@ -63,7 +63,7 @@ function Navbar() {
   return (
     <>
       {!isDesktop ? (
-        <div>
+        <div className="merguez">
           <div className="navbar">
             <ul className="menu">
               <Link onClick={() => setIsOpen(false)} to="/">
