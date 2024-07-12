@@ -3,7 +3,7 @@ create table user (
   lastname varchar(255) NOT NULL,
   firstname varchar(255) NOT NULL,
   email varchar(255) NOT NULL UNIQUE,
-  password varchar(255) NOT NULL
+  hashed_password varchar(255) NOT NULL
 );
 
 CREATE TABLE charging_station(id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

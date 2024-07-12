@@ -12,12 +12,21 @@ class UserRepository extends AbstractRepository {
   async create(user) {
     // Execute the SQL INSERT query to add a new user to the "user" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (lastname, firstname, email, password) values (?, ?, ?, ?)`,
-      [user.lastname, user.firstname, user.email, user.password]
+      `insert into ${this.table} (lastname, firstname, email, hashed_password) values (?, ?, ?, ?)`,
+      [user.lastname, user.firstname, user.email, user.hashedPassword]
     );
 
     // Return the ID of the newly inserted user
     return result.insertId;
+  }
+
+  async findByEmail(email) {
+    // Find a user by email
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE email = ?`,
+      [email]
+    );
+    return rows[0];
   }
 
   // The Rs of CRUD - Read operations
