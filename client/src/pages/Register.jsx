@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigate } from "react-router-dom";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
@@ -14,7 +14,7 @@ function Register() {
   const responseData = useActionData();
   useEffect(() => {
     if (responseData) {
-      navigate("/login", { state: { email: responseData } })
+      navigate("/login", { state: { email: responseData } });
     }
   }, [responseData]);
 
@@ -138,7 +138,7 @@ export async function postNewUser({ request }) {
       duration: 4000,
       position: "bottom-right",
     });
-    return requestBody.email
+    return requestBody.email;
   } catch (e) {
     console.error(e.message);
     return { error: true };

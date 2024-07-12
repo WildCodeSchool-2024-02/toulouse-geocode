@@ -65,7 +65,6 @@ export async function login({ request }) {
 
   const requestBody = Object.fromEntries(formData);
 
-
   try {
     const response = await fetch(`${hostUrl}/api/user/login`, {
       method: "POST",
