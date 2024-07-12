@@ -1,4 +1,4 @@
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, redirect, useLocation, useNavigate } from "react-router-dom";
 import "./Form.scss";
 import "./Connect.scss";
 import "./button.scss";
@@ -8,6 +8,7 @@ import logo from "../../public/logo.svg";
 import { hostUrl } from "./Register";
 
 function Connect() {
+  const location = useLocation();
   const navigate = useNavigate();
 
   return (
@@ -24,6 +25,7 @@ function Connect() {
             type="email"
             placeholder="Entrer votre Adresse email"
             className="input-sm-gray-outlined"
+            defaultValue={location.state ? location.state.email : ""}
             required
           />
         </section>
