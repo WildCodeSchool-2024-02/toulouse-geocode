@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Connect from "./pages/Connect";
 import Map from "./pages/Map";
+import Plug from "./pages/Plug";
 import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
 import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+        action: postNewUser,
+      },
+      {
+        path: "/plug",
+        element: <Plug />,
         action: postNewUser,
       },
     ],
