@@ -1,4 +1,5 @@
 // Import access to database tables
+const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -54,6 +55,19 @@ const add = async (req, res, next) => {
   }
 };
 
+const login = async (req, res, next) => {
+  try {
+    const { lastname, firstname, ...payload } = req.user;
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
+
+    res.cookie("accessToken", token);
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // The D of BREAD - Destroy (Delete) operation
 // This operation is not yet implemented
 
@@ -64,4 +78,5 @@ module.exports = {
   // edit,
   add,
   // destroy,
+  login,
 };

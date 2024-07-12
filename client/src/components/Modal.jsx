@@ -1,12 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Modal.scss";
 import PropTypes from "prop-types";
 import BackButton from "./BackButton";
 
-function Modal({ isOpen, onClose, message }) {
+function Modal({ isOpen, message }) {
+  const navigate = useNavigate();
+
+  const closeModal = () => {
+    navigate("/");
+  };
+
   const handleKeyDown = (event) => {
-    if (event.key === "Escape") {
-      onClose();
+    if (event.code === "Space") {
+      closeModal();
     }
   };
   return isOpen ? (
@@ -15,7 +21,7 @@ function Modal({ isOpen, onClose, message }) {
       role="dialog"
       aria-modal="true"
       to="/"
-      onClick={onClose}
+      onClick={closeModal}
       onKeyDown={handleKeyDown}
     >
       <div className="modal-content">
@@ -27,7 +33,6 @@ function Modal({ isOpen, onClose, message }) {
 }
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
 };
 

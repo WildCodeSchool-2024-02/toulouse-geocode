@@ -1,17 +1,13 @@
 import "./Form.scss";
 import "./button.scss";
 import "./input.scss";
-import { useNavigate, Form, useActionData } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import Modal from "../components/Modal";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
 function ContactForm() {
-  const navigate = useNavigate();
   const actionResponse = useActionData();
-  const closeModal = () => {
-    navigate("/");
-  };
 
   return (
     <>
@@ -93,7 +89,6 @@ function ContactForm() {
       </div>
       <Modal
         isOpen={!!actionResponse}
-        onClose={closeModal}
         message={
           actionResponse?.error
             ? "Une erreur s'est produite lors de l'envoi du message."
