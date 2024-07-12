@@ -15,7 +15,7 @@ function UserProfile() {
   const [formData, setFormData] = useState({
     name: "Super",
     surname: "Wann",
-    email: "superwan32@zizi.fr",
+    email: "superwan32@gerson.fr",
     password: "************",
   });
 

@@ -80,20 +80,19 @@ body {
     box-shadow: 0px 1px 10px 0px #0000008a;
     position: sticky;
     overflow-wrap: break-word;
-  }
-
-  ul {
-    width: 100dvw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #d5dfd6;
-    nav {
-      padding-right: 3%;
-      gap: 3rem;
+    ul {
+      width: 100dvw;
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #d5dfd6;
+      nav {
+        padding-right: 3%;
+        gap: 3rem;
+        display: flex;
+        flex-direction: row;
+      }
     }
   }
 

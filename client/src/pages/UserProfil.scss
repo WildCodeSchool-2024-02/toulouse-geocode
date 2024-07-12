@@ -15,96 +15,82 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-
-.user-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background-color: $cream-white;
-  width: 90%;
-  max-width: 65ch;
-}
-
-.header {
-  width: 100%;
-  text-align: center;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-
-.header h1 {
-  margin: 0;
-}
-
-.personal-info {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: 1rem;
-  input[type="text"] {
-    width: 20rem;
+  .user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: $cream-white;
+    width: 90%;
+    max-width: 65ch;
   }
-}
-// .info-item span,
-// .info-item input[type="text"],
-// .info-item input[type="password"],
-// .info-item input[type="button"] {
-// flex: 1;
-// }
 
-.info-item span {
-  flex: 1 0 120px; /* Ajustez la largeur selon vos besoins */
-  text-align: left;
-}
+  .header {
+    width: 100%;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
 
-button {
-  width: auto;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-}
+  .header h1 {
+    margin: 0;
+  }
 
-.input-sm-gray-outlined {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
+  .personal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+    input[type="text"] {
+      width: 20rem;
+    }
+  }
+
+  .info-item span {
+    flex: 1 0 120px; /* Ajustez la largeur selon vos besoins */
+    text-align: left;
+  }
+
+  button {
+    width: auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 768px) {
   .user-profile {
     width: 85ch;
-  }
+    .personal-info {
+      display: grid;
+      gap: 20px;
+    }
 
-  .personal-info {
-    display: grid;
-    gap: 20px;
-  }
+    .info-item {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  .info-item {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .input-sm-gray-outlined {
+      width: 60%;
+    }
 
-  .input-sm-gray-outlined {
-    width: 60%;
-  }
-
-  button {
-    width: auto;
+    button {
+      width: auto;
+    }
   }
 }
 
