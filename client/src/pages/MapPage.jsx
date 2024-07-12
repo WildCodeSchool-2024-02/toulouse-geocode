@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState, useCallback } from "react";
-import { Map, Marker } from "react-map-gl/maplibre";
+import { useMemo, useRef, useState, useCallback, useEffect } from "react";
+import { Map, Marker, GeolocateControl } from "react-map-gl/maplibre";
 import useSupercluster from "use-supercluster";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useLoaderData } from "react-router-dom";
@@ -18,6 +18,10 @@ function MapPage() {
   const [zoom, setZoom] = useState(10);
   const [selectedPoints, setSelectedPoints] = useState([]);
   const [isOpenedCluster, setIsOpenedCluster] = useState(false);
+  const geoControlRef = useRef();
+  useEffect(() => {
+    geoControlRef.current?.trigger();
+  }, [geoControlRef.current]);
 
   const points = useMemo(
     () =>
@@ -93,11 +97,17 @@ function MapPage() {
       maxZoom={16}
       ref={mapRef}
       mapStyle="https://api.jawg.io/styles/b8e0346f-8b93-4cac-b7b8-816c8fd852e8.json?access-token=8zKquTOfkoI1wfzpGaP9FMbbSiRrfUW1pGAuRyTDT7BFktAeT60GIRG5WSNFLvVt"
-      style={{ width: "100vw", height: "calc(100vh - 80px)" }}
+      style={{ width: "100vw", height: "calc(100dvh - 80px)" }}
       onMoveEnd={updateBounds}
       onZoomEnd={clearSelectedPoints}
       onLoad={updateBounds}
     >
+      <GeolocateControl
+        ref={geoControlRef}
+        positionOptions={{ enableHighAccuracy: true }}
+        trackUserLocation
+        showUserHeading
+      />
       {clusters &&
         clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;

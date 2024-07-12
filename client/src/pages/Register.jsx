@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Form, redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, useActionData, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Form.scss";
 import "./button.scss";
@@ -10,6 +10,13 @@ export const hostUrl = import.meta.env.VITE_API_URL;
 
 function Register() {
   const [pwd, setPwd] = useState("");
+  const navigate = useNavigate();
+  const responseData = useActionData();
+  useEffect(() => {
+    if (responseData) {
+      navigate("/login", { state: { email: responseData } });
+    }
+  }, [responseData]);
 
   return (
     <div className="contact-form-div">
@@ -110,7 +117,6 @@ export async function postNewUser({ request }) {
     email,
     password,
   };
-
   try {
     const response = await fetch(`${hostUrl}/api/user`, {
       method: "POST",
@@ -132,7 +138,7 @@ export async function postNewUser({ request }) {
       duration: 4000,
       position: "bottom-right",
     });
-    return redirect("/login");
+    return requestBody.email;
   } catch (e) {
     console.error(e.message);
     return { error: true };
