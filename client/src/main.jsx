@@ -7,6 +7,7 @@ import Map from "./pages/Map";
 import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
 import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
+import UserProfile from "./pages/UserProfil";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
         action: postNewUser,
+      },
+      {
+        path: "/profile",
+        element: <UserProfile />,
       },
     ],
   },
