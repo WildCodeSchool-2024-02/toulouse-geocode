@@ -1,0 +1,20 @@
+@import "../style/style.scss";
+
+.maplibregl-popup-content {
+  border: rgba(36, 51, 29, 0.1254901961) 2px solid;
+  background-color: #fdf7ef;
+  border-radius: $spacing;
+  width: fit-content;
+  padding: $spacingDouble;
+  @include colorAndWeight();
+  div {
+    @include flex(column, start, start, 4px);
+    @include mq() {
+      @include flex(column, start, start, $spacing);
+    }
+  }
+
+  button {
+    margin: 0;
+  }
+}

@@ -1,8 +1,8 @@
 import { Form, redirect, useLocation, useNavigate } from "react-router-dom";
 import "./Form.scss";
 import "./Connect.scss";
-import "./button.scss";
-import "./input.scss";
+import "../style/button.scss";
+import "../style/input.scss";
 import toast, { Toaster } from "react-hot-toast";
 import logo from "../../public/logo.svg";
 import { hostUrl } from "./Register";
