@@ -7,12 +7,7 @@ const router = express.Router();
 /* ************************************************************************* */
 
 // Import item-related actions
-const {
-  browse,
-  read,
-  add,
-  login,
-} = require("../../../controllers/userActions");
+const { browse, read, add, login } = require("../../../controllers/userActions");
 const { hashPassword, verifyPassword } = require("../../../services/auth");
 
 // Route to get a list of items

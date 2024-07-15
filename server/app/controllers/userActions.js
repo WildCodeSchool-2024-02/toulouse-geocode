@@ -59,7 +59,7 @@ const login = async (req, res, next) => {
   try {
     const { lastname, firstname, ...payload } = req.user;
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET);
+    const token = jwt.sign(payload, process.env.APP_SECRET);
 
     res.cookie("accessToken", token);
     res.sendStatus(200);
