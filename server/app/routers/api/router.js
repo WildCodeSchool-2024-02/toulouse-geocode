@@ -14,6 +14,7 @@ const userRouter = require("./users/router");
 router.use("/charging-stations", chargingStationsRouter);
 router.use("/clusters", clusterRouter);
 router.use("/contact", contactFormRouter);
+router.use("/contact-messages", contactFormRouter);
 router.use("/user", userRouter);
 
 /* ************************************************************************* */

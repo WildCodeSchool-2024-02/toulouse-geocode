@@ -16,6 +16,13 @@ class ChargingStationRepository extends AbstractRepository {
     );
     return rows;
   }
+
+  async getAllChargingStationsData() {
+    const [rows] = await this.database.query(
+      `select * from ${this.table}`,
+    );
+    return rows;
+  }
 }
 
 module.exports = ChargingStationRepository;

@@ -9,6 +9,15 @@ const browse = async (req, res, next) => {
     next(err);
   }
 };
+const getAllDatas = async (req, res, next) => {
+  try {
+    const chargingStations = await tables.chargingStation.getAllChargingStationsData();
+
+    res.json(chargingStations);
+  } catch (err) {
+    next(err);
+  }
+};
 
 const read = async (req, res, next) => {
   try {
@@ -26,4 +35,5 @@ const read = async (req, res, next) => {
 module.exports = {
   browse,
   read,
+  getAllDatas
 };
