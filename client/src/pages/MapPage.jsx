@@ -1,10 +1,11 @@
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import { Map, Marker, GeolocateControl } from "react-map-gl/maplibre";
+import { Map, Marker, GeolocateControl, Popup } from "react-map-gl/maplibre";
 import useSupercluster from "use-supercluster";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useLoaderData } from "react-router-dom";
 import "./MapPage.scss";
 import { motion } from "framer-motion";
+import PopupCard from "../components/PopupCard";
 
 function MapPage() {
   const items = useLoaderData();
@@ -18,6 +19,9 @@ function MapPage() {
   const [zoom, setZoom] = useState(10);
   const [selectedPoints, setSelectedPoints] = useState([]);
   const [isOpenedCluster, setIsOpenedCluster] = useState(false);
+  const [showPopup, setShowPopup] = useState(null);
+  const [stationDetails, setStationDetails] = useState(null);
+
   const geoControlRef = useRef();
   useEffect(() => {
     geoControlRef.current?.trigger();
@@ -30,13 +34,10 @@ function MapPage() {
         properties: { cluster: false, itemId: item.id },
         geometry: {
           type: "Point",
-          coordinates: [
-            item.consolidated_longitude,
-            item.consolidated_latitude,
-          ],
+          coordinates: [item.consolidated_longitude, item.consolidated_latitude],
         },
       })),
-    [items]
+    [items],
   );
 
   const updateBounds = useCallback(() => {
@@ -69,9 +70,7 @@ function MapPage() {
   });
 
   const selectAcluster = (clusterId) => {
-    if (
-      !supercluster.getChildren(clusterId).some((el) => el.properties.cluster)
-    ) {
+    if (!supercluster.getChildren(clusterId).some((el) => el.properties.cluster)) {
       setSelectedPoints(supercluster.getChildren(clusterId));
       setIsOpenedCluster(!isOpenedCluster);
     }
@@ -90,6 +89,11 @@ function MapPage() {
       setSelectedPoints([]);
     }
   };
+
+  const handlePopupTrigger = (point, offsetX = 0, offsetY = 0) => {
+    setShowPopup({ ...point, offsetX, offsetY });
+  };
+
   return (
     <Map
       initialViewState={{ ...viewport }}
@@ -97,7 +101,7 @@ function MapPage() {
       maxZoom={16}
       ref={mapRef}
       mapStyle="https://api.jawg.io/styles/b8e0346f-8b93-4cac-b7b8-816c8fd852e8.json?access-token=8zKquTOfkoI1wfzpGaP9FMbbSiRrfUW1pGAuRyTDT7BFktAeT60GIRG5WSNFLvVt"
-      style={{ width: "100vw", height: "100dvh" }}
+      style={{ width: "100dvw", height: "100dvh" }}
       onMoveEnd={updateBounds}
       onZoomEnd={clearSelectedPoints}
       onLoad={updateBounds}
@@ -107,12 +111,12 @@ function MapPage() {
         positionOptions={{ enableHighAccuracy: true }}
         trackUserLocation
         showUserHeading
+        showAccuracyCircle
       />
       {clusters &&
         clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
-          const { cluster: isCluster, point_count: pointCount } =
-            cluster.properties;
+          const { cluster: isCluster, point_count: pointCount } = cluster.properties;
 
           if (isCluster) {
             const size = (pointCount * 200) / points.length;
@@ -121,38 +125,45 @@ function MapPage() {
                 latitude={latitude}
                 longitude={longitude}
                 key={`cluster-${cluster.id}`}
-                onClick={() => selectAcluster(cluster.id)}
+                className="cluster-marker"
+                style={{ width: `${size}px`, height: `${size}px`, zIndex: 2 }}
+                role="button"
+                tabIndex={[0]}
+                onClick={() => {
+                  selectAcluster(cluster.id);
+                  const expansionZoom = Math.min(
+                    supercluster.getClusterExpansionZoom(cluster.id),
+                    16,
+                  );
+                  mapRef.current.setZoom(expansionZoom);
+                  mapRef.current.panTo({ lat: latitude, lng: longitude });
+                }}
+                onKeyDown={() => console.info("why are you here ?!")}
               >
-                <div
-                  className="cluster-marker"
-                  style={{ width: `${size}px`, height: `${size}px` }}
-                  role="button"
-                  tabIndex={[0]}
-                  onClick={() => {
-                    const expansionZoom = Math.min(
-                      supercluster.getClusterExpansionZoom(cluster.id),
-                      16
-                    );
-                    mapRef.current.setZoom(expansionZoom);
-                    mapRef.current.panTo({ lat: latitude, lng: longitude });
-                  }}
-                  onKeyDown={() => console.info("why are you here ?!")}
-                >
-                  <i className="fi fi-rr-charging-station" />
-                  {` ${pointCount}`}
-                </div>
+                <i className="fi fi-rr-charging-station" />
+                {` ${pointCount}`}
               </Marker>
             );
           }
           return (
             <Marker
-              key={`cluster-${cluster.properties.itemId}`}
+              key={`alone-marker-${cluster.properties.itemId}`}
               latitude={latitude}
               longitude={longitude}
+              onClick={(e) => {
+                e.originalEvent.stopPropagation();
+                handlePopupTrigger(cluster);
+              }}
+              className="alone-marker"
+              style={{ zIndex: 1 }}
             >
-              <div className="alone-marker">
-                <i className="fi fi-rr-charging-station" />
-              </div>
+              <i
+                className={`fi fi-rr-charging-station alone-marker ${
+                  showPopup && showPopup.properties.itemId === cluster.properties.itemId
+                    ? "isActiveMarker"
+                    : ""
+                }`}
+              />
             </Marker>
           );
         })}
@@ -165,22 +176,51 @@ function MapPage() {
               latitude={latitude}
               longitude={longitude}
               key={`point-modal-${point.properties.itemId}`}
-              onClick={() => setIsOpenedCluster(!isOpenedCluster)}
-              className="deep-cluster-marker"
+              className="point-modal-marker"
             >
-              <motion.div
+              <motion.i
+                className={`fi fi-rr-charging-station alone-marker ${
+                  showPopup && showPopup.properties.itemId === point.properties.itemId
+                    ? "isActiveMarker"
+                    : ""
+                }`}
                 animate={{
                   x: isOpenedCluster ? x : 0,
                   y: isOpenedCluster ? y : 0,
                   opacity: isOpenedCluster ? 100 : 0,
                 }}
-                className="alone-marker"
-              >
-                <i className="fi fi-rr-charging-station" />
-              </motion.div>
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePopupTrigger(point, x, y);
+                }}
+              />
             </Marker>
           );
         })}
+      {showPopup && (
+        <Popup
+          latitude={showPopup.geometry.coordinates[1]}
+          longitude={showPopup.geometry.coordinates[0]}
+          style={{ zIndex: 3 }}
+          offset={{
+            top: [showPopup.offsetX, showPopup.offsetY],
+            bottom: [showPopup.offsetX, showPopup.offsetY],
+            left: [showPopup.offsetX, showPopup.offsetY],
+            right: [showPopup.offsetX, showPopup.offsetY],
+          }}
+          onClose={() => {
+            setShowPopup(null);
+            setStationDetails(null);
+          }}
+          onOpen={() =>
+            fetch(`http://localhost:3310/api/charging-stations/${showPopup.properties.itemId}`)
+              .then((r) => r.json())
+              .then((d) => setStationDetails(d))
+          }
+        >
+          <PopupCard stationDetails={stationDetails} />
+        </Popup>
+      )}
     </Map>
   );
 }
