@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Form.scss";
-import "./button.scss";
-import "./input.scss";
+import "../style/button.scss";
+import "../style/input.scss";
 import "./Register.scss";
 
 export const hostUrl = import.meta.env.VITE_API_URL;
