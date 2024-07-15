@@ -157,7 +157,13 @@ function MapPage() {
               className="alone-marker"
               style={{ zIndex: 1 }}
             >
-              <i className="fi fi-rr-charging-station" />
+              <i
+                className={`fi fi-rr-charging-station alone-marker ${
+                  showPopup && showPopup.properties.itemId === cluster.properties.itemId
+                    ? "isActiveMarker"
+                    : ""
+                }`}
+              />
             </Marker>
           );
         })}
@@ -173,7 +179,11 @@ function MapPage() {
               className="point-modal-marker"
             >
               <motion.i
-                className="fi fi-rr-charging-station alone-marker"
+                className={`fi fi-rr-charging-station alone-marker ${
+                  showPopup && showPopup.properties.itemId === point.properties.itemId
+                    ? "isActiveMarker"
+                    : ""
+                }`}
                 animate={{
                   x: isOpenedCluster ? x : 0,
                   y: isOpenedCluster ? y : 0,
@@ -198,7 +208,6 @@ function MapPage() {
             left: [showPopup.offsetX, showPopup.offsetY],
             right: [showPopup.offsetX, showPopup.offsetY],
           }}
-          // anchor="bottom"
           onClose={() => {
             setShowPopup(null);
             setStationDetails(null);

@@ -20,7 +20,7 @@
 }
 .alone-marker {
   color: rgb(255, 255, 255);
-  background: #19c822;
+  background: #57bc5c;
   border-radius: 50%;
   padding: 5px;
   width: 20px;
@@ -31,8 +31,9 @@
   i {
     line-height: 0;
   }
-  &:hover {
-    background: red;
+  &:hover,
+  &.isActiveMarker {
+    background: #8beb90;
     cursor: pointer;
   }
 }
