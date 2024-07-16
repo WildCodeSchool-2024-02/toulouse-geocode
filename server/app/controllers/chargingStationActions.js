@@ -2,7 +2,7 @@ const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
   try {
-    const chargingStations = await tables.chargingStation.readAll();
+    const chargingStations = await tables.chargingStation.readAllByFilter(req.filter);
 
     res.json(chargingStations);
   } catch (err) {
