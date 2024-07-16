@@ -1,72 +1,45 @@
 @import url("https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import "../style/style.scss";
 
-$green: #24331d;
-$cream-white: #fff7ec;
-$color-signup: #d5dfd6;
-$kaki: #505a46;
-
-@media screen and (max-width: 700px) {
-  .navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    max-height: 5rem;
-    background-color: $color-signup;
-    .burger {
-      width: 5rem;
-      height: 5rem;
-      background-color: $color-signup;
-    }
-    .home {
-      width: 5rem;
-      height: 5rem;
-    }
-    .links {
-      align-content: center;
-      justify-content: center;
-      display: flex;
-      flex-direction: column;
-      background-color: $color-signup;
-      position: absolute;
-      z-index: 1;
-      width: 100dvw;
-      li {
-        height: 3rem;
-        border-bottom: 1px solid $green;
-        text-align: center;
-        align-content: center;
-      }
-    }
+.navbar {
+  @include flex(row, space-between, center, 0);
+  @include mq() {
+    @include flex(row, space-between, center, 0);
   }
-}
-
-@media screen and (min-width: 700px) {
-  .navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    max-height: 5rem;
-    background-color: $color-signup;
-    .burger {
-      width: 5rem;
-      height: 5rem;
-      background-color: $color-signup;
+  max-height: 5rem;
+  background-color: $green;
+  .burger {
+    @include flex(row, center, center, 0);
+    width: 5rem;
+    height: 5rem;
+    background-color: $green;
+  }
+  .home {
+    width: 5rem;
+    height: 5rem;
+  }
+  .links {
+    @include flex(column, center, center, 0);
+    @include mq() {
+      @include flex(row, center, center, 5dvw);
+      padding-left: 45%;
+      position: initial;
     }
-    .home {
-      width: 5rem;
-      height: 5rem;
-    }
-    .links {
-      align-content: center;
-      justify-content: center;
-      display: flex;
+    background-color: $green;
+    position: absolute;
+    z-index: 1;
+    width: 100dvw;
+    li {
+      @include flex(row, center, center, 0);
+      @include mq() {
+        border-bottom: none;
+      }
+      height: 3rem;
+      border-bottom: 1px solid $darkGreen;
       width: 100%;
-      gap: 2rem;
-      padding-left: 40%;
-      background-color: $color-signup;
+      text-align: center;
+      align-content: center;
     }
   }
 }
