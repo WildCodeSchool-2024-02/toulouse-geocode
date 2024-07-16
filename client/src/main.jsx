@@ -8,8 +8,6 @@ import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
 import MapPage from "./pages/MapPage";
 
-const hostUrl = import.meta.env.VITE_API_URL;
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,10 +25,6 @@ const router = createBrowserRouter([
       {
         path: "/map",
         element: <MapPage />,
-        loader: async () =>
-          fetch(`${hostUrl}/api/charging-stations/`)
-            .then((r) => r.json())
-            .then((d) => d),
       },
       {
         path: "/contact",
@@ -51,5 +45,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
