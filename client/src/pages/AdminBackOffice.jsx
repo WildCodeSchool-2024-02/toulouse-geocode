@@ -3,6 +3,7 @@ import "../style/input.scss";
 import "../style/button.scss";
 import "../style/colors.scss";
 import { hostUrl } from "./Register";
+import "./AdminBackOffice.scss";
 
 function AdminBackOffice() {
     const [isEditing, setIsEditing] = useState({
@@ -31,6 +32,7 @@ function AdminBackOffice() {
     };
 
     const [messages, setMessages] = useState([]);
+    const [messageFieldIsOpen, setMessageFieldIsOpen] = useState();
 
     const fetchMessages = async () => {
         try {
@@ -44,7 +46,7 @@ function AdminBackOffice() {
             const data = await response.json();
             setMessages(data);
         } catch (error) {
-            console.error('Error fetching messages:', error);
+            console.error("Error fetching messages:", error);
         }
     };
 
@@ -62,7 +64,7 @@ function AdminBackOffice() {
             const data = await response.json();
             setUsers(data);
         } catch (error) {
-            console.error('Error fetching messages:', error);
+            console.error("Error fetching messages:", error);
         }
     };
 
@@ -70,17 +72,20 @@ function AdminBackOffice() {
 
     const fetchCharginStations = async () => {
         try {
-            const response = await fetch(`${hostUrl}/api/charging-stations/all-datas`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            });
+            const response = await fetch(
+                `${hostUrl}/api/charging-stations/all-datas`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                }
+            );
             const data = await response.json();
             setChargingStations(data);
         } catch (error) {
-            console.error('Error fetching messages:', error);
+            console.error("Error fetching messages:", error);
         }
     };
     return (
@@ -91,71 +96,93 @@ function AdminBackOffice() {
                 </header>
                 <section>
                     <div className="info-item">
-                        Messagerie
+                        <h3>Messagerie</h3>
+                        {messageFieldIsOpen &&
+                            messages.map((message) => (
+                                <ul key={message.id}>
+                                    <li>
+                                        <ul>
+                                            <li>
+                                                <h4>Nom :</h4>
+                                                <p>{message.name}</p>
+                                            </li>
+                                            <li>
+                                                <h4>Adresse email :</h4>
+                                                <p>{message.email}</p>
+                                            </li>
+                                            <li>
+                                                <h4>Message :</h4>
+                                                <p>{message.message}</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            ))}
                         <button
                             type="button"
                             className="button-md-olive-outlined"
-                            onClick={fetchMessages}
-                        >Voir</button>
-                        {messages.map((message) => (
-                            <ul key={message.id}>
-                                <li >
-                                    <p>{message.name}</p>
-                                    <p>{message.email}</p>
-                                    <p>{message.message}</p>
+                            onClick={() => {
+                                fetchMessages();
+                                setMessageFieldIsOpen(!messageFieldIsOpen);
+                            }}
+                        >
+                            Voir
+                        </button>
+                    </div>
+                    <div className="info-item">
+                        <h3>Réservations en cours</h3>
+                        <button type="button" className="button-md-olive-outlined">
+                            Voir
+                        </button>
+                    </div>
+                    <div className="info-item">
+                        <h3>Utilisateurs</h3>
+                        {users.map((user) => (
+                            <ul key={user.id}>
+                                <li>
+                                    <p>Nom : {user.lastname}</p>
+                                    <p>Prénom : {user.firstname}</p>
+                                    <p>Adresse email : {user.email}</p>
                                 </li>
                             </ul>
                         ))}
-                    </div>
-                    <div className="info-item">
-                        Réservations en cours
-                        <button
-                            type="button"
-                            className="button-md-olive-outlined"
-                        >Voir</button>
-                    </div>
-                    <div className="info-item">
-                        Utilisateurs
                         <button
                             type="button"
                             className="button-md-olive-outlined"
                             onClick={fetchUsers}
-                        >Voir</button>
-                        {users.map((user) => (
-                            <ul key={user.id}>
-                                <li >
-                                    <p>{user.lastname}</p>
-                                    <p>{user.firstname}</p>
-                                    <p>{user.email}</p>
+                        >
+                            Voir
+                        </button>
+                    </div>
+                    <div className="info-item">
+                        <h3>Bornes</h3>
+                        {chargingStations.map((chargingStation) => (
+                            <ul key={chargingStation.id}>
+                                <li>
+                                    {Object.entries({ ...chargingStation }).map(
+                                        ([key, value]) => (
+                                            <p key={key}>{`${key}: ${value}`}</p>
+                                        )
+                                    )}
+                                    <button type="button" className="button-md-olive-outlined">
+                                        Modifier
+                                    </button>
                                 </li>
                             </ul>
                         ))}
-                    </div>
-
-                    <div className="info-item">
-                        Bornes
                         <button
                             type="button"
                             className="button-md-olive-outlined"
                             onClick={fetchCharginStations}
-                        >Voir</button>
-                        {chargingStations.map((chargingStation) => (
-                            <ul key={chargingStation.id}>
-                                <li>
-                                    {Object.entries({ ...chargingStation }).map(([key, value]) => (
-                                        <p key={key}>{`${key}: ${value}`}</p>
-                                    ))}
-                                    <button type="button" className="button-md-olive-outlined">Modifier</button>
-                                </li>
-                            </ul>
-                        ))}
-
+                        >
+                            Voir
+                        </button>
                     </div>
                 </section>
                 <section className="personal-info">
                     <h2>Informations de connexions</h2>
                     <div className="info-item">
-                        <span>Email : </span>
+                        <h3>Email : </h3>
                         {isEditing.email ? (
                             <input
                                 type="text"
@@ -165,7 +192,7 @@ function AdminBackOffice() {
                                 className="input-sm-gray-outlined"
                             />
                         ) : (
-                            <span>{formData.email}</span>
+                            <h3>{formData.email}</h3>
                         )}
                         <input
                             type="button"
@@ -176,7 +203,7 @@ function AdminBackOffice() {
                     </div>
 
                     <div className="info-item">
-                        <span>Mot de passe : </span>
+                        <h3>Mot de passe : </h3>
                         {isEditing.password ? (
                             <input
                                 type="password"
@@ -186,7 +213,7 @@ function AdminBackOffice() {
                                 className="input-sm-gray-outlined"
                             />
                         ) : (
-                            <span>{formData.password}</span>
+                            <h3>{formData.password}</h3>
                         )}
                         <input
                             type="button"

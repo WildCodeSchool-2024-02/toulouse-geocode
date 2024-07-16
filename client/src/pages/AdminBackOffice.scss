@@ -1,0 +1,48 @@
+@import "../style/style.scss";
+@import "../style/colors.scss";
+
+.page-container {
+  width: 100dvw;
+  @include colorAndWeight();
+
+  @include flex(column, center, center, 2rem);
+
+  section {
+    width: 100%;
+  }
+
+  .info-item > ul {
+    @include flex(column, start, start, $spacing);
+    padding: 1rem;
+    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.422);
+    width: 100%;
+    height: fit-content;
+    border-radius: 0.5rem;
+  }
+
+  ul {
+    @include flex(column, start, start, $spacing);
+  }
+
+  .user-profile {
+    width: 90dvw;
+    max-width: 85ch;
+
+    @include flex(column, start, start, 2rem);
+
+    @include mq() {
+      @include flex(column, start, start, 2rem);
+    }
+
+    .info-item {
+      @include flex(column, space-between, start, $spacingDouble);
+      width: 100%;
+      padding-block: 1rem;
+
+      h4 {
+        color: var(--olive-800);
+        font-weight: 300;
+      }
+    }
+  }
+}

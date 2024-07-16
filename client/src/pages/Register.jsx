@@ -42,16 +42,6 @@ function Register() {
             required
           />
         </section>
-        <section className="username">
-          <label htmlFor="username">Nom d'utilisateur</label>
-          <input
-            id="username"
-            name="username"
-            placeholder="Entrer votre nom d'utilisateur"
-            className="input-sm-gray-outlined"
-            required
-          />
-        </section>
         <section className="email">
           <label htmlFor="email">Email </label>
           <input
@@ -81,7 +71,7 @@ function Register() {
           <ul>
             <li>Le mot de passe doit comporter au moins :</li>
             <li>8 caractères</li>
-            <li>1 lettre</li>
+            <li>1 lettre majuscule</li>
             <li>1 chiffre</li>
           </ul>
           <label htmlFor="password-check">Vérification du mot de passe</label>

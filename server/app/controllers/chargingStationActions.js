@@ -11,7 +11,8 @@ const browse = async (req, res, next) => {
 };
 const getAllDatas = async (req, res, next) => {
   try {
-    const chargingStations = await tables.chargingStation.getAllChargingStationsData();
+    const chargingStations =
+      await tables.chargingStation.getAllChargingStationsData();
 
     res.json(chargingStations);
   } catch (err) {
@@ -35,5 +36,5 @@ const read = async (req, res, next) => {
 module.exports = {
   browse,
   read,
-  getAllDatas
+  getAllDatas,
 };

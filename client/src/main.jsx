@@ -8,6 +8,7 @@ import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
 import MapPage from "./pages/MapPage";
 import AdminBackOffice from "./pages/AdminBackOffice";
+import UserProfile from "./pages/userProfile";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminBackOffice />,
+      },
+      {
+        path: "/user-profile",
+        element: <UserProfile />,
       },
     ],
   },
