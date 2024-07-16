@@ -5,6 +5,7 @@ import "./Form.scss";
 import "../style/button.scss";
 import "../style/input.scss";
 import "./Register.scss";
+import { newDateToSql } from "../services/utils";
 
 export const hostUrl = import.meta.env.VITE_API_URL;
 
@@ -100,12 +101,14 @@ export async function postNewUser({ request }) {
   const firstname = formData.get("firstname");
   const email = formData.get("email");
   const password = formData.get("password");
+  const creationDate = newDateToSql()
 
   const requestBody = {
     lastname,
     firstname,
     email,
     password,
+    creationDate,
   };
   try {
     const response = await fetch(`${hostUrl}/api/user`, {

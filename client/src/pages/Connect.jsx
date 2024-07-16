@@ -6,6 +6,7 @@ import "../style/input.scss";
 import toast, { Toaster } from "react-hot-toast";
 import logo from "../../public/logo.svg";
 import { hostUrl } from "./Register";
+import { newDateToSql } from "../services/utils";
 
 function Connect() {
   const location = useLocation();
@@ -62,8 +63,9 @@ export default Connect;
 
 export async function login({ request }) {
   const formData = await request.formData();
+  const loginDate = newDateToSql();
 
-  const requestBody = Object.fromEntries(formData);
+  const requestBody = { ...Object.fromEntries(formData), loginDate }
 
   try {
     const response = await fetch(`${hostUrl}/api/user/login`, {

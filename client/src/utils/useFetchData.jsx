@@ -11,6 +11,20 @@ const queryList = {
       offset: "",
     },
   },
+  messages: {
+    endPoint: "contact-messages?",
+    defaultQueryOptions: {
+      limit: "",
+      offset: "",
+    },
+  },
+  users: {
+    endPoint: "user?",
+    defaultQueryOptions: {
+      limit: "",
+      offset: "",
+    },
+  },
 };
 
 function useFetchData(selectedEndpoint, queryOptions = {}) {

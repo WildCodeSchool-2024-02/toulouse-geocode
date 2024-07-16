@@ -78,5 +78,5 @@ module.exports = {
   // edit,
   add,
   // destroy,
-  login,
+  login
 };
