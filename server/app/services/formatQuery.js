@@ -13,4 +13,16 @@ const formatFilteredPlugQuery = (req, res, next) => {
   next();
 };
 
-module.exports = formatFilteredPlugQuery;
+const formatLimitResultsQuery = (req, res, next) => {
+  const { limit, offset } = req.query;
+  const isNumber = (value) => {
+    const parseValue = parseInt(value, 10);
+    return !Number.isNaN(parseValue);
+  };
+  req.limit = limit && isNumber(limit) ? { limit } : "";
+  req.offset = offset && isNumber(offset) ? { offset } : "";
+
+  next();
+};
+
+module.exports = { formatFilteredPlugQuery, formatLimitResultsQuery };
