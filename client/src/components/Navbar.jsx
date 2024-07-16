@@ -22,11 +22,11 @@ function Navbar() {
     closed: { d: "M0 14.5L15 14.5" },
   };
 
-  const [animation, setAnimation] = useState("closed");
+  const [isAnimate, setIsAnimate] = useState("closed");
   const handleClick = () => {
-    setAnimation("moving");
+    setIsAnimate("moving");
     setTimeout(() => {
-      setAnimation(animation === "closed" ? "open" : "closed");
+      setIsAnimate(isAnimate === "closed" ? "open" : "closed");
     }, 60);
   };
   // burger button end
@@ -70,12 +70,12 @@ function Navbar() {
               <svg width="2rem" height="2rem" viewBox="0 0 24 24">
                 <motion.path
                   stroke="#24331d"
-                  animate={animation}
+                  animate={isAnimate}
                   variants={path01Variants}
                 />
                 <motion.path
                   stroke="#24331d"
-                  animate={animation}
+                  animate={isAnimate}
                   variants={path02Variants}
                 />
               </svg>
