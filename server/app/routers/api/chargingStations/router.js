@@ -2,12 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-const { browse, read, getAllDatas } = require("../../../controllers/chargingStationActions");
-const formatFilteredPlugQuery = require("../../../services/formatQuery");
+const { browse, read } = require("../../../controllers/chargingStationActions");
+const {
+  formatFilteredPlugQuery,
+  formatLimitResultsQuery,
+} = require("../../../services/formatQuery");
 
-router.get("/", formatFilteredPlugQuery, browse);
-
-router.get("/all-datas", getAllDatas);
+router.get("/", formatFilteredPlugQuery, formatLimitResultsQuery, browse);
 
 router.get("/:id", read);
 
