@@ -17,9 +17,12 @@ class ChargingStationRepository extends AbstractRepository {
     return rows;
   }
 
-  async getAllChargingStationsData() {
+  async readAllByFilter(filterRequest) {
+    const query = filterRequest ? `where ${filterRequest.filterBy} = 1` : "";
     const [rows] = await this.database.query(
-      `select * from ${this.table}`,
+      `select ${this.table}.id, ${this.table}.consolidated_longitude, ${this.table}.consolidated_latitude
+          from ${this.table} join plug_type on ${this.table}.id = plug_type.id ${query}
+     `,
     );
     return rows;
   }
