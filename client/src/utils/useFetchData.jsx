@@ -7,6 +7,8 @@ const queryList = {
     endPoint: "charging-stations?",
     defaultQueryOptions: {
       filterBy: "",
+      limit: "",
+      offset: "",
     },
   },
 };
