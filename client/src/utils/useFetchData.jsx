@@ -23,7 +23,9 @@ function useFetchData(selectedEndpoint, queryOptions = {}) {
     return (
       queryList[selectedEndpoint].endPoint +
       Object.entries(finalQueryOptions)
-        .map(([key, value]) => (value !== "?" ? `${key}=${value}` : key + value))
+        .map(([key, value]) =>
+          value !== "?" ? `${key}=${value}` : key + value
+        )
         .join("&")
     );
   }, [selectedEndpoint, queryOptions]);
