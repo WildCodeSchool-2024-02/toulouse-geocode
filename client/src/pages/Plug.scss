@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap");
+
+.box-green {
+  background-color: #d5dfd6;
+  width: 370px;
+  height: 200px;
+  margin: 30px;
+  display: flex;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px 0px #000000;
+  gap: 10px;
+}
+.select-plug {
+  width: 327px;
+  height: 47px;
+  border-radius: 73px;
+  margin: 50px;
+  outline: solid lightgray;
+}
+.descr {
+  font-size: 20px;
+  font-family: "Judson";
+  padding: 20px;
+}
+.button-home {
+  margin: 72px;
+}
+
+.azer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+  gap: 30px;
+  #texte {
+    text-align: center;
+    text-decoration: underline;
+  }
+}
