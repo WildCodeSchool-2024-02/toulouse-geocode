@@ -100,6 +100,9 @@ function MapPage() {
 
   const handlePopupTrigger = (point, offsetX = 0, offsetY = 0) => {
     setShowPopup({ ...point, offsetX, offsetY });
+    fetch(`http://localhost:3310/api/charging-stations/${point?.properties?.itemId}`)
+      .then((r) => r.json())
+      .then((d) => setStationDetails(d));
   };
 
   return (
@@ -228,11 +231,6 @@ function MapPage() {
                 setShowPopup(null);
                 setStationDetails(null);
               }}
-              onOpen={() =>
-                fetch(`http://localhost:3310/api/charging-stations/${showPopup.properties.itemId}`)
-                  .then((r) => r.json())
-                  .then((d) => setStationDetails(d))
-              }
             >
               <PopupCard stationDetails={stationDetails} />
             </Popup>

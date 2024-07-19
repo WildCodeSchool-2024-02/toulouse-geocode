@@ -45,6 +45,27 @@ name VARCHAR(255) NOT NULL,
 email VARCHAR(255) NOT NULL,
 message TEXT NOT NULL,
 topic VARCHAR(255) NULL
-)
+);
 
+CREATE TABLE reservation (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  duration INT NOT NULL,
+  starting_time DATETIME NOT NULL,
+    ending_time DATETIME NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  is_paid TINYINT NOT NULL DEFAULT 0,
+  user_id INT unsigned NOT NULL,
+  charging_station_id INT NOT NULL,
+  CONSTRAINT fk_reservation_user1
+    FOREIGN KEY (user_id)
+    REFERENCES user (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_reservation_charging_station1
+    FOREIGN KEY (charging_station_id)
+    REFERENCES charging_station (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    );
 
+    

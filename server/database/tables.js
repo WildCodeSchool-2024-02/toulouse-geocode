@@ -2,6 +2,7 @@
 const ChargingStationRepository = require("./models/ChargingStationRepository");
 const ClusterRepository = require("./models/ClusterRepository");
 const ContactFormRepository = require("./models/ContactFormRepository");
+const ReservationRepository = require("./models/ReservationRepository");
 const UserRepository = require("./models/UserRepository");
 
 // Create an empty object to hold data repositories for different tables
@@ -16,6 +17,7 @@ tables.chargingStation = new ChargingStationRepository();
 tables.cluster = new ClusterRepository();
 tables.contact_message = new ContactFormRepository();
 tables.user = new UserRepository();
+tables.reservation = new ReservationRepository();
 
 /* ************************************************************************* */
 
@@ -29,7 +31,7 @@ module.exports = new Proxy(tables, {
 
     // If the property (table) does not exist, throw a ReferenceError with a custom error message
     throw new ReferenceError(
-      `tables.${prop} is not defined. Did you register it in ${__filename}?`
+      `tables.${prop} is not defined. Did you register it in ${__filename}?`,
     );
   },
 });
