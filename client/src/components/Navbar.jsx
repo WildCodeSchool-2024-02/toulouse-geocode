@@ -42,7 +42,7 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/" onClick={() => setIsOpen(isOpen).reload()}>
+      <Link to="/" onClick={() => setIsOpen(false).reload()}>
         <img className="home" src={logo} alt="Logo upya" />
       </Link>
       {device === "mobile" ? (
