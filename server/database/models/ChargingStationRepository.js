@@ -22,7 +22,9 @@ class ChargingStationRepository extends AbstractRepository {
 
   async readAllByFilter(filterRequest) {
     let query = "";
-    query += filterRequest.filterBy ? ` where ${filterRequest.filterBy} = 1 ` : "";
+    query += filterRequest.filterBy
+      ? ` where ${filterRequest.filterBy} = 1 `
+      : "";
     query += filterRequest.limit ? ` limit ? ` : "";
     query += filterRequest.offset ? ` offset ? ` : "";
 
@@ -30,7 +32,7 @@ class ChargingStationRepository extends AbstractRepository {
       `select ${this.table}.id, ${this.table}.consolidated_longitude, ${this.table}.consolidated_latitude
           from ${this.table} join plug_type on ${this.table}.id = plug_type.id ${query} 
      `,
-      [parseInt(filterRequest.limit, 10), parseInt(filterRequest.offset, 10)],
+      [parseInt(filterRequest.limit, 10), parseInt(filterRequest.offset, 10)]
     );
     return rows;
   }

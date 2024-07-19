@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Connect, { login } from "./pages/Connect";
+import Plug from "./pages/Plug";
 import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
 import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
         action: postNewUser,
+      },
+      {
+        path: "/plug",
+        element: <Plug />,
       },
       {
         path: "/admin",

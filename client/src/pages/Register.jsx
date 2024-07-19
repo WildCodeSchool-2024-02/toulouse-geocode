@@ -101,7 +101,7 @@ export async function postNewUser({ request }) {
   const firstname = formData.get("firstname");
   const email = formData.get("email");
   const password = formData.get("password");
-  const creationDate = newDateToSql()
+  const creationDate = newDateToSql();
 
   const requestBody = {
     lastname,

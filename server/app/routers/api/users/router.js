@@ -11,7 +11,7 @@ const {
   browse,
   read,
   add,
-  login
+  login,
 } = require("../../../controllers/userActions");
 const { hashPassword, verifyPassword } = require("../../../services/auth");
 

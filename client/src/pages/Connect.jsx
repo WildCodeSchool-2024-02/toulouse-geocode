@@ -65,7 +65,7 @@ export async function login({ request }) {
   const formData = await request.formData();
   const loginDate = newDateToSql();
 
-  const requestBody = { ...Object.fromEntries(formData), loginDate }
+  const requestBody = { ...Object.fromEntries(formData), loginDate };
 
   try {
     const response = await fetch(`${hostUrl}/api/user/login`, {
