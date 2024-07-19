@@ -55,8 +55,8 @@ CREATE TABLE reservation (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   duration INT NOT NULL,
   starting_time DATETIME NOT NULL,
+  ending_time DATETIME NOT NULL,
   price DECIMAL(10,2) NOT NULL,
-  is_paid TINYINT NOT NULL DEFAULT 0,
   user_id INT unsigned NOT NULL,
   charging_station_id INT NOT NULL,
   CONSTRAINT fk_reservation_user1
