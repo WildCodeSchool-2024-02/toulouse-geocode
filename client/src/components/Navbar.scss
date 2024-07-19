@@ -28,7 +28,7 @@
     }
     background-color: $green;
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     width: 100dvw;
     li {
       @include flex(row, center, center, 0);
