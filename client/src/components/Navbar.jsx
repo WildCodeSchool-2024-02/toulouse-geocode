@@ -34,7 +34,6 @@ function Navbar() {
   useEffect(() => {
     const handleResize = () =>
       window.innerWidth > 768 ? setDevice("desktop") : setDevice("mobile");
-
     window.addEventListener("resize", handleResize);
     handleResize();
 
@@ -43,12 +42,13 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/" onClick={() => setIsOpen(!isOpen)}>
+      <Link to="/" onClick={() => setIsOpen(!isOpen).reload()}>
         <img className="home" src={logo} alt="Logo upya" />
       </Link>
       {device === "mobile" ? (
         <>
           <motion.ul
+            onClick={() => window.location.reload()}
             initial={{ y: -150 }}
             animate={{ y: !isOpen ? -150 : 135 }}
             transition={{ ease: "easeInOut", duration: 0.2 }}
