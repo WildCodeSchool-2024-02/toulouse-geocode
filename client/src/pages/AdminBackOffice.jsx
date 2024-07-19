@@ -32,48 +32,27 @@ function AdminBackOffice() {
     }));
   };
 
-  const [messageFieldIsOpen, setMessageFieldIsOpen] = useState();
+  const messageFields = [
+    { label: "Nom :", value: "name" },
+    { label: "Adresse email :", value: "email" },
+    { label: "Message :", value: "message" },
+  ];
 
+  const [messageFieldIsOpen, setMessageFieldIsOpen] = useState();
   const { fetchedData: messages } = useFetchData("messages", {});
 
-  const [users, setUsers] = useState([]);
+  const [userFieldIsOpen, setUserFieldIsOpen] = useState();
+  const { fetchedData: users } = useFetchData("users", { limit: 10 });
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch(`${hostUrl}/api/user`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
+  const { fetchedData: chargingStations } = useFetchData("chargingStation", {
+    limit: 10,
+  });
+  const [chargingStationsFieldIsOpen, setChargingStationsFieldIsOpen] =
+    useState();
 
-  const [chargingStations, setChargingStations] = useState([]);
+  const [chargingStationDetails, setChargingStationDetails] = useState([]);
+  const [openDetailId, setOpenDetailId] = useState(null);
 
-  const fetchCharginStations = async () => {
-    try {
-      const response = await fetch(
-        `${hostUrl}/api/charging-stations/all-datas`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-      const data = await response.json();
-      setChargingStations(data);
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
   return (
     <div className="page-container">
       <div className="user-profile">
@@ -86,22 +65,12 @@ function AdminBackOffice() {
             {messageFieldIsOpen &&
               messages.map((message) => (
                 <ul key={message.id}>
-                  <li>
-                    <ul>
-                      <li>
-                        <h4>Nom :</h4>
-                        <p>{message.name}</p>
-                      </li>
-                      <li>
-                        <h4>Adresse email :</h4>
-                        <p>{message.email}</p>
-                      </li>
-                      <li>
-                        <h4>Message :</h4>
-                        <p>{message.message}</p>
-                      </li>
-                    </ul>
-                  </li>
+                  {messageFields.map((field) => (
+                    <li key={field.value}>
+                      <h4>{field.label}</h4>
+                      <p>{message[field.value]}</p>
+                    </li>
+                  ))}
                 </ul>
               ))}
             <button
@@ -111,7 +80,7 @@ function AdminBackOffice() {
                 setMessageFieldIsOpen(!messageFieldIsOpen);
               }}
             >
-              Voir
+              {messageFieldIsOpen ? "Fermer" : "Voir"}
             </button>
           </div>
           <div className="info-item">
@@ -122,45 +91,80 @@ function AdminBackOffice() {
           </div>
           <div className="info-item">
             <h3>Utilisateurs</h3>
-            {users.map((user) => (
-              <ul key={user.id}>
-                <li>
-                  <p>Nom : {user.lastname}</p>
-                  <p>Prénom : {user.firstname}</p>
-                  <p>Adresse email : {user.email}</p>
-                </li>
-              </ul>
-            ))}
+            {userFieldIsOpen &&
+              users.map((user) => (
+                <ul key={user.id}>
+                  <li>
+                    <p>Nom : {user.lastname}</p>
+                    <p>Prénom : {user.firstname}</p>
+                    <p>Adresse email : {user.email}</p>
+                  </li>
+                </ul>
+              ))}
             <button
               type="button"
               className="button-md-olive-outlined"
-              onClick={fetchUsers}
+              onClick={() => {
+                setUserFieldIsOpen(!userFieldIsOpen);
+              }}
             >
-              Voir
+              {userFieldIsOpen ? "Fermer" : "Voir"}
             </button>
           </div>
           <div className="info-item">
             <h3>Bornes</h3>
-            {chargingStations.map((chargingStation) => (
-              <ul key={chargingStation.id}>
-                <li>
-                  {Object.entries({ ...chargingStation }).map(
-                    ([key, value]) => (
-                      <p key={key}>{`${key}: ${value}`}</p>
-                    )
-                  )}
-                  <button type="button" className="button-md-olive-outlined">
-                    Modifier
-                  </button>
-                </li>
-              </ul>
-            ))}
+            {chargingStationsFieldIsOpen &&
+              chargingStations.map((chargingStation) => (
+                <ul key={chargingStation.id}>
+                  <li>
+                    {openDetailId !== chargingStation.id &&
+                      Object.entries({ ...chargingStation }).map(
+                        ([key, value]) => <p key={key}>{`${key}: ${value}`}</p>
+                      )}
+                    {openDetailId === chargingStation.id &&
+                      chargingStationDetails.length > 0 &&
+                      chargingStationDetails.map((detail) => (
+                        <div key={detail.id}>
+                          <h4>Details:</h4>
+                          {Object.entries(detail).map(([key, value]) => (
+                            <p key={key}>{`${key}: ${value}`}</p>
+                          ))}
+                        </div>
+                      ))}
+                    <button
+                      type="button"
+                      className="button-md-olive-outlined"
+                      onClick={() => {
+                        if (openDetailId === chargingStation.id) {
+                          setOpenDetailId(null);
+                        } else {
+                          fetch(
+                            `${hostUrl}/api/charging-stations/${chargingStation.id}`
+                          )
+                            .then((r) => r.json())
+                            .then((d) => {
+                              setChargingStationDetails([d]);
+                              setOpenDetailId(chargingStation.id);
+                            });
+                        }
+                      }}
+                    >
+                      {openDetailId === chargingStation.id
+                        ? "Fermer"
+                        : "Détails"}
+                    </button>
+                  </li>
+                </ul>
+              ))}
+
             <button
               type="button"
               className="button-md-olive-outlined"
-              onClick={fetchCharginStations}
+              onClick={() => {
+                setChargingStationsFieldIsOpen(!chargingStationsFieldIsOpen);
+              }}
             >
-              Voir
+              {chargingStationsFieldIsOpen ? "Réduire" : "Voir"}
             </button>
           </div>
         </section>

@@ -11,6 +11,14 @@ const queryList = {
       offset: "",
     },
   },
+  chargingStationDetails: {
+    endPoint: `charging-stations/:id?`,
+    defaultQueryOptions: {
+      filterBy: "",
+      limit: "",
+      offset: "",
+    },
+  },
   messages: {
     endPoint: "contact-messages?",
     defaultQueryOptions: {
