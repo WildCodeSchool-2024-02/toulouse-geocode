@@ -43,7 +43,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <Link to="/" onClick={() => setIsOpen(false).reload()}>
-        <img className="home" src={logo} alt="Logo upya" />
+        <img className="logo-upya" src={logo} alt="Logo upya" />
       </Link>
       {device === "mobile" ? (
         <>
@@ -64,7 +64,7 @@ function Navbar() {
             <button
               onClick={handleClick}
               type="button"
-              className="burger"
+              className="button-burger"
               label="toggle-menu"
             >
               <svg width="2rem" height="2rem" viewBox="0 0 24 24">

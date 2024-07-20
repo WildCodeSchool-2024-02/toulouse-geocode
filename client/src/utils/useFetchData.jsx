@@ -7,10 +7,6 @@ const queryList = {
     endPoint: "charging-stations?",
     defaultQueryOptions: {},
   },
-  chargingStationDetails: {
-    endPoint: "charging-stations/:id?",
-    defaultQueryOptions: {},
-  },
   messages: {
     endPoint: "contact-messages?",
     defaultQueryOptions: {},
@@ -33,9 +29,7 @@ function useFetchData(selectedEndpoint, queryOptions = {}) {
     return (
       queryList[selectedEndpoint].endPoint +
       Object.entries(finalQueryOptions)
-        .map(([key, value]) =>
-          value !== "?" ? `${key}=${value}` : key + value
-        )
+        .map(([key, value]) => (value !== "?" ? `${key}=${value}` : key))
         .join("&")
     );
   }, [selectedEndpoint, queryOptions]);

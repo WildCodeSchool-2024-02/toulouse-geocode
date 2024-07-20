@@ -31,8 +31,8 @@ class ChargingStationRepository extends AbstractRepository {
         ? `and  NOT EXISTS (
     SELECT 1 FROM reservation
     WHERE reservation.charging_station_id = ${this.table}.id
-    AND reservation.starting_time <= '${filterRequest.startingDate}'
-    AND reservation.ending_time >= '${filterRequest.endingDate}'
+    AND reservation.starting_time <= '${filterRequest.endingDate}'
+    AND reservation.ending_time >= '${filterRequest.startingDate}'
   )`
         : " and 1=1 ";
 

@@ -9,17 +9,17 @@
     @include flex(row, space-between, center, 0);
   }
 
-  max-height: 5rem;
+  height: 10dvh;
   background-color: $green;
 
-  .burger {
+  .button-burger {
     @include flex(row, center, center, 0);
     width: 5rem;
     height: 5rem;
     background-color: $green;
   }
 
-  .home {
+  .logo-upya {
     width: 5rem;
     height: 5rem;
   }
@@ -35,7 +35,7 @@
 
     background-color: $green;
     position: absolute;
-    z-index: 3;
+    z-index: 4;
     width: 100dvw;
 
     li {

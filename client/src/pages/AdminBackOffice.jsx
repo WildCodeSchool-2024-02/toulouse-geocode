@@ -50,7 +50,6 @@ function AdminBackOffice() {
     offset,
   });
 
-
   const [chargingStationsFieldIsOpen, setChargingStationsFieldIsOpen] =
     useState();
 
@@ -205,7 +204,7 @@ function AdminBackOffice() {
                               {Object.entries(detail).map(([key, value]) => (
                                 <li key={key}>
                                   {editMode ===
-                                    `${chargingStations.id}-${key}` ? (
+                                  `${chargingStations.id}-${key}` ? (
                                     <>
                                       <h4>{key} =</h4>
                                       <input
