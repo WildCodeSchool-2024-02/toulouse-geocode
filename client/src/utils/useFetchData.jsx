@@ -5,33 +5,19 @@ const hostUrl = import.meta.env.VITE_API_URL;
 const queryList = {
   chargingStation: {
     endPoint: "charging-stations?",
-    defaultQueryOptions: {
-      filterBy: "",
-      limit: "",
-      offset: "",
-    },
+    defaultQueryOptions: {},
   },
   chargingStationDetails: {
-    endPoint: `charging-stations/:id?`,
-    defaultQueryOptions: {
-      filterBy: "",
-      limit: "",
-      offset: "",
-    },
+    endPoint: "charging-stations/:id?",
+    defaultQueryOptions: {},
   },
   messages: {
     endPoint: "contact-messages?",
-    defaultQueryOptions: {
-      limit: "",
-      offset: "",
-    },
+    defaultQueryOptions: {},
   },
   users: {
     endPoint: "user?",
-    defaultQueryOptions: {
-      limit: "",
-      offset: "",
-    },
+    defaultQueryOptions: {},
   },
 };
 
