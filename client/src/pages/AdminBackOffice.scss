@@ -11,38 +11,58 @@
     width: 100%;
   }
 
-  .info-item > ul {
-    @include flex(column, start, start, $spacing);
-    padding: 1rem;
-    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.422);
+  ul > li {
+    @include flex(column, flex-start, flex-start, $spacing);
+    padding: 0.5rem;
     width: 100%;
     height: fit-content;
     border-radius: 0.5rem;
   }
 
-  ul {
-    @include flex(column, start, start, $spacing);
+  .info-item > li {
+    @include flex(column, center, flex-start, $spacing);
+    padding: 1rem;
+    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.422);
+    width: 100%;
+    height: fit-content;
+    border-radius: 0.5rem;
+
+    div {
+      width: 100%;
+    }
+
+    .charging-station-card {
+      @include flex(column, center, flex-start, $spacing);
+
+      @include mq() {
+        @include flex(row, center, flex-start, $spacing);
+
+        button {
+          max-width: 10rem;
+        }
+      }
+
+      .charging-station-text-container {
+        @include flex(column, center, flex-start, $spacing);
+      }
+    }
   }
 
   .user-profile {
     width: 90dvw;
     max-width: 85ch;
+    padding-block: 1rem;
 
-    @include flex(column, start, start, 2rem);
+    @include flex(column, flex-start, flex-start, 2rem);
 
     @include mq() {
-      @include flex(column, start, start, 2rem);
+      @include flex(column, flex-start, flex-start, 2rem);
     }
 
     .info-item {
-      @include flex(column, space-between, start, $spacingDouble);
+      @include flex(column, space-between, flex-start, $spacingDouble);
       width: 100%;
       padding-block: 1rem;
-
-      h4 {
-        color: var(--olive-800);
-        font-weight: 300;
-      }
     }
   }
 }

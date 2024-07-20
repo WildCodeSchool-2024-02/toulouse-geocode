@@ -33,10 +33,15 @@ const formatReservationQuery = (req, res, next) => {
     return !Number.isNaN(date.getTime());
   }
 
-  req.startingDate = startingDate && isDateValid(startingDate) ? startingDate : "";
+  req.startingDate =
+    startingDate && isDateValid(startingDate) ? startingDate : "";
   req.endingDate = endingDate && isDateValid(endingDate) ? endingDate : "";
 
   next();
 };
 
-module.exports = { formatFilteredPlugQuery, formatLimitResultsQuery, formatReservationQuery };
+module.exports = {
+  formatFilteredPlugQuery,
+  formatLimitResultsQuery,
+  formatReservationQuery,
+};

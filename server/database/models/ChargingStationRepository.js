@@ -36,16 +36,33 @@ class ChargingStationRepository extends AbstractRepository {
   )`
         : " and 1=1 ";
 
-    query += filterRequest.limit ? ` limit ${parseInt(filterRequest.limit, 10)} ` : "";
+    query += filterRequest.limit
+      ? ` limit ${parseInt(filterRequest.limit, 10)} `
+      : "";
 
-    query += filterRequest.offset ? ` offset ${parseInt(filterRequest.offset, 10)} ` : "";
+    query += filterRequest.offset
+      ? ` offset ${parseInt(filterRequest.offset, 10)} `
+      : "";
 
     const [rows] = await this.database.query(
       `select ${this.table}.id, ${this.table}.consolidated_longitude, ${this.table}.consolidated_latitude
           from ${this.table} join plug_type on ${this.table}.id = plug_type.id where ${query} 
-     `,
+     `
     );
     return rows;
+  }
+
+  async update(id, updateData) {
+    const keys = Object.keys(updateData);
+    const values = Object.values(updateData);
+
+    const setClause = keys.map((key) => `${key} = ?`).join(", ");
+
+    const query = `UPDATE ${this.table} SET ${setClause} WHERE id = ?`;
+
+    const [result] = await this.database.query(query, [...values, id]);
+
+    return result.affectedRows > 0;
   }
 }
 

@@ -40,8 +40,20 @@ const read = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+    await tables.chargingStation.update(id, updateData);
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
   getAllDatas,
+  edit,
 };

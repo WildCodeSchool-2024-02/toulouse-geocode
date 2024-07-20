@@ -105,7 +105,9 @@ function MapPage() {
 
   const handlePopupTrigger = (point, offsetX = 0, offsetY = 0) => {
     setShowPopup({ ...point, offsetX, offsetY });
-    fetch(`http://localhost:3310/api/charging-stations/${point?.properties?.itemId}`)
+    fetch(
+      `http://localhost:3310/api/charging-stations/${point?.properties?.itemId}`
+    )
       .then((r) => r.json())
       .then((d) => setStationDetails(d));
   };
@@ -187,11 +189,12 @@ function MapPage() {
                   style={{ zIndex: 1 }}
                 >
                   <i
-                    className={`fi fi-rr-charging-station alone-marker ${showPopup &&
-                        showPopup.properties.itemId === cluster.properties.itemId
+                    className={`fi fi-rr-charging-station alone-marker ${
+                      showPopup &&
+                      showPopup.properties.itemId === cluster.properties.itemId
                         ? "isActiveMarker"
                         : ""
-                      }`}
+                    }`}
                   />
                 </Marker>
               );
@@ -211,11 +214,12 @@ function MapPage() {
                   className="point-modal-marker"
                 >
                   <motion.i
-                    className={`fi fi-rr-charging-station alone-marker ${showPopup &&
-                        showPopup.properties.itemId === point.properties.itemId
+                    className={`fi fi-rr-charging-station alone-marker ${
+                      showPopup &&
+                      showPopup.properties.itemId === point.properties.itemId
                         ? "isActiveMarker"
                         : ""
-                      }`}
+                    }`}
                     animate={{
                       x: isOpenedCluster ? x : 0,
                       y: isOpenedCluster ? y : 0,
