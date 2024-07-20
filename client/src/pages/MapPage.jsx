@@ -6,15 +6,9 @@ import "./MapPage.scss";
 import { motion } from "framer-motion";
 import PopupCard from "../components/PopupCard";
 import useFetchData from "../utils/useFetchData";
-import DropdownSelector from "../components/DropdownSelector";
-import plugsList from "../constants/plugsList";
+import FilteringMenu from "../components/FilteringMenu";
 
 function MapPage() {
-  const viewport = {
-    latitude: 46.94997900020931,
-    longitude: 2.9643964911868776,
-    zoom: 5.213923089764548,
-  };
   const mapRef = useRef();
   const [bounds, setBounds] = useState(null);
   const [zoom, setZoom] = useState(10);
@@ -24,15 +18,27 @@ function MapPage() {
   const [stationDetails, setStationDetails] = useState(null);
   const [filterBy, setFilterBy] = useState("");
   const [points, setPoints] = useState([]);
+  const [available, setAvailable] = useState("");
+  const [initialZoom, setInitialZoom] = useState(0);
 
   const { fetchedData: filteredPlug } = useFetchData("chargingStation", {
     filterBy,
+    [available]: "?",
   });
 
   const geoControlRef = useRef();
+
   useEffect(() => {
-    geoControlRef.current?.trigger();
-  }, [geoControlRef.current]);
+    if (window.innerWidth > 768) {
+      setInitialZoom(5.2);
+    } else {
+      setInitialZoom(4.5);
+    }
+  }, []);
+
+  useEffect(() => {
+    setSelectedPoints([]);
+  }, [available]);
 
   useEffect(() => {
     if (filteredPlug.length) {
@@ -107,20 +113,18 @@ function MapPage() {
 
   return (
     <>
-      <DropdownSelector
-        selected={filterBy}
-        setSelected={setFilterBy}
-        dropdownDatasList={plugsList}
-        name="plug-type"
-      />
+      <FilteringMenu filterBy={filterBy} setFilterBy={setFilterBy} setQuery={setAvailable} />
       {filteredPlug.length && (
         <Map
-          initialViewState={{ ...viewport }}
-          on
+          initialViewState={{
+            latitude: 46.94997900020931,
+            longitude: 2.9643964911868776,
+            zoom: initialZoom,
+          }}
           maxZoom={16}
           ref={mapRef}
           mapStyle="https://api.jawg.io/styles/b8e0346f-8b93-4cac-b7b8-816c8fd852e8.json?access-token=8zKquTOfkoI1wfzpGaP9FMbbSiRrfUW1pGAuRyTDT7BFktAeT60GIRG5WSNFLvVt"
-          style={{ width: "100dvw", height: "100dvh" }}
+          style={{ width: "100dvw", height: "90dvh" }}
           onMoveEnd={updateBounds}
           onZoomEnd={clearSelectedPoints}
           onLoad={updateBounds}
@@ -145,7 +149,11 @@ function MapPage() {
                     longitude={longitude}
                     key={`cluster-${cluster.id}`}
                     className="cluster-marker"
-                    style={{ width: `${size}px`, height: `${size}px`, zIndex: 2 }}
+                    style={{
+                      width: `${size}px`,
+                      height: `${size}px`,
+                      zIndex: 2,
+                    }}
                     role="button"
                     tabIndex={[0]}
                     onClick={() => {

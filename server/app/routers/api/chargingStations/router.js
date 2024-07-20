@@ -9,7 +9,13 @@ const {
   formatReservationQuery,
 } = require("../../../services/formatQuery");
 
-router.get("/", formatFilteredPlugQuery, formatReservationQuery, formatLimitResultsQuery, browse);
+router.get(
+  "/",
+  formatFilteredPlugQuery,
+  formatReservationQuery,
+  formatLimitResultsQuery,
+  browse
+);
 
 router.get("/:id", read);
 

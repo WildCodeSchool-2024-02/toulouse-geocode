@@ -8,7 +8,8 @@ const browse = async (req, res, next) => {
   const { endingDate } = req;
   const params = { limit, offset, filter, startingDate, endingDate };
   try {
-    const chargingStations = await tables.chargingStation.readAllByFilter(params);
+    const chargingStations =
+      await tables.chargingStation.readAllByFilter(params);
 
     res.json(chargingStations);
   } catch (err) {
