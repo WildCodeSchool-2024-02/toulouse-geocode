@@ -9,17 +9,21 @@
   }
   height: 10dvh;
   background-color: $green;
-  .button-burger {
+  .logo-user-container {
+    @include flex(row, space-between, center, $spacing);
+    img {
+      max-width: 5rem;
+      height: 5rem;
+    }
+  }
+  .burger-button {
     @include flex(row, center, center, 0);
     width: 5rem;
     height: 5rem;
     background-color: $green;
   }
-  .logo-upya {
-    width: 5rem;
-    height: 5rem;
-  }
-  .links {
+
+  .links-container {
     @include flex(column, center, center, 0);
     @include mq() {
       @include flex(row, center, center, 5dvw);

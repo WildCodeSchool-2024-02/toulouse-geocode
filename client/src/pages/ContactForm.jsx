@@ -39,30 +39,15 @@ function ContactForm() {
           <section>
             <h2>Type de requête</h2>
             <div className="topic-buttons">
-              <input
-                id="assistance"
-                type="radio"
-                name="topic"
-                value="Assistance technique"
-              />
+              <input id="assistance" type="radio" name="topic" value="Assistance technique" />
               <label htmlFor="assistance" className="button-md-olive-outlined">
                 Assistance
               </label>
-              <input
-                id="account"
-                type="radio"
-                name="topic"
-                value="Mon compte"
-              />
+              <input id="account" type="radio" name="topic" value="Mon compte" />
               <label htmlFor="account" className="button-md-olive-outlined">
                 Mon compte
               </label>
-              <input
-                id="review"
-                type="radio"
-                name="topic"
-                value="Donner mon avis"
-              />
+              <input id="review" type="radio" name="topic" value="Donner mon avis" />
               <label htmlFor="review" className="button-md-olive-outlined">
                 Donner mon avis
               </label>
@@ -70,12 +55,7 @@ function ContactForm() {
           </section>
           <section>
             <h2>Message </h2>
-            <textarea
-              placeholder="Votre message"
-              required
-              id="message"
-              name="message"
-            />
+            <textarea placeholder="Votre message" required id="message" name="message" />
             <p>500 caractères maximum</p>
           </section>
           <input
@@ -118,6 +98,7 @@ export async function postMessageToAdmin({ request }) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(requestBody),
     });
     const responseBody = await response.json();
