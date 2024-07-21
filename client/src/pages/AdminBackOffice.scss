@@ -7,8 +7,30 @@
 
   @include flex(column, center, center, 2rem);
 
+  .admin-back {
+    width: 90dvw;
+    max-width: 85ch;
+    padding-block: 1rem;
+
+    @include flex(column, flex-start, flex-start, 2rem);
+
+    @include mq() {
+      @include flex(column, flex-start, flex-start, 2rem);
+    }
+
+    .info-item {
+      @include flex(column, space-between, flex-start, $spacingDouble);
+      width: 100%;
+      padding-block: 1rem;
+    }
+  }
+
   section {
     width: 100%;
+
+    .button-container {
+      @include flex(row, flex-start, flex-start, $spacing);
+    }
   }
 
   ul > li {
@@ -45,24 +67,6 @@
       .charging-station-text-container {
         @include flex(column, center, flex-start, $spacing);
       }
-    }
-  }
-
-  .user-profile {
-    width: 90dvw;
-    max-width: 85ch;
-    padding-block: 1rem;
-
-    @include flex(column, flex-start, flex-start, 2rem);
-
-    @include mq() {
-      @include flex(column, flex-start, flex-start, 2rem);
-    }
-
-    .info-item {
-      @include flex(column, space-between, flex-start, $spacingDouble);
-      width: 100%;
-      padding-block: 1rem;
     }
   }
 }

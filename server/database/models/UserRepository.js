@@ -64,7 +64,13 @@ class UserRepository extends AbstractRepository {
   // }
 
   // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an user by its ID
+  async delete(id) {
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+    return result.affectedRows > 0;
+  }
 
   // async delete(id) {
   //   ...
