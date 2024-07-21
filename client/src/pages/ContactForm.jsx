@@ -118,6 +118,7 @@ export async function postMessageToAdmin({ request }) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(requestBody),
     });
     const responseBody = await response.json();
