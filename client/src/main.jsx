@@ -8,9 +8,9 @@ import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
 import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
 import MapPage from "./pages/MapPage";
+import UserProfile from "./pages/UserProfil";
 import { AuthContextProvider } from "./context/AuthContext";
 import AdminBackOffice from "./pages/AdminBackOffice";
-import UserProfile from "./pages/userProfile";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +38,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
         action: postNewUser,
+      },
+      {
+        path: "/profile",
+        element: <UserProfile />,
       },
       {
         path: "/plug",

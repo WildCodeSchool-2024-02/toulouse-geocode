@@ -18,7 +18,13 @@ function AdminReservations({ hostUrl }) {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const response = await fetch(`${hostUrl}/api/reservation`);
+      const response = await fetch(`${hostUrl}/api/reservation`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
       const data = await response.json();
       setBookings(data);
     };
