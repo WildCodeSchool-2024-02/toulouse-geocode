@@ -7,7 +7,8 @@ const browse = async (req, res, next) => {
   const params = { limit, offset, filterBy };
 
   try {
-    const chargingStations = await tables.chargingStation.readAllByFilter(params);
+    const chargingStations =
+      await tables.chargingStation.readAllByFilter(params);
 
     res.json(chargingStations);
   } catch (err) {
