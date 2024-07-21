@@ -46,3 +46,9 @@ $spacingDouble: $spacing * 2;
     font-style: italic;
   }
 }
+
+.close-button {
+  width: fit-content;
+  cursor: pointer;
+  background-color: transparent;
+}

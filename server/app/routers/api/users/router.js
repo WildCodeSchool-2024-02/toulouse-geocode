@@ -12,6 +12,7 @@ const {
   read,
   add,
   login,
+  logout,
   destroy,
 } = require("../../../controllers/userActions");
 const { hashPassword, verifyPassword } = require("../../../services/auth");
@@ -24,9 +25,11 @@ router.get("/:id", read);
 
 // Route to add a new item
 router.post("/", hashPassword, add);
+router.delete("/:id", destroy);
 
 router.post("/login", verifyPassword, login);
-router.delete("/:id", destroy);
+
+router.post("/logout", logout);
 
 /* ************************************************************************* */
 

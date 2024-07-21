@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import Connect, { login } from "./pages/Connect";
+import Connect from "./pages/Connect";
 import Plug from "./pages/Plug";
 import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
 import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
 import MapPage from "./pages/MapPage";
+import { AuthContextProvider } from "./context/AuthContext";
 import AdminBackOffice from "./pages/AdminBackOffice";
 import UserProfile from "./pages/userProfile";
 
@@ -23,7 +24,6 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Connect />,
-        action: login,
       },
       {
         path: "/map",
@@ -59,6 +59,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
   </React.StrictMode>
 );
