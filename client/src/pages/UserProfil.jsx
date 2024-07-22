@@ -7,11 +7,10 @@ import "../style/colors.scss";
 function UserProfile  ()  {
   const [vehicles, setVehicles] = useState([]);
   const [newVehicle, setNewVehicle] = useState({
-    make: "",
+    brand: "",
     model: "",
     year: "",
-    battery_capacity: "",
-    voltage: "",
+    power_voltage: "",
     plug_type: "",
   });
   const [showVehicles, setShowVehicles] = useState(false);
@@ -75,11 +74,10 @@ function UserProfile  ()  {
       .then(() => {
         setVehicles([...vehicles, newVehicle]);
         setNewVehicle({
-          make: "",
+          brand: "",
           model: "",
           year: "",
-          battery_capacity: "",
-          voltage: "",
+          power_voltage: "",
           plug_type: "",
         });
         setShowAddVehicle(false);
@@ -212,8 +210,8 @@ function UserProfile  ()  {
               <ul>
                 {vehicles.map((vehicle) => (
                   <li key={vehicle.id}>
-                    {vehicle.make} {vehicle.model} ({vehicle.year}) -{" "}
-                    {vehicle.battery_capacity} kWh, {vehicle.voltage}V,{" "}
+                    {vehicle.brand} {vehicle.model} ({vehicle.year}) -{" "}
+                    {vehicle.power_voltage}V,{" "}
                     {vehicle.plug_type}
                   </li>
                 ))}
@@ -224,8 +222,8 @@ function UserProfile  ()  {
               <div className="add-vehicle-form">
                 <input
                   type="text"
-                  name="make"
-                  value={newVehicle.make}
+                  name="brand"
+                  value={newVehicle.brand}
                   onChange={handleInputChange}
                   placeholder="Marque"
                   className="input-sm-gray-outlined"
@@ -248,16 +246,8 @@ function UserProfile  ()  {
                 />
                 <input
                   type="number"
-                  name="battery_capacity"
-                  value={newVehicle.battery_capacity}
-                  onChange={handleInputChange}
-                  placeholder="Capacité de la batterie (kWh)"
-                  className="input-sm-gray-outlined"
-                />
-                <input
-                  type="number"
-                  name="voltage"
-                  value={newVehicle.voltage}
+                  name="power_voltage"
+                  value={newVehicle.power_voltage}
                   onChange={handleInputChange}
                   placeholder="Tension (V)"
                   className="input-sm-gray-outlined"

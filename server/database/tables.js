@@ -4,6 +4,7 @@ const ClusterRepository = require("./models/ClusterRepository");
 const ContactFormRepository = require("./models/ContactFormRepository");
 const ReservationRepository = require("./models/ReservationRepository");
 const UserRepository = require("./models/UserRepository");
+const VehicleRepository = require("./models/VehicleRepository");
 
 // Create an empty object to hold data repositories for different tables
 const tables = {};
@@ -18,6 +19,7 @@ tables.cluster = new ClusterRepository();
 tables.contact_message = new ContactFormRepository();
 tables.user = new UserRepository();
 tables.reservation = new ReservationRepository();
+tables.vehicle = new VehicleRepository();
 
 /* ************************************************************************* */
 
