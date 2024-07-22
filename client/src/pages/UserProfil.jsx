@@ -1,17 +1,50 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./UserProfil.scss";
 import "../style/input.scss";
 import "../style/button.scss";
 import "../style/colors.scss";
+import { hostUrl } from "./Register";
+import useAuth from "../utils/useAuth";
 
 function UserProfile() {
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
+
+  const userId = user ? user.id : navigate("/login");
+
+    const [formData, setFormData] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    password: "************",
+  });
+
+
+  useEffect(() => {
+    if (userId) {
+      fetch(`${hostUrl}/api/user/${userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFormData({
+            name: data.firstname,
+            surname: data.lastname,
+            email: data.email,
+            password: "",
+          });
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [userId]);
   const [vehicles, setVehicles] = useState([]);
   const [newVehicle, setNewVehicle] = useState({
+    userId,
     brand: "",
     model: "",
     year: "",
-    power_voltage: "",
-    plug_type: "",
+    powerVoltage: "",
+    plugType: "",
   });
   const [showVehicles, setShowVehicles] = useState(false);
   const [showAddVehicle, setShowAddVehicle] = useState(false);
@@ -21,15 +54,6 @@ function UserProfile() {
     email: false,
     password: false,
   });
-
-  const [formData, setFormData] = useState({
-    name: "Super",
-    surname: "Wann",
-    email: "superwan32@gerson.fr",
-    password: "************",
-  });
-
-  const userId = 1; // ID de l'utilisateur actuellement connecté, à remplacer par une authentification réelle
 
   useEffect(() => {
     if (showVehicles) {
@@ -64,21 +88,23 @@ function UserProfile() {
   };
 
   const handleAddVehicle = () => {
-    fetch("/api/vehicles", {
+    fetch(`${hostUrl}/api/vehicle`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ ...newVehicle, user_id: userId }),
+      credentials: "include",
     })
       .then(() => {
         setVehicles([...vehicles, newVehicle]);
         setNewVehicle({
+          userId,
           brand: "",
           model: "",
           year: "",
-          power_voltage: "",
-          plug_type: "",
+          powerVoltage: "",
+          plugType: "",
         });
         setShowAddVehicle(false);
       })
@@ -205,29 +231,24 @@ function UserProfile() {
         {showVehicles && (
           <section className="vehicle-info">
             <h2>Mes véhicules</h2>
-            {vehicles.length === 0 ? (
-              <div>
-                <p>Aucun véhicule trouvé.</p>
-                <button
-                  type="button"
-                  className="button-md-olive-outlined"
-                  onClick={() => setShowAddVehicle(true)}
-                >
-                  Ajouter votre premier véhicule
-                </button>
-              </div>
-            ) : (
-              <ul>
-                {vehicles.map((vehicle) => (
-                  <li key={vehicle.id}>
-                    {vehicle.brand} {vehicle.model} ({vehicle.year}) -{" "}
-                    {vehicle.power_voltage}V,{" "}
-                    {vehicle.plug_type}
-                  </li>
-                ))}
-              </ul>
-            )}
-
+            <div>
+              <p>Aucun véhicule trouvé.</p>
+              <button
+                type="button"
+                className="button-md-olive-outlined"
+                onClick={() => setShowAddVehicle(true)}
+              >
+                Ajouter un véhicule
+              </button>
+            </div>
+            <ul>
+              {vehicles.map((vehicle) => (
+                <li key={vehicle.id}>
+                  {vehicle.brand} {vehicle.model} ({vehicle.year}) -{" "}
+                  {vehicle.powerVoltage}V, {vehicle.plugType}
+                </li>
+              ))}
+            </ul>
             {showAddVehicle && (
               <div className="add-vehicle-form">
                 <input
@@ -256,15 +277,15 @@ function UserProfile() {
                 />
                 <input
                   type="number"
-                  name="power_voltage"
-                  value={newVehicle.power_voltage}
+                  name="powerVoltage"
+                  value={newVehicle.powerVoltage}
                   onChange={handleInputChange}
                   placeholder="Tension (V)"
                   className="input-sm-gray-outlined"
                 />
                 <select
-                  name="plug_type"
-                  value={newVehicle.plug_type}
+                  name="plugType"
+                  value={newVehicle.plugType}
                   onChange={handleInputChange}
                   className="input-sm-gray-outlined"
                 >

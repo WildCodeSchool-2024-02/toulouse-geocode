@@ -12,8 +12,15 @@ class VehicleRepository extends AbstractRepository {
   async create(vehicle) {
     // Execute the SQL INSERT query to add a new vehicle to the "vehicle" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (user_id, brand, model, year, power_voltage, plug_type) values (?, ?, ?, ?, ,?, ?)`,
-      [vehicle.userId, vehicle.brand, vehicle.model, vehicle.year, vehicle.powerVoltage, vehicle.plugType]
+      `insert into ${this.table} (user_id, brand, model, year, power_voltage, plug_type) values (?, ?, ?, ?, ? , ?)`,
+      [
+        vehicle.userId,
+        vehicle.brand,
+        vehicle.model,
+        vehicle.year,
+        vehicle.powerVoltage,
+        vehicle.plugType,
+      ]
     );
 
     // Return the ID of the newly inserted vehicle
