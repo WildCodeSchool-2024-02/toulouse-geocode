@@ -59,7 +59,7 @@ function Navbar() {
           <img className="logo-upya" src={logo} alt="Logo upya" />
         </Link>
         {user && (
-          <Link to="/" onClick={() => setIsOpen(false)}>
+          <Link to="/profile" onClick={() => setIsOpen(false)}>
             <p>Bienvenu {user.firstname}</p>
           </Link>
         )}
