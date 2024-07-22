@@ -113,13 +113,6 @@ function MapPage() {
 
   return (
     <>
-      {/* <Hud>
-        <button onClick={() => setIsOpenedHud(!isOpendedHud)}></button>
-
-      </Hud>     
-         {isOpenedHud && (
-          <FilteringMenu filterBy={filterBy} setFilterBy={setFilterBy} setQuery={setAvailable} />
-        )} */}
       <FilteringMenu filterBy={filterBy} setFilterBy={setFilterBy} setQuery={setAvailable} />
       {filteredPlug.length && (
         <Map
