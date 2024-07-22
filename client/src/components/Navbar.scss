@@ -8,15 +8,17 @@
   @include mq() {
     @include flex(row, space-between, center, 0);
     min-height: 100px;
+    padding-inline: $spacingDouble * 2;
+    height: 10dvh;
   }
-  padding-inline: $spacingDouble * 2;
-  height: 10dvh;
+
+  height: 100px;
   background-color: $green;
   box-shadow: 0 1px 6px 0 #000000;
+
   @include colorAndWeight();
   .logo-user-container {
     @include flex(row, space-between, center, $spacing);
-
     img {
       height: 8dvh;
       @include mq() {
@@ -24,12 +26,19 @@
       }
     }
   }
-
-  .burger-button {
-    @include flex(row, center, center, 0);
-    width: 5rem;
-    height: 5rem;
-    background-color: $green;
+  .logo-user-container {
+    p {
+      @include mq() {
+        font-size: $fontSize3;
+      }
+    }
+  }
+  .burger-button-container {
+    padding-right: $spacing;
+    .burger-button {
+      @include flex(row, center, center, 0);
+      background-color: $green;
+    }
   }
 
   .links-container {
@@ -58,10 +67,24 @@
       width: 100%;
       text-align: center;
       align-content: center;
-      a {
-        font-size: $fontSize3;
-        font-family: "Robotto";
-        font-weight: 100;
+      a,
+      .close-button {
+        font-family: "Roboto";
+        font-weight: 300;
+        font-size: $fontSize4 * 1.1;
+
+        @include mq() {
+          font-size: $fontSize3;
+          text-wrap: nowrap;
+        }
+      }
+      .close-button {
+        i {
+          line-height: 0;
+        }
+      }
+      .active {
+        color: #4b8931;
       }
     }
   }

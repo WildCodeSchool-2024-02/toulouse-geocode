@@ -41,7 +41,7 @@ function Navbar() {
       setIsAnimate(isAnimate === "closed" ? "open" : "closed");
     }, 60);
   };
-  /// burger button end
+  /// burger button
 
   useEffect(() => {
     const handleResize = () =>
@@ -59,12 +59,9 @@ function Navbar() {
           <img className="logo-upya" src={logo} alt="Logo upya" />
         </Link>
         {user && (
-          <>
-            <Link to="/" onClick={() => setIsOpen(false)}>
-              <p>Bienvenu {user.firstname}</p>
-            </Link>
-            <LogoutButton />
-          </>
+          <Link to="/" onClick={() => setIsOpen(false)}>
+            <p>Bienvenu {user.firstname}</p>
+          </Link>
         )}
       </div>
 
@@ -82,17 +79,14 @@ function Navbar() {
                 {user && index === 3 ? (
                   <LogoutButton label={el.label} />
                 ) : (
-                  <NavLink
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                    to={el.path}
-                  >
+                  <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
                     {el.label}
                   </NavLink>
                 )}
               </motion.li>
             ))}
           </motion.ul>
-          <motion.div onClick={() => setIsOpen(!isOpen)}>
+          <motion.div onClick={() => setIsOpen(!isOpen)} className="burger-button-container">
             <button
               onClick={handleClickToAnimate}
               type="button"
@@ -100,16 +94,8 @@ function Navbar() {
               label="toggle-menu"
             >
               <svg width="2rem" height="2rem" viewBox="0 0 24 24">
-                <motion.path
-                  stroke="#24331d"
-                  animate={isAnimate}
-                  variants={path01Variants}
-                />
-                <motion.path
-                  stroke="#24331d"
-                  animate={isAnimate}
-                  variants={path02Variants}
-                />
+                <motion.path stroke="#24331d" animate={isAnimate} variants={path01Variants} />
+                <motion.path stroke="#24331d" animate={isAnimate} variants={path02Variants} />
               </svg>
             </button>
           </motion.div>
@@ -117,18 +103,15 @@ function Navbar() {
       ) : (
         <ul className="links-container">
           {pathAndLabels().map((el, index) => (
-            <motion.li onClick={() => setIsOpen(!isOpen)} key={el.path}>
+            <li key={el.path}>
               {user && index === 3 ? (
                 <LogoutButton label={el.label} />
               ) : (
-                <NavLink
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                  to={el.path}
-                >
+                <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
                   {el.label}
                 </NavLink>
               )}
-            </motion.li>
+            </li>
           ))}
         </ul>
       )}
