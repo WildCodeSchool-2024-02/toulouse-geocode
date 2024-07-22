@@ -8,15 +8,6 @@ function PopupCard({ stationDetails, available }) {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // const splitDateToBook = () => {
-  //   const startingDate = available.split("&")[0].replace("startingDate=", "");
-  //   const endingDate = available.split("&")[1].replace("endingDate=", "");
-  //   return {
-  //     startingDate,
-  //     endingDate,
-  //   };
-  // };
-
   const handleClickToBook = () => {
     if (!available) {
       toast.loading("Veulliez completer les horaires de réservation", {
@@ -25,6 +16,7 @@ function PopupCard({ stationDetails, available }) {
       });
       return;
     }
+
     const startingDate = available.split("&")[0].replace("startingDate=", "");
     const endingDate = available.split("&")[1].replace("endingDate=", "");
     navigate("/reservation", {
