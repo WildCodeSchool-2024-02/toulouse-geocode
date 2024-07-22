@@ -50,7 +50,11 @@ function LoginButton({ requestBody }) {
   };
 
   return (
-    <button type="submit" className="button-lg-olive-fullfilled" onClick={handleLogin}>
+    <button
+      type="submit"
+      className="button-lg-olive-fullfilled"
+      onClick={handleLogin}
+    >
       Se connecter
     </button>
   );

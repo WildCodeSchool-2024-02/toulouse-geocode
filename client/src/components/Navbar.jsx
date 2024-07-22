@@ -14,7 +14,7 @@ function Navbar() {
     const labels = ["Carte", "Contact", "Connexion", "S'inscrire"];
     const arr = paths.map((path, i) => ({ path, label: labels[i] }));
     if (user) {
-      arr[2] = { path: "/", label: "Espace utilisateur" };
+      arr[2] = { path: "/profile", label: "Espace utilisateur" };
       arr[3] = { path: "/login", label: "Se deconnecter" };
     }
     return arr;
@@ -41,7 +41,7 @@ function Navbar() {
       setIsAnimate(isAnimate === "closed" ? "open" : "closed");
     }, 60);
   };
-  /// burger button end
+  /// burger button
 
   useEffect(() => {
     const handleResize = () =>
@@ -59,12 +59,9 @@ function Navbar() {
           <img className="logo-upya" src={logo} alt="Logo upya" />
         </Link>
         {user && (
-          <>
-            <Link to="/" onClick={() => setIsOpen(false)}>
-              <p>Bienvenu {user.firstname}</p>
-            </Link>
-            <LogoutButton />
-          </>
+          <Link to="/profile" onClick={() => setIsOpen(false)}>
+            <p>Bienvenue {user.firstname}</p>
+          </Link>
         )}
       </div>
 
@@ -89,7 +86,7 @@ function Navbar() {
               </motion.li>
             ))}
           </motion.ul>
-          <motion.div onClick={() => setIsOpen(!isOpen)}>
+          <motion.div onClick={() => setIsOpen(!isOpen)} className="burger-button-container">
             <button
               onClick={handleClickToAnimate}
               type="button"
@@ -106,7 +103,7 @@ function Navbar() {
       ) : (
         <ul className="links-container">
           {pathAndLabels().map((el, index) => (
-            <motion.li onClick={() => setIsOpen(!isOpen)} key={el.path}>
+            <li key={el.path}>
               {user && index === 3 ? (
                 <LogoutButton label={el.label} />
               ) : (
@@ -114,7 +111,7 @@ function Navbar() {
                   {el.label}
                 </NavLink>
               )}
-            </motion.li>
+            </li>
           ))}
         </ul>
       )}

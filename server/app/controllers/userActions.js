@@ -74,7 +74,16 @@ const logout = async (req, res) => {
 };
 
 // The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
+const destroy = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await tables.user.delete(id);
+
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
 
 // Ready to export the controller functions
 module.exports = {
@@ -82,7 +91,7 @@ module.exports = {
   read,
   // edit,
   add,
-  // destroy,
+  destroy,
   login,
   logout,
 };

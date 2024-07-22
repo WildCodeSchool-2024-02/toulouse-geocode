@@ -1,11 +1,14 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import DropdownSelector from "./DropdownSelector";
 import "./FilteringMenu.scss";
 import ReservationDateSelector from "./ReservationDateSelector";
 import plugsList from "../constants/plugsList";
+import useAuth from "../utils/useAuth";
 
 function FilteringMenu({ filterBy, setFilterBy, setQuery }) {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(true);
   return (
     isOpen && (
@@ -23,7 +26,13 @@ function FilteringMenu({ filterBy, setFilterBy, setQuery }) {
             dropdownDatasList={plugsList}
             name="plug-type"
           />
-          <ReservationDateSelector setQuery={setQuery} />
+          {user ? (
+            <ReservationDateSelector setQuery={setQuery} />
+          ) : (
+            <Link to="/login" className="button-sm-olive-fullfilled">
+              Connectez-vous pour voir les disponibilités
+            </Link>
+          )}
         </div>
       </div>
     )

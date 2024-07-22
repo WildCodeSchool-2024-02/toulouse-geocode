@@ -51,6 +51,19 @@ class ChargingStationRepository extends AbstractRepository {
     );
     return rows;
   }
+
+  async update(id, updateData) {
+    const keys = Object.keys(updateData);
+    const values = Object.values(updateData);
+
+    const setClause = keys.map((key) => `${key} = ?`).join(", ");
+
+    const query = `UPDATE ${this.table} SET ${setClause} WHERE id = ?`;
+
+    const [result] = await this.database.query(query, [...values, id]);
+
+    return result.affectedRows > 0;
+  }
 }
 
 module.exports = ChargingStationRepository;

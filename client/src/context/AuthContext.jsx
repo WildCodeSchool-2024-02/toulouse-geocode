@@ -8,7 +8,9 @@ export function AuthContextProvider({ children }) {
 
   const userValue = useMemo(() => ({ user, setUser }), [user]);
 
-  return <AuthContext.Provider value={userValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={userValue}>{children}</AuthContext.Provider>
+  );
 }
 
 AuthContextProvider.propTypes = {

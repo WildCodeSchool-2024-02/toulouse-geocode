@@ -15,7 +15,7 @@ function ReservationDateSelector({ setQuery }) {
   useEffect(() => {
     if (startingDate && endingDate) {
       setQuery(
-        `startingDate=${startingDate}&endingDate=${startingDate.split("T")[0]}T${endingDate}`,
+        `startingDate=${startingDate}&endingDate=${startingDate.split("T")[0]}T${endingDate}`
       );
     }
   }, [startingDate, endingDate]);

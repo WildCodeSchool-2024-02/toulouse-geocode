@@ -47,10 +47,7 @@ function MapPage() {
         properties: { cluster: false, itemId: item.id },
         geometry: {
           type: "Point",
-          coordinates: [
-            item.consolidated_longitude,
-            item.consolidated_latitude,
-          ],
+          coordinates: [item.consolidated_longitude, item.consolidated_latitude],
         },
       }));
       setPoints(newPoints);
@@ -87,9 +84,7 @@ function MapPage() {
   });
 
   const selectAcluster = (clusterId) => {
-    if (
-      !supercluster.getChildren(clusterId).some((el) => el.properties.cluster)
-    ) {
+    if (!supercluster.getChildren(clusterId).some((el) => el.properties.cluster)) {
       setSelectedPoints(supercluster.getChildren(clusterId));
       setIsOpenedCluster(!isOpenedCluster);
     }
@@ -144,8 +139,7 @@ function MapPage() {
           {clusters &&
             clusters.map((cluster) => {
               const [longitude, latitude] = cluster.geometry.coordinates;
-              const { cluster: isCluster, point_count: pointCount } =
-                cluster.properties;
+              const { cluster: isCluster, point_count: pointCount } = cluster.properties;
 
               if (isCluster) {
                 const size = (pointCount * 200) / points.length;
@@ -166,7 +160,7 @@ function MapPage() {
                       selectAcluster(cluster.id);
                       const expansionZoom = Math.min(
                         supercluster.getClusterExpansionZoom(cluster.id),
-                        16
+                        16,
                       );
                       mapRef.current.setZoom(expansionZoom);
                       mapRef.current.panTo({ lat: latitude, lng: longitude });
@@ -192,8 +186,7 @@ function MapPage() {
                 >
                   <i
                     className={`fi fi-rr-charging-station alone-marker ${
-                      showPopup &&
-                      showPopup.properties.itemId === cluster.properties.itemId
+                      showPopup && showPopup.properties.itemId === cluster.properties.itemId
                         ? "isActiveMarker"
                         : ""
                     }`}
@@ -204,10 +197,7 @@ function MapPage() {
           {selectedPoints.length &&
             selectedPoints.map((point, i) => {
               const [longitude, latitude] = point.geometry.coordinates;
-              const { x, y } = calculateSpiralPosition(
-                i,
-                selectedPoints.length
-              );
+              const { x, y } = calculateSpiralPosition(i, selectedPoints.length);
               return (
                 <Marker
                   latitude={latitude}
@@ -217,8 +207,7 @@ function MapPage() {
                 >
                   <motion.i
                     className={`fi fi-rr-charging-station alone-marker ${
-                      showPopup &&
-                      showPopup.properties.itemId === point.properties.itemId
+                      showPopup && showPopup.properties.itemId === point.properties.itemId
                         ? "isActiveMarker"
                         : ""
                     }`}
@@ -251,7 +240,7 @@ function MapPage() {
                 setStationDetails(null);
               }}
             >
-              <PopupCard stationDetails={stationDetails} />
+              <PopupCard stationDetails={stationDetails} available={available} />
             </Popup>
           )}
         </Map>

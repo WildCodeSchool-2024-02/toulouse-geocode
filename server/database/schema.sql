@@ -3,10 +3,13 @@ create table user (
   lastname varchar(255) NOT NULL,
   firstname varchar(255) NOT NULL,
   email varchar(255) NOT NULL UNIQUE,
-  hashed_password varchar(255) NOT NULL
-);
+  hashed_password varchar(255) NOT NULL,
+  creation_date DATE NOT NULL,
+  last_connection DATE NULL
+  );
 
-CREATE TABLE charging_station(id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE charging_station(
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 id_station_itinerance VARCHAR(255) NULL,
 station_name VARCHAR(255) NULL,
 station_implantation VARCHAR(255) NULL,
@@ -24,7 +27,8 @@ access_prm TEXT NULL,
 motor_cycle_station TINYINT NULL,
 launching_date VARCHAR(255) NULL,
 update_date VARCHAR(255) NULL,
-datagouv_organization_or_owner TEXT NULL);
+datagouv_organization_or_owner TEXT NULL
+);
 
 CREATE TABLE payment_type(id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     prepaid_payment TINYINT NULL,

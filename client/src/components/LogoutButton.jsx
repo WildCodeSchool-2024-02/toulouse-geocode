@@ -42,7 +42,7 @@ function LogoutButton({ label = "" }) {
   return (
     <>
       <button className="close-button" onClick={handleLogout} type="button">
-        {label} <i className="fi fi-tr-x" />
+        {label}
       </button>
       <Toaster />
     </>
