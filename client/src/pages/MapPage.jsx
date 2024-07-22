@@ -111,14 +111,20 @@ function MapPage() {
 
   const handlePopupTrigger = (point, offsetX = 0, offsetY = 0) => {
     setShowPopup({ ...point, offsetX, offsetY });
-    fetch(`http://localhost:3310/api/charging-stations/${point?.properties?.itemId}`)
+    fetch(
+      `http://localhost:3310/api/charging-stations/${point?.properties?.itemId}`
+    )
       .then((r) => r.json())
       .then((d) => setStationDetails(d));
   };
 
   return (
     <>
-      <FilteringMenu filterBy={filterBy} setFilterBy={setFilterBy} setQuery={setAvailable} />
+      <FilteringMenu
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        setQuery={setAvailable}
+      />
       {filteredPlug.length && (
         <Map
           initialViewState={{

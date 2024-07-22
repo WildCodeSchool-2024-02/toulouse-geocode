@@ -12,7 +12,11 @@ function FilteringMenu({ filterBy, setFilterBy, setQuery }) {
       <div className="filtering-menu-container">
         <header className="header-filter-menu">
           <h4>Filtrer par type de prise</h4>
-          <button className="close-button" onClick={() => setIsOpen(false)} type="button">
+          <button
+            className="close-button"
+            onClick={() => setIsOpen(false)}
+            type="button"
+          >
             <i className="fi fi-tr-x" />{" "}
           </button>
         </header>

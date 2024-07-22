@@ -7,6 +7,14 @@ const queryList = {
     endPoint: "charging-stations?",
     defaultQueryOptions: {},
   },
+  messages: {
+    endPoint: "contact-messages?",
+    defaultQueryOptions: {},
+  },
+  users: {
+    endPoint: "user?",
+    defaultQueryOptions: {},
+  },
 };
 
 function useFetchData(selectedEndpoint, queryOptions = {}) {

@@ -11,7 +11,7 @@ function useUser() {
       setUser(currentUser);
       setItem("user", JSON.stringify(currentUser));
     },
-    [setUser, setItem],
+    [setUser, setItem]
   );
 
   const removeUser = useCallback(() => {

@@ -2,7 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const { browse, read } = require("../../../controllers/chargingStationActions");
+const {
+  browse,
+  read,
+  edit,
+} = require("../../../controllers/chargingStationActions");
 const {
   formatFilteredPlugQuery,
   formatLimitResultsQuery,
@@ -18,5 +22,7 @@ router.get(
 );
 
 router.get("/:id", read);
+
+router.put("/:id", edit);
 
 module.exports = router;

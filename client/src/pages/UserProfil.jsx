@@ -4,7 +4,7 @@ import "../style/input.scss";
 import "../style/button.scss";
 import "../style/colors.scss";
 
-function UserProfile  ()  {
+function UserProfile() {
   const [vehicles, setVehicles] = useState([]);
   const [newVehicle, setNewVehicle] = useState({
     make: "",
@@ -109,7 +109,8 @@ function UserProfile  ()  {
             ) : (
               <span>{formData.name}</span>
             )}
-            <button type = "button"
+            <button
+              type="button"
               className="button-md-olive-outlined"
               onClick={() => handleEditClick("name")}
             >
@@ -129,7 +130,8 @@ function UserProfile  ()  {
             ) : (
               <span>{formData.surname}</span>
             )}
-            <button type="button"
+            <button
+              type="button"
               className="button-md-olive-outlined"
               onClick={() => handleEditClick("surname")}
             >
@@ -149,7 +151,8 @@ function UserProfile  ()  {
             ) : (
               <span>{formData.email}</span>
             )}
-            <button type="button" 
+            <button
+              type="button"
               className="button-md-olive-outlined"
               onClick={() => handleEditClick("email")}
             >
@@ -169,7 +172,8 @@ function UserProfile  ()  {
             ) : (
               <span>********</span>
             )}
-            <button type="button"
+            <button
+              type="button"
               className="button-md-olive-outlined"
               onClick={() => handleEditClick("password")}
             >
@@ -178,15 +182,20 @@ function UserProfile  ()  {
           </div>
           <div className="info-item">
             <span>Mes réservations</span>
-            <button type="button" className="button-md-olive-outlined">Voir</button>
+            <button type="button" className="button-md-olive-outlined">
+              Voir
+            </button>
           </div>
           <div className="info-item">
             <span>Mes itinéraires</span>
-            <button type="button" className="button-md-olive-outlined">Voir</button>
+            <button type="button" className="button-md-olive-outlined">
+              Voir
+            </button>
           </div>
           <div className="info-item">
             <span>Mes véhicules</span>
-            <button type="button"
+            <button
+              type="button"
               className="button-md-olive-outlined"
               onClick={() => setShowVehicles(!showVehicles)}
             >
@@ -201,7 +210,8 @@ function UserProfile  ()  {
             {vehicles.length === 0 ? (
               <div>
                 <p>Aucun véhicule trouvé.</p>
-                <button type="button"
+                <button
+                  type="button"
                   className="button-md-olive-outlined"
                   onClick={() => setShowAddVehicle(true)}
                 >
@@ -274,7 +284,8 @@ function UserProfile  ()  {
                   <option value="CCS">CCS</option>
                   <option value="CHAdeMO">CHAdeMO</option>
                 </select>
-                <button type="button"
+                <button
+                  type="button"
                   className="button-md-olive-outlined"
                   onClick={handleAddVehicle}
                 >
@@ -287,6 +298,6 @@ function UserProfile  ()  {
       </div>
     </div>
   );
-};
+}
 
 export default UserProfile;

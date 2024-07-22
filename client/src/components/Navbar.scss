@@ -4,6 +4,7 @@
 
 .navbar {
   @include flex(row, space-between, center, 0);
+
   @include mq() {
     @include flex(row, space-between, center, 0);
     min-height: 100px;
@@ -15,6 +16,7 @@
   @include colorAndWeight();
   .logo-user-container {
     @include flex(row, space-between, center, $spacing);
+
     img {
       height: 8dvh;
       @include mq() {
@@ -22,6 +24,7 @@
       }
     }
   }
+
   .burger-button {
     @include flex(row, center, center, 0);
     width: 5rem;
@@ -31,11 +34,13 @@
 
   .links-container {
     @include flex(column, center, center, 0);
+
     @include mq() {
       @include flex(row, center, center, $spacingDouble * 7);
       position: static;
       width: fit-content;
     }
+
     background-color: $green;
     position: absolute;
     z-index: 4;
@@ -43,9 +48,11 @@
 
     li {
       @include flex(row, center, center, 0);
+
       @include mq() {
         border-bottom: none;
       }
+
       height: 3rem;
       border-bottom: 1px solid $darkGreen;
       width: 100%;

@@ -82,7 +82,10 @@ function Navbar() {
                 {user && index === 3 ? (
                   <LogoutButton label={el.label} />
                 ) : (
-                  <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                    to={el.path}
+                  >
                     {el.label}
                   </NavLink>
                 )}
@@ -97,8 +100,16 @@ function Navbar() {
               label="toggle-menu"
             >
               <svg width="2rem" height="2rem" viewBox="0 0 24 24">
-                <motion.path stroke="#24331d" animate={isAnimate} variants={path01Variants} />
-                <motion.path stroke="#24331d" animate={isAnimate} variants={path02Variants} />
+                <motion.path
+                  stroke="#24331d"
+                  animate={isAnimate}
+                  variants={path01Variants}
+                />
+                <motion.path
+                  stroke="#24331d"
+                  animate={isAnimate}
+                  variants={path02Variants}
+                />
               </svg>
             </button>
           </motion.div>
@@ -110,7 +121,10 @@ function Navbar() {
               {user && index === 3 ? (
                 <LogoutButton label={el.label} />
               ) : (
-                <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                  to={el.path}
+                >
                   {el.label}
                 </NavLink>
               )}
