@@ -14,7 +14,7 @@ function Navbar() {
     const labels = ["Carte", "Contact", "Connexion", "S'inscrire"];
     const arr = paths.map((path, i) => ({ path, label: labels[i] }));
     if (user) {
-      arr[2] = { path: "/", label: "Espace utilisateur" };
+      arr[2] = { path: "/profile", label: "Espace utilisateur" };
       arr[3] = { path: "/login", label: "Se deconnecter" };
     }
     return arr;

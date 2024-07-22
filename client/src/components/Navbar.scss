@@ -6,14 +6,20 @@
   @include flex(row, space-between, center, 0);
   @include mq() {
     @include flex(row, space-between, center, 0);
+    min-height: 100px;
   }
+  padding-inline: $spacingDouble * 2;
   height: 10dvh;
   background-color: $green;
+  box-shadow: 0 1px 6px 0 #000000;
+  @include colorAndWeight();
   .logo-user-container {
     @include flex(row, space-between, center, $spacing);
     img {
-      max-width: 5rem;
-      height: 5rem;
+      height: 8dvh;
+      @include mq() {
+        min-height: 90px;
+      }
     }
   }
   .burger-button {
@@ -26,14 +32,15 @@
   .links-container {
     @include flex(column, center, center, 0);
     @include mq() {
-      @include flex(row, center, center, 5dvw);
-      padding-left: 45%;
-      position: initial;
+      @include flex(row, center, center, $spacingDouble * 7);
+      position: static;
+      width: fit-content;
     }
     background-color: $green;
     position: absolute;
     z-index: 4;
-    width: 100dvw;
+    width: 100%;
+
     li {
       @include flex(row, center, center, 0);
       @include mq() {
@@ -44,6 +51,11 @@
       width: 100%;
       text-align: center;
       align-content: center;
+      a {
+        font-size: $fontSize3;
+        font-family: "Robotto";
+        font-weight: 100;
+      }
     }
   }
 }
