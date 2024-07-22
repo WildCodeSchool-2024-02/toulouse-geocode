@@ -11,6 +11,7 @@ import MapPage from "./pages/MapPage";
 import UserProfile from "./pages/UserProfil";
 import { AuthContextProvider } from "./context/AuthContext";
 import AdminBackOffice from "./pages/AdminBackOffice";
+import Reservation from "./pages/Reservation";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         path: "/user-profile",
         element: <UserProfile />,
       },
+      {
+        path: "/reservation",
+        element: <Reservation />,
+      },
     ],
   },
 ]);
@@ -66,5 +71,5 @@ root.render(
     <AuthContextProvider>
       <RouterProvider router={router} />
     </AuthContextProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
