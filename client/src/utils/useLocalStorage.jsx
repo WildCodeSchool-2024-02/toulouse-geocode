@@ -18,25 +18,6 @@ function useLocalStorage() {
     localStorage.removeItem(itemKey);
     setValue(null);
   }, []);
-
-  // const setItem = (itemKey, itemValue) => {
-  //   localStorage.setItem(itemKey, itemValue);
-  //   setValue(itemValue);
-  // };
-
-  // const getItem = (itemKey) => {
-  //   const itemValue = localStorage.getItem(itemKey);
-  //   setValue(itemValue);
-  //   console.log("useLocalStorage :", value);
-
-  //   return value;
-  // };
-
-  // const removeItem = (itemKey) => {
-  //   localStorage.removeItem(itemKey);
-  //   setValue(null);
-  // };
-
   return { value, setItem, getItem, removeItem };
 }
 
