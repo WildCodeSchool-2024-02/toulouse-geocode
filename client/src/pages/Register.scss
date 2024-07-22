@@ -1,16 +1,18 @@
-.password-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.contact-form-div {
+  .password-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-input:valid {
-  border-color: green;
-}
+  input:valid {
+    border-color: green;
+  }
 
-.password-section li {
-  color: gray;
-  font-size: small;
-  padding-block: 0.3rem;
-  list-style: circle;
+  .password-section li {
+    color: gray;
+    font-size: small;
+    padding-block: 0.3rem;
+    list-style: circle;
+  }
 }

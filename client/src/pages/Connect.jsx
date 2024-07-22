@@ -1,19 +1,30 @@
-import { Form, redirect, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Form, useLocation, useNavigate } from "react-router-dom";
 import "./Form.scss";
 import "./Connect.scss";
 import "../style/button.scss";
 import "../style/input.scss";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import logo from "../../public/logo.svg";
-import { hostUrl } from "./Register";
+import LoginButton from "../components/LoginButton";
 
 function Connect() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [email, setEmail] = useState(
+    location.state ? location.state.email : ""
+  );
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const requestBody = { email, password };
 
   return (
     <div className="contact-form-div">
-      <Form method="post" action="/login">
+      <Form method="post" onSubmit={handleSubmit}>
         <img className="logo-css" src={logo} alt="Logo du site WEB" />
 
         <h1>Se connecter</h1>
@@ -25,7 +36,8 @@ function Connect() {
             type="email"
             placeholder="Entrer votre Adresse email"
             className="input-sm-gray-outlined"
-            defaultValue={location.state ? location.state.email : ""}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </section>
@@ -37,13 +49,13 @@ function Connect() {
             type="password"
             placeholder="Entrer votre mot de passe"
             className="input-sm-gray-outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </section>
         <section>
-          <button type="submit" className="button-lg-olive-fullfilled">
-            Se connecter
-          </button>
+          <LoginButton requestBody={requestBody} />
         </section>
       </Form>
       <button
@@ -59,38 +71,3 @@ function Connect() {
 }
 
 export default Connect;
-
-export async function login({ request }) {
-  const formData = await request.formData();
-
-  const requestBody = Object.fromEntries(formData);
-
-  try {
-    const response = await fetch(`${hostUrl}/api/user/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      toast.error("Oops. Une erreur s'est produite", {
-        duration: 4000,
-        position: "bottom-right",
-      });
-
-      return null;
-    }
-    toast.success("Connexion réussie", {
-      duration: 4000,
-      position: "bottom-right",
-    });
-
-    return redirect("/map");
-  } catch (e) {
-    console.error(e.message);
-    return { error: true };
-  }
-}

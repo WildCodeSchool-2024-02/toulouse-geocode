@@ -9,7 +9,7 @@ const plugList = [
 const formatFilteredPlugQuery = (req, res, next) => {
   const { filterBy } = req.query;
   const isPlugInList = () => plugList.includes(filterBy);
-  req.filter = filterBy && isPlugInList() ? { filterBy } : "";
+  req.filter = filterBy && isPlugInList() ? filterBy : "";
   next();
 };
 
@@ -19,10 +19,29 @@ const formatLimitResultsQuery = (req, res, next) => {
     const parseValue = parseInt(value, 10);
     return !Number.isNaN(parseValue);
   };
-  req.limit = limit && isNumber(limit) ? { limit } : "";
-  req.offset = offset && isNumber(offset) ? { offset } : "";
+  req.limit = limit && isNumber(limit) ? limit : "";
+  req.offset = offset && isNumber(offset) ? offset : "";
 
   next();
 };
 
-module.exports = { formatFilteredPlugQuery, formatLimitResultsQuery };
+const formatReservationQuery = (req, res, next) => {
+  const { startingDate, endingDate } = req.query;
+
+  function isDateValid(dateStr) {
+    const date = new Date(dateStr);
+    return !Number.isNaN(date.getTime());
+  }
+
+  req.startingDate =
+    startingDate && isDateValid(startingDate) ? startingDate : "";
+  req.endingDate = endingDate && isDateValid(endingDate) ? endingDate : "";
+
+  next();
+};
+
+module.exports = {
+  formatFilteredPlugQuery,
+  formatLimitResultsQuery,
+  formatReservationQuery,
+};

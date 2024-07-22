@@ -5,11 +5,15 @@ const hostUrl = import.meta.env.VITE_API_URL;
 const queryList = {
   chargingStation: {
     endPoint: "charging-stations?",
-    defaultQueryOptions: {
-      filterBy: "",
-      limit: "",
-      offset: "",
-    },
+    defaultQueryOptions: {},
+  },
+  messages: {
+    endPoint: "contact-messages?",
+    defaultQueryOptions: {},
+  },
+  users: {
+    endPoint: "user?",
+    defaultQueryOptions: {},
   },
 };
 
@@ -25,7 +29,7 @@ function useFetchData(selectedEndpoint, queryOptions = {}) {
     return (
       queryList[selectedEndpoint].endPoint +
       Object.entries(finalQueryOptions)
-        .map(([key, value]) => (value !== "?" ? `${key}=${value}` : key + value))
+        .map(([key, value]) => (value !== "?" ? `${key}=${value}` : key))
         .join("&")
     );
   }, [selectedEndpoint, queryOptions]);

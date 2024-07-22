@@ -1,0 +1,14 @@
+@import "../style/style.scss";
+
+.reservation-date-selector-container {
+  @include flex(column, center, start, $spacing);
+  .sections {
+    @include flex(row, center, center, $spacingDouble);
+    @include mq() {
+      @include flex(column, center, start, $spacing);
+    }
+  }
+  section {
+    @include flex(column, center, start, 4px);
+  }
+}

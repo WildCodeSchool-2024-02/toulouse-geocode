@@ -57,19 +57,33 @@ const add = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const { lastname, firstname, ...payload } = req.user;
+    const { lastname, firstname, id, ...payload } = req.user;
 
     const token = jwt.sign(payload, process.env.APP_SECRET);
 
     res.cookie("accessToken", token);
-    res.sendStatus(200);
+    res.status(200).json({ firstname, lastname, id });
   } catch (err) {
     next(err);
   }
 };
 
+const logout = async (req, res) => {
+  res.clearCookie("accessToken");
+  res.status(200).json({ message: "Logged out successfully" });
+};
+
 // The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
+const destroy = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await tables.user.delete(id);
+
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
 
 // Ready to export the controller functions
 module.exports = {
@@ -77,6 +91,7 @@ module.exports = {
   read,
   // edit,
   add,
-  // destroy,
+  destroy,
   login,
+  logout,
 };
