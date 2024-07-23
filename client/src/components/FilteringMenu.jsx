@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import DropdownSelector from "./DropdownSelector";
@@ -7,9 +6,9 @@ import ReservationDateSelector from "./ReservationDateSelector";
 import plugsList from "../constants/plugsList";
 import useAuth from "../utils/useAuth";
 
-function FilteringMenu({ filterBy, setFilterBy, setQuery }) {
+function FilteringMenu({ filterBy, setFilterBy, setQuery, isOpen, setIsOpen }) {
   const { user } = useAuth();
-  const [isOpen, setIsOpen] = useState(true);
+
   return (
     isOpen && (
       <div className="filtering-menu-container">
@@ -47,6 +46,8 @@ FilteringMenu.propTypes = {
   filterBy: PropTypes.string.isRequired,
   setFilterBy: PropTypes.func.isRequired,
   setQuery: PropTypes.func.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default FilteringMenu;

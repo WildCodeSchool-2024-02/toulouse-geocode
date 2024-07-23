@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import "../style/style.scss";
+
+.reservation-container {
+  @include colorAndWeight();
+  @include flex(column, center, center, $spacing);
+  @include mq() {
+    @include flex(column, center, center, $spacingDouble);
+    min-height: 60dvh;
+  }
+  .reservation-information-container {
+    @include flex(row, space-between, center, $spacing);
+  }
+  .reservation-informations-container {
+    @include flex(column, center, space-between, $spacingDouble);
+
+    border: rgba(36, 51, 29, 0.1254901961) 2px solid;
+    background-color: #fdf7ef;
+    border-radius: $spacing;
+    width: fit-content;
+    padding: $spacingDouble;
+    width: 50%;
+    @include mq() {
+    }
+    h1 {
+      text-align: center;
+    }
+  }
+}
