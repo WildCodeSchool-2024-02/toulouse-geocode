@@ -38,7 +38,11 @@ function PopupCard({ stationDetails, available, setisOpenedFilteringMenu }) {
       <div>{stationDetails?.station_adress}</div>
       <div>Borne n°{stationDetails?.id}</div>
       {user ? (
-        <button type="button" className="button-sm-olive-fullfilled" onClick={handleClickToBook}>
+        <button
+          type="button"
+          className="button-sm-olive-fullfilled"
+          onClick={handleClickToBook}
+        >
           Réserver
         </button>
       ) : (
