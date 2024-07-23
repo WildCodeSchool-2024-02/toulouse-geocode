@@ -14,13 +14,12 @@ function UserProfile() {
 
   const userId = user ? user.id : navigate("/login");
 
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     surname: "",
     email: "",
     password: "************",
   });
-
 
   useEffect(() => {
     if (userId) {
