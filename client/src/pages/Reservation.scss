@@ -3,11 +3,24 @@
 @import "../style/style.scss";
 
 .reservation-container {
+  font-family: "roboto";
   @include colorAndWeight();
+  h1 {
+    text-align: center;
+    width: 80%;
+  }
+
   @include flex(column, center, center, $spacing);
+  min-height: 80dvh;
   @include mq() {
+  }
+  @include flex(column, center, center, $spacingDouble);
+  min-height: 75dvh;
+  .reservation-buttons-container {
     @include flex(column, center, center, $spacingDouble);
-    min-height: 60dvh;
+    .button-md-olive-fullfilled {
+      width: 35dvw;
+    }
   }
   .reservation-information-container {
     @include flex(row, space-between, center, $spacing);
@@ -20,11 +33,10 @@
     border-radius: $spacing;
     width: fit-content;
     padding: $spacingDouble;
-    width: 50%;
+    width: 85%;
+
     @include mq() {
-    }
-    h1 {
-      text-align: center;
+      width: 50%;
     }
   }
 }
