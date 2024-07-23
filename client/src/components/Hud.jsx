@@ -25,12 +25,13 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
   return (
     <div className="hud-container">
       <motion.ul
-        initial={{ y: -100, x: 200 }}
-        animate={{ x: !isOpen ? 200 : -32 }}
+        initial={{ y: -150, x: 200 }}
+        animate={{ x: !isOpen ? 200 : -48 }}
         transition={{ ease: "easeInOut", duration: 0.2 }}
         className="links-container"
         onClick={() => setIsOpen(!isOpen)}
       >
+        {user && <li className="welcome-message">Bienvenue {user.firstname}</li>}
         <li>
           {user ? (
             <button onClick={() => setisOpenedFilteringMenu(!isOpenedFilteringMenu)} type="button">
