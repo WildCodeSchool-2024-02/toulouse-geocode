@@ -47,8 +47,18 @@ $spacingDouble: $spacing * 2;
   }
 }
 
-.close-button {
+.close-button,
+button {
   width: fit-content;
   cursor: pointer;
   background-color: transparent;
+}
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
 }

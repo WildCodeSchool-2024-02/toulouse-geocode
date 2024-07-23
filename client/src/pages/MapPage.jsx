@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import PopupCard from "../components/PopupCard";
 import useFetchData from "../utils/useFetchData";
 import FilteringMenu from "../components/FilteringMenu";
+import Hud from "../components/Hud";
 
 function MapPage() {
   const mapRef = useRef();
@@ -20,6 +21,8 @@ function MapPage() {
   const [points, setPoints] = useState([]);
   const [available, setAvailable] = useState("");
   const [initialZoom, setInitialZoom] = useState(0);
+  const [isOpenedFilteringMenu, setisOpenedFilteringMenu] = useState(false);
+  const [device, setDevice] = useState("");
 
   const { fetchedData: filteredPlug } = useFetchData("chargingStation", {
     filterBy,
@@ -34,6 +37,21 @@ function MapPage() {
     } else {
       setInitialZoom(4.5);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setisOpenedFilteringMenu(true);
+        setDevice("desktop");
+      } else {
+        setisOpenedFilteringMenu(false);
+        setDevice("mobile");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -113,7 +131,20 @@ function MapPage() {
 
   return (
     <>
-      <FilteringMenu filterBy={filterBy} setFilterBy={setFilterBy} setQuery={setAvailable} />
+      {isOpenedFilteringMenu && (
+        <FilteringMenu
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          setQuery={setAvailable}
+          isOpen={isOpenedFilteringMenu}
+          setIsOpen={setisOpenedFilteringMenu}
+        />
+      )}
+      <Hud
+        setisOpenedFilteringMenu={setisOpenedFilteringMenu}
+        isOpenedFilteringMenu={isOpenedFilteringMenu}
+      />
+
       {filteredPlug.length && (
         <Map
           initialViewState={{
@@ -124,7 +155,7 @@ function MapPage() {
           maxZoom={16}
           ref={mapRef}
           mapStyle="https://api.jawg.io/styles/b8e0346f-8b93-4cac-b7b8-816c8fd852e8.json?access-token=8zKquTOfkoI1wfzpGaP9FMbbSiRrfUW1pGAuRyTDT7BFktAeT60GIRG5WSNFLvVt"
-          style={{ width: "100dvw", height: "90dvh" }}
+          style={{ width: "100dvw", height: `${device === "mobile" ? "100dvh" : "90dvh"}` }}
           onMoveEnd={updateBounds}
           onZoomEnd={clearSelectedPoints}
           onLoad={updateBounds}
@@ -240,7 +271,11 @@ function MapPage() {
                 setStationDetails(null);
               }}
             >
-              <PopupCard stationDetails={stationDetails} available={available} />
+              <PopupCard
+                stationDetails={stationDetails}
+                available={available}
+                setisOpenedFilteringMenu={setisOpenedFilteringMenu}
+              />
             </Popup>
           )}
         </Map>
