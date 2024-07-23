@@ -28,6 +28,7 @@ $buttons: (
   font-size: map-get($button-styles, fontSize);
   border-radius: map-get($button-styles, borderRadius);
   gap: map-get($button-styles, gap);
+  text-align: center;
 
   @if $type == "fullfilled" {
     background-color: var(--#{$color}-900);
