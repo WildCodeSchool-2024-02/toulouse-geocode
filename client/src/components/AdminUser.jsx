@@ -52,7 +52,7 @@ function AdminUser({ hostUrl }) {
           ))}
         <button
           type="button"
-          className="button-md-olive-outlined"
+          className="button-md-olive-outlined admin-back-office-buttons"
           onClick={() => {
             setUserFieldIsOpen(!userFieldIsOpen);
           }}

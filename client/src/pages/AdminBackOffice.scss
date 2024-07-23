@@ -19,10 +19,14 @@
     }
 
     .info-item {
-      @include flex(column, space-between, flex-start, $spacingDouble);
+      @include flex(column, space-between, none, $spacingDouble);
       width: 100%;
       padding-block: 1rem;
     }
+  }
+
+  .admin-back-office-buttons {
+    width: 100%;
   }
 
   section {
@@ -58,10 +62,6 @@
 
       @include mq() {
         @include flex(row, center, flex-start, $spacing);
-
-        button {
-          max-width: 10rem;
-        }
       }
 
       .charging-station-text-container {

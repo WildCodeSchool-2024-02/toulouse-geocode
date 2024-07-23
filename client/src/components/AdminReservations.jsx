@@ -73,7 +73,7 @@ function AdminReservations({ hostUrl }) {
 
         <button
           type="button"
-          className="button-md-olive-outlined"
+          className="button-md-olive-outlined admin-back-office-buttons"
           onClick={() => {
             setBookingFieldIsOpen(!bookingFieldIsOpen);
           }}

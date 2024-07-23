@@ -11,7 +11,9 @@ import LoginButton from "../components/LoginButton";
 function Connect() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(location.state ? location.state.email : "");
+  const [email, setEmail] = useState(
+    location.state ? location.state.email : ""
+  );
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {

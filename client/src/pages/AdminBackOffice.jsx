@@ -31,7 +31,11 @@ function AdminBackOffice() {
           <AdminChargingStations hostUrl={hostUrl} />
         </section>
         <section className="personal-info">
-          <AdminPersonnalInfo />
+          <AdminPersonnalInfo
+            hostUrl={hostUrl}
+            user={user}
+            navigate={navigate}
+          />
         </section>
       </div>
     </div>

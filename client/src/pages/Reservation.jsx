@@ -22,7 +22,8 @@ function Reservation() {
     if (!startingTime || !endingTime) {
       return 0;
     }
-    const diffInMilis = new Date(endingTime).getTime() - new Date(startingTime).getTime();
+    const diffInMilis =
+      new Date(endingTime).getTime() - new Date(startingTime).getTime();
     return Math.floor(diffInMilis / 60000);
   };
   const getPrice = () => (getDuration() * coeff).toFixed(2);
@@ -101,7 +102,11 @@ function Reservation() {
           <h3>Prix: </h3>
           <p>{getPrice()} €</p>
         </div>
-        <button onClick={handleSubmit} className="button-md-olive-fullfilled" type="button">
+        <button
+          onClick={handleSubmit}
+          className="button-md-olive-fullfilled"
+          type="button"
+        >
           Confirmer la réservation
         </button>
         <Link to="/map" className="button-md-olive-fullfilled">

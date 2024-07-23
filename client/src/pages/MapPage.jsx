@@ -162,7 +162,10 @@ function MapPage() {
           maxZoom={16}
           ref={mapRef}
           mapStyle="https://api.jawg.io/styles/b8e0346f-8b93-4cac-b7b8-816c8fd852e8.json?access-token=8zKquTOfkoI1wfzpGaP9FMbbSiRrfUW1pGAuRyTDT7BFktAeT60GIRG5WSNFLvVt"
-          style={{ width: "100dvw", height: `${device === "mobile" ? "100dvh" : "90dvh"}` }}
+          style={{
+            width: "100dvw",
+            height: `${device === "mobile" ? "100dvh" : "90dvh"}`,
+          }}
           onMoveEnd={updateBounds}
           onZoomEnd={clearSelectedPoints}
           onLoad={updateBounds}
@@ -224,11 +227,12 @@ function MapPage() {
                   style={{ zIndex: 1 }}
                 >
                   <i
-                    className={`fi fi-rr-charging-station alone-marker ${showPopup &&
-                        showPopup.properties.itemId === cluster.properties.itemId
+                    className={`fi fi-rr-charging-station alone-marker ${
+                      showPopup &&
+                      showPopup.properties.itemId === cluster.properties.itemId
                         ? "isActiveMarker"
                         : ""
-                      }`}
+                    }`}
                   />
                 </Marker>
               );
@@ -248,11 +252,12 @@ function MapPage() {
                   className="point-modal-marker"
                 >
                   <motion.i
-                    className={`fi fi-rr-charging-station alone-marker ${showPopup &&
-                        showPopup.properties.itemId === point.properties.itemId
+                    className={`fi fi-rr-charging-station alone-marker ${
+                      showPopup &&
+                      showPopup.properties.itemId === point.properties.itemId
                         ? "isActiveMarker"
                         : ""
-                      }`}
+                    }`}
                     animate={{
                       x: isOpenedCluster ? x : 0,
                       y: isOpenedCluster ? y : 0,
