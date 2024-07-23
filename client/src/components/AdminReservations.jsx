@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 function AdminReservations({ hostUrl }) {
   const [bookingFieldIsOpen, setBookingFieldIsOpen] = useState();
-  const [bookings, setBookings] = useState([]);
 
   const bookingFields = [
     { label: "Id :", value: "id" },
@@ -16,6 +15,8 @@ function AdminReservations({ hostUrl }) {
     { label: "Id borne de recharge :", value: "charging_station_id" },
   ];
 
+  const [bookings, setBookings] = useState([]);
+
   useEffect(() => {
     const fetchBookings = async () => {
       const response = await fetch(`${hostUrl}/api/reservation`, {
@@ -23,6 +24,7 @@ function AdminReservations({ hostUrl }) {
         headers: {
           "Content-Type": "application/json",
         },
+
         credentials: "include",
       });
       const data = await response.json();
@@ -35,6 +37,7 @@ function AdminReservations({ hostUrl }) {
     try {
       const response = await fetch(`${hostUrl}/api/reservation/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error(`Failed to delete booking: ${response.status}`);

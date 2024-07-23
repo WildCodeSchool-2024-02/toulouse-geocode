@@ -5,7 +5,8 @@ create table user (
   email varchar(255) NOT NULL UNIQUE,
   hashed_password varchar(255) NOT NULL,
   creation_date DATE NOT NULL,
-  last_connection DATE NULL
+  last_connection DATE NULL,
+  isAdmin TINYINT NOT NULL DEFAULT 0
   );
 
 CREATE TABLE charging_station(

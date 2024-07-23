@@ -5,20 +5,49 @@ import { useEffect, useState } from "react";
 import logo from "../../public/logo.svg";
 import useAuth from "../utils/useAuth";
 import LogoutButton from "./LogoutButton";
+import { hostUrl } from "../pages/Register";
 
 function Navbar() {
   const { user } = useAuth();
+  const userIdDetails = user && user.id;
   const location = useLocation();
+  const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(() => {
+    if (userIdDetails) {
+      fetch(`${hostUrl}/api/user/${userIdDetails}`)
+        .then((res) => res.json())
+        .then((data) => setUserDetails(data))
+        .catch((err) => console.error(err));
+    }
+  }, [userIdDetails]);
+
+  const basePathsAndLabels = [{ path: "/map", label: "Carte" }];
+
+  const adminPaths = [
+    { path: "/profile", label: "Espace utilisateur" },
+    { path: "/admin", label: "Espace administrateur" },
+    { path: "/login", label: "Se deconnecter" },
+  ];
+
+  const userPaths = [
+    { path: "/contact", label: "Contact" },
+    { path: "/profile", label: "Espace utilisateur" },
+    { path: "/login", label: "Se deconnecter" },
+  ];
+
+  const guestPaths = [
+    { path: "/contact", label: "Contact" },
+    { path: "/login", label: "Connexion" },
+    { path: "/register", label: "S'inscrire" },
+  ];
 
   const pathAndLabels = () => {
-    const paths = ["/map", "/contact", "/login", "/register"];
-    const labels = ["Carte", "Contact", "Connexion", "S'inscrire"];
-    const arr = paths.map((path, i) => ({ path, label: labels[i] }));
-    if (user) {
-      arr[2] = { path: "/profile", label: "Espace utilisateur" };
-      arr[3] = { path: "/login", label: "Se deconnecter" };
+    if (user && userDetails) {
+      const additionalPaths = userDetails.isAdmin ? adminPaths : userPaths;
+      return [...basePathsAndLabels, ...additionalPaths];
     }
-    return arr;
+    return [...basePathsAndLabels, ...guestPaths];
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +108,7 @@ function Navbar() {
           >
             {pathAndLabels().map((el, index) => (
               <motion.li onClick={() => setIsOpen(!isOpen)} key={el.path}>
-                {user && index === 3 ? (
+                {user && index === pathAndLabels().length - 1 ? (
                   <LogoutButton label={el.label} />
                 ) : (
                   <NavLink
@@ -121,7 +150,7 @@ function Navbar() {
         <ul className="links-container">
           {pathAndLabels().map((el, index) => (
             <li key={el.path}>
-              {user && index === 3 ? (
+              {user && index === pathAndLabels().length - 1 ? (
                 <LogoutButton label={el.label} />
               ) : (
                 <NavLink

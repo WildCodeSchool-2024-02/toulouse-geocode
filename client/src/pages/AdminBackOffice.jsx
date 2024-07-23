@@ -12,8 +12,9 @@ import AdminReservations from "../components/AdminReservations";
 import useAuth from "../utils/useAuth";
 
 function AdminBackOffice() {
-  const { user } = useAuth();
   const navigate = useNavigate();
+  const { user } = useAuth();
+
   if (!user) {
     navigate("/login");
   }
@@ -31,11 +32,7 @@ function AdminBackOffice() {
           <AdminChargingStations hostUrl={hostUrl} />
         </section>
         <section className="personal-info">
-          <AdminPersonnalInfo
-            hostUrl={hostUrl}
-            user={user}
-            navigate={navigate}
-          />
+          <AdminPersonnalInfo hostUrl={hostUrl} user={user} />
         </section>
       </div>
     </div>

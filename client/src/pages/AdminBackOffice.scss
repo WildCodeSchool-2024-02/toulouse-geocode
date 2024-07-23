@@ -23,49 +23,50 @@
       width: 100%;
       padding-block: 1rem;
     }
-  }
 
-  .admin-back-office-buttons {
-    width: 100%;
-  }
-
-  section {
-    width: 100%;
-
-    .button-container {
-      @include flex(row, flex-start, flex-start, $spacing);
-    }
-  }
-
-  ul > li {
-    @include flex(column, flex-start, flex-start, $spacing);
-    padding: 0.5rem;
-    width: 100%;
-    height: fit-content;
-    border-radius: 0.5rem;
-  }
-
-  .info-item > li {
-    @include flex(column, center, flex-start, $spacing);
-    padding: 1rem;
-    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.422);
-    width: 100%;
-    height: fit-content;
-    border-radius: 0.5rem;
-
-    div {
+    .admin-back-office-buttons {
       width: 100%;
     }
 
-    .charging-station-card {
-      @include flex(column, center, flex-start, $spacing);
+    section {
+      width: 100%;
 
-      @include mq() {
-        @include flex(row, center, flex-start, $spacing);
+      .button-container {
+        @include flex(row, flex-start, flex-start, $spacing);
+      }
+    }
+
+    ul > li {
+      @include flex(column, flex-start, flex-start, $spacing);
+      padding: 0.5rem;
+      width: 100%;
+      height: fit-content;
+      border-radius: 0.5rem;
+    }
+
+    .info-item > li {
+      @include flex(column, center, flex-start, $spacing);
+      padding: 1rem;
+      box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.422);
+      width: 100%;
+      height: fit-content;
+      border-radius: 0.5rem;
+
+      div {
+        width: 100%;
       }
 
-      .charging-station-text-container {
+      .charging-station-card {
         @include flex(column, center, flex-start, $spacing);
+
+        @include mq() {
+          @include flex(row, center, flex-start, $spacing);
+        }
+
+        .charging-station-text-container {
+          @include flex(column, center, flex-start, $spacing);
+          width: 100%;
+        }
       }
     }
   }

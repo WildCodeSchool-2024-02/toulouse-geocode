@@ -6,14 +6,17 @@
   padding: $spacingDouble;
   height: 70dvh;
   @include flex(column, center, center, $spacingDouble * 2);
+
   .logo-css {
-    width: 200px;
+    width: 180px;
+
     @include mq() {
       max-width: 200px;
       width: 15dvw;
       min-width: 5dvw;
     }
   }
+
   .text-home {
     font-family: "judson";
     font-size: 38px;

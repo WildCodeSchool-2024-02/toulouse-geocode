@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-function AdminPersonnalInfo({ user, navigate, hostUrl }) {
-  const userIdDetails = user ? user.id : navigate("/login");
+function AdminPersonnalInfo({ user, hostUrl }) {
+  const userIdDetails = user;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -105,6 +105,5 @@ AdminPersonnalInfo.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
   }),
-  navigate: PropTypes.func.isRequired,
   hostUrl: PropTypes.string.isRequired,
 };

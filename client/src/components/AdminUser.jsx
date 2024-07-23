@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { formatDate } from "../services/utils";
 
 function AdminUser({ hostUrl }) {
   const [userFieldIsOpen, setUserFieldIsOpen] = useState();
@@ -40,6 +41,9 @@ function AdminUser({ hostUrl }) {
                 <p>Nom : {user.lastname}</p>
                 <p>Prénom : {user.firstname}</p>
                 <p>Adresse email : {user.email}</p>
+                <p>
+                  Date de création du compte: {formatDate(user.creation_date)}
+                </p>
                 <button
                   type="button"
                   className="button-sm-olive-outlined"
