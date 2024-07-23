@@ -36,7 +36,6 @@
     z-index: 3;
     @include flex(column, center, center, 8px);
     li {
-      // border-bottom: 1px solid $darkGreen;
       width: 100%;
       text-align: center;
       align-content: center;
