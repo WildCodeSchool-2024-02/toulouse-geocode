@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Reservation.scss";
+import { formatTime } from "../services/utils";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
@@ -22,7 +23,8 @@ function Reservation() {
     if (!startingTime || !endingTime) {
       return 0;
     }
-    const diffInMilis = new Date(endingTime).getTime() - new Date(startingTime).getTime();
+    const diffInMilis =
+      new Date(endingTime).getTime() - new Date(startingTime).getTime();
     return Math.floor(diffInMilis / 60000);
   };
   const getPrice = () => (getDuration() * coeff).toFixed(2);
@@ -69,8 +71,8 @@ function Reservation() {
         duration: 4000,
         position: "bottom-right",
       });
+      return null;
     }
-    return null;
   };
 
   return (
@@ -87,11 +89,11 @@ function Reservation() {
         </div>
         <div className="reservation-information-container">
           <h3>Heure de début: </h3>
-          <p>{startingTime}</p>
+          <p>{formatTime(startingTime)}</p>
         </div>
         <div className="reservation-information-container">
           <h3>Heure de fin: </h3>
-          <p>{endingTime}</p>
+          <p>{formatTime(endingTime)}</p>
         </div>
         <div className="reservation-information-container">
           <h3>Durée: </h3>
@@ -101,12 +103,18 @@ function Reservation() {
           <h3>Prix: </h3>
           <p>{getPrice()} €</p>
         </div>
-        <button onClick={handleSubmit} className="button-md-olive-fullfilled" type="button">
-          Confirmer la réservation
-        </button>
-        <Link to="/map" className="button-md-olive-fullfilled">
-          Annuler{" "}
-        </Link>
+        <div className="reservation-buttons-container">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="button-md-olive-fullfilled"
+          >
+            Confirmer
+          </button>
+          <Link to="/map" className="button-md-olive-fullfilled">
+            Annuler{" "}
+          </Link>
+        </div>
       </div>
       <Toaster />
     </section>
