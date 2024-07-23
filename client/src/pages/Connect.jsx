@@ -24,7 +24,6 @@ function Connect() {
     <div className="contact-form-div">
       <Form method="post" onSubmit={handleSubmit}>
         <img className="logo" src={logo} alt="Logo du site WEB" />
-
         <h1>Se connecter</h1>
         <section className="email">
           <label htmlFor="email">Adresse email</label>
