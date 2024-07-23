@@ -4,16 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import "./PopupCard.scss";
 import useAuth from "../utils/useAuth";
 
-function PopupCard({ stationDetails, available }) {
+function PopupCard({ stationDetails, available, setisOpenedFilteringMenu }) {
   const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleClickToBook = () => {
     if (!available) {
+      setisOpenedFilteringMenu(true);
       toast.loading("Veulliez completer les horaires de réservation", {
         duration: 4000,
         position: "top-left",
       });
+
       return;
     }
 
@@ -60,5 +62,6 @@ PopupCard.propTypes = {
     id: PropTypes.number.isRequired,
   }).isRequired,
   available: PropTypes.string.isRequired,
+  setisOpenedFilteringMenu: PropTypes.func.isRequired,
 };
 export default PopupCard;

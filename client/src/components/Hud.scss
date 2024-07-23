@@ -1,20 +1,61 @@
 @import "../style/style.scss";
 
-.filtering-menu-container {
-  background-color: $backgroundColor;
+.hud-container {
+  background-color: $green;
   border: rgba(36, 51, 29, 0.1254901961) 2px solid;
-  border-radius: $spacing;
+  border-radius: 50%;
   padding: $spacingDouble;
   position: absolute;
   z-index: 3;
   bottom: 0;
-  width: 100%;
-  @include mq() {
-    top: 128px;
-    left: 40px;
-    right: auto;
-    bottom: auto;
-    width: fit-content;
-  }
+  width: 50px;
+  height: 50px;
+  top: 89%;
+  right: 10%;
   @include colorAndWeight();
+  @include flex(row, center, center, $spacing);
+  text-align: center;
+  @include mq() {
+    display: none;
+  }
+
+  .burger-button {
+    background-color: transparent;
+    width: fit-content;
+    i {
+      font-size: 28px;
+      line-height: 0;
+    }
+  }
+
+  .links-container {
+    background-color: $green;
+    border: rgba(36, 51, 29, 0.1254901961) 2px solid;
+    padding: $spacing;
+    position: absolute;
+    z-index: 3;
+    @include flex(column, center, center, 8px);
+    li {
+      width: 100%;
+      text-align: center;
+      align-content: center;
+      a,
+      .close-button,
+      button {
+        font-family: "Roboto";
+        font-weight: 300;
+        font-size: $fontSize4 * 1.1;
+        text-wrap: nowrap;
+        background-color: transparent;
+      }
+      .close-button {
+        i {
+          line-height: 0;
+        }
+      }
+      .active {
+        color: #4b8931;
+      }
+    }
+  }
 }

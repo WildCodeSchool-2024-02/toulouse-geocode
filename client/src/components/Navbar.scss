@@ -16,6 +16,10 @@
   background-color: $green;
   box-shadow: 0 1px 6px 0 #000000;
 
+  &.invisible {
+    display: none;
+  }
+
   @include colorAndWeight();
   .logo-user-container {
     @include flex(row, space-between, center, $spacing);
