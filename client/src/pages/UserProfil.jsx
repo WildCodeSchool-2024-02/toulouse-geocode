@@ -42,7 +42,6 @@ function UserProfile() {
     { label: "Heure de début :", value: "starting_time" },
     { label: "Heure de fin :", value: "ending_time" },
     { label: "Prix :", value: "price" },
-    { label: "Payé ?", value: "is_paid" },
     { label: "Id utilisateur :", value: "user_id" },
     { label: "Id borne de recharge :", value: "charging_station_id" },
   ];
@@ -51,14 +50,17 @@ function UserProfile() {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const response = await fetch(`${hostUrl}/api/reservation`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch(
+        `${hostUrl}/api/reservation?userId=${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-        credentials: "include",
-      });
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       setBookings(data);
     };
@@ -233,25 +235,8 @@ function UserProfile() {
           <div className="info-item">
             <div>
               <h3>Email :</h3>
-              {isEditing.email ? (
-                <input
-                  type="text"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleFormInputChange}
-                  className="input-sm-gray-outlined"
-                />
-              ) : (
-                <p>{formData.email}</p>
-              )}
+              <p>{formData.email}</p>
             </div>
-            <button
-              type="button"
-              className="button-sm-olive-outlined"
-              onClick={() => handleEditClick("email")}
-            >
-              {isEditing.email ? "Enregistrer" : "Modifier"}
-            </button>
           </div>
           <div className="info-item">
             <div>
@@ -278,6 +263,17 @@ function UserProfile() {
           </div>
           <div className="info-item">
             <h3>Mes réservations</h3>
+            <button
+              type="button"
+              className="button-sm-olive-outlined"
+              onClick={() => {
+                setBookingFieldIsOpen(!bookingFieldIsOpen);
+              }}
+            >
+              {bookingFieldIsOpen ? "Fermer" : "Voir"}
+            </button>
+          </div>
+          <div className="user-reservations-container">
             {bookingFieldIsOpen &&
               bookings.map((booking) => (
                 <ul key={booking.id}>
@@ -298,16 +294,6 @@ function UserProfile() {
                   </div>
                 </ul>
               ))}
-
-            <button
-              type="button"
-              className="button-sm-olive-outlined"
-              onClick={() => {
-                setBookingFieldIsOpen(!bookingFieldIsOpen);
-              }}
-            >
-              {bookingFieldIsOpen ? "Fermer" : "Voir"}
-            </button>
           </div>
           <div className="info-item">
             <h3>Mes véhicules</h3>
@@ -321,36 +307,16 @@ function UserProfile() {
           </div>
           {showVehicles && (
             <section className="vehicle-info">
-              {vehicles.length === 0 ? (
+              {!showAddVehicle && (
                 <div>
-                  <p>Aucun véhicule trouvé.</p>
                   <button
                     type="button"
                     className="button-sm-olive-outlined"
                     onClick={() => setShowAddVehicle(true)}
                   >
-                    Ajouter votre premier véhicule
+                    Ajouter un véhicule
                   </button>
                 </div>
-              ) : (
-                <ul>
-                  {vehicles.map((vehicle) => (
-                    <li key={vehicle.id}>
-                      <p>Marque : {vehicle.brand}</p>
-                      <p>Modèle : {vehicle.model}</p>
-                      <p>Année : {vehicle.year}</p>
-                      <p>Tension : {vehicle.power_voltage}V</p>
-                      <p>Type de prise : {vehicle.plug_type}</p>
-                      <button
-                        type="button"
-                        className="button-sm-olive-outlined"
-                        onClick={() => handleDeleteVehicle(vehicle.id)}
-                      >
-                        Supprimer le véhicule
-                      </button>
-                    </li>
-                  ))}
-                </ul>
               )}
               {showAddVehicle && (
                 <div className="add-vehicle-form">
@@ -403,10 +369,28 @@ function UserProfile() {
                     className="button-sm-olive-outlined"
                     onClick={handleAddVehicle}
                   >
-                    Ajouter véhicule
+                    Valider
                   </button>
                 </div>
               )}
+              <ul>
+                {vehicles.map((vehicle) => (
+                  <li key={vehicle.id}>
+                    <p>Marque : {vehicle.brand}</p>
+                    <p>Modèle : {vehicle.model}</p>
+                    <p>Année : {vehicle.year}</p>
+                    <p>Tension : {vehicle.power_voltage}V</p>
+                    <p>Type de prise : {vehicle.plug_type}</p>
+                    <button
+                      type="button"
+                      className="button-sm-olive-outlined"
+                      onClick={() => handleDeleteVehicle(vehicle.id)}
+                    >
+                      Supprimer le véhicule
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </section>
           )}
         </div>

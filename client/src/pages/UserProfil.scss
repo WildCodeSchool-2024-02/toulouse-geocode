@@ -1,4 +1,5 @@
 @import "../style/style.scss";
+
 .personal-space-container {
   padding: $spacing;
   @include flex(column, center, center, $spacing);
@@ -8,48 +9,66 @@
     min-height: 60dvh;
     width: 100%;
     @include flex(column, center, center, $spacing);
+
     @include mq() {
       @include flex(column, center, center, $spacingDouble);
       min-height: 80dvh;
     }
+
     .personal-info-container {
       border: rgba(36, 51, 29, 0.1254901961) 2px solid;
       padding: $spacing;
       border-radius: $spacing;
       min-width: 100%;
       @include flex(column, center, center, $spacing);
+
       @include mq() {
         padding: $spacingDouble;
         min-width: 600px;
         @include flex(column, center, center, $spacingDouble);
       }
+
       .info-item {
         width: 100%;
         min-height: 58px;
         @include flex(row, space-between, center, $spacing);
+
         @include mq() {
           @include flex(row, space-between, center, $spacingDouble);
         }
+
         div {
           text-wrap: nowrap;
+
           @include mq() {
             @include flex(row, left, center, $spacing);
           }
         }
+
         input {
           padding: 0.2rem 0.5rem;
         }
+
+        .user-reservations-container {
+          width: 100%;
+          min-height: 58px;
+          @include flex(column, flex-start, flex-start, $spacing);
+        }
       }
+
       .vehicle-info {
         width: 100%;
         @include flex(column, left, flex-start, $spacing);
+
         & > div {
           width: 100%;
           @include flex(row, space-between, center, $spacing);
         }
+
         li {
           @include flex(column, left, flex-start, $spacing);
         }
+
         .add-vehicle-form {
           @include flex(column, left, flex-start, $spacing);
         }

@@ -1,8 +1,9 @@
 const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
+  const { userId } = req.query;
   try {
-    const reservation = await tables.reservation.readAll();
+    const reservation = await tables.reservation.readAll(userId);
 
     res.json(reservation);
   } catch (err) {
