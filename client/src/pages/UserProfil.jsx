@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./UserProfil.scss";
 import { hostUrl } from "./Register";
@@ -7,9 +7,7 @@ import useAuth from "../utils/useAuth";
 function UserProfile() {
   const { user } = useAuth();
 
-  const navigate = useNavigate();
-
-  const userId = user ? user.id : navigate("/login");
+  const userId = user?.id;
 
   const [formData, setFormData] = useState({
     lastname: "",
@@ -189,7 +187,7 @@ function UserProfile() {
     }
   };
 
-  return (
+  return userId ? (
     <div className="personal-space-container">
       <div className="user-profile">
         <header className="header">
@@ -409,6 +407,10 @@ function UserProfile() {
           )}
         </div>
       </div>
+    </div>
+  ) : (
+    <div>
+      <Link to="/login">icici</Link>
     </div>
   );
 }
