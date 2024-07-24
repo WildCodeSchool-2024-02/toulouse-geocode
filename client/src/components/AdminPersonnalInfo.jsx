@@ -13,7 +13,9 @@ function AdminPersonnalInfo({ user, hostUrl }) {
 
   useEffect(() => {
     if (userIdDetails) {
-      fetch(`${hostUrl}/api/user/${userIdDetails}`)
+      fetch(`${hostUrl}/api/user/${userIdDetails}`, {
+        credentials: "include",
+      })
         .then((res) => res.json())
         .then((data) => {
           setFormData({

@@ -8,7 +8,9 @@ function AdminUser({ hostUrl }) {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch(`${hostUrl}/api/user`);
+      const response = await fetch(`${hostUrl}/api/user`, {
+        credentials: "include",
+      });
       const data = await response.json();
       setUsers(data);
     };
@@ -19,6 +21,7 @@ function AdminUser({ hostUrl }) {
     try {
       const response = await fetch(`${hostUrl}/api/user/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error(`Failed to delete user: ${response.status}`);
@@ -41,9 +44,7 @@ function AdminUser({ hostUrl }) {
                 <p>Nom : {user.lastname}</p>
                 <p>Prénom : {user.firstname}</p>
                 <p>Adresse email : {user.email}</p>
-                <p>
-                  Date de création du compte: {formatDate(user.creation_date)}
-                </p>
+                <p>Date de création du compte: {formatDate(user.creation_date)}</p>
                 <button
                   type="button"
                   className="button-sm-olive-outlined"

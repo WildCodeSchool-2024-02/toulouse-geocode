@@ -16,7 +16,9 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
 
   useEffect(() => {
     if (userIdDetails) {
-      fetch(`${hostUrl}/api/user/${userIdDetails}`)
+      fetch(`${hostUrl}/api/user/${userIdDetails}`, {
+        credentials: "include",
+      })
         .then((res) => res.json())
         .then((data) => setUserDetails(data))
         .catch((err) => console.error(err));
@@ -60,22 +62,14 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
         className="links-container"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {user && (
-          <li className="welcome-message">Bienvenue {user.firstname}</li>
-        )}
+        {user && <li className="welcome-message">Bienvenue {user.firstname}</li>}
         <li>
           {user ? (
-            <button
-              onClick={() => setisOpenedFilteringMenu(!isOpenedFilteringMenu)}
-              type="button"
-            >
+            <button onClick={() => setisOpenedFilteringMenu(!isOpenedFilteringMenu)} type="button">
               Réserver
             </button>
           ) : (
-            <NavLink
-              className={({ isActive }) => (isActive ? "active" : "")}
-              to="/login"
-            >
+            <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/login">
               Réserver
             </NavLink>
           )}
@@ -85,10 +79,7 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
             {user && index === 3 ? (
               <LogoutButton label={el.label} />
             ) : (
-              <NavLink
-                className={({ isActive }) => (isActive ? "active" : "")}
-                to={el.path}
-              >
+              <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
                 {el.label}
               </NavLink>
             )}
