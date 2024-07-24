@@ -278,7 +278,7 @@ function UserProfile() {
             </button>
           </div>
           <div className="user-reservations-container">
-            {bookingFieldIsOpen && bookings.length < 0 ? (
+            {bookingFieldIsOpen &&
               bookings.map((booking) => (
                 <div className="user-reservation-details" key={booking.id}>
                   <p>Id : {booking.id}</p>
@@ -301,18 +301,7 @@ function UserProfile() {
                     </button>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="user-reservation-empty-container">
-                <p>
-                  Vous n'avez pas de réservations enregistrées. Rendez-vous sur
-                  la carte pour sélectionner puis réserver une borne
-                </p>
-                <Link className="button-md-olive-outlined" to="/map">
-                  Carte
-                </Link>
-              </div>
-            )}
+              ))}
           </div>
           <div className="info-item">
             <h3>Mes véhicules</h3>

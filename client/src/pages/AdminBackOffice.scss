@@ -55,6 +55,7 @@
       @include flex(column, center, flex-start, $spacing);
 
       @include mq() {
+        width: 100%;
         @include flex(row, center, flex-start, $spacing);
       }
 
