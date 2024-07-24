@@ -14,21 +14,16 @@ const {
   login,
   logout,
   destroy,
+  edit,
 } = require("../../../controllers/userActions");
-const { hashPassword, verifyPassword } = require("../../../services/auth");
+const { hashPassword, verifyPassword, verifyToken } = require("../../../services/auth");
 
-// Route to get a list of items
-router.get("/", browse);
-
-// Route to get a specific item by ID
-router.get("/:id", read);
-
-// Route to add a new item
+router.get("/", verifyToken, browse);
+router.get("/:id", verifyToken, read);
 router.post("/", hashPassword, add);
-router.delete("/:id", destroy);
-
+router.delete("/:id", verifyToken, destroy);
+router.put("/:id", verifyToken, hashPassword, edit);
 router.post("/login", verifyPassword, login);
-
 router.post("/logout", logout);
 
 /* ************************************************************************* */
