@@ -1,8 +1,9 @@
 const tables = require("../../database/tables");
 
-const browse = async (_, res, next) => {
+const browse = async (req, res, next) => {
+  const { userId } = req.query;
   try {
-    const vehicles = await tables.vehicle.readAll();
+    const vehicles = await tables.vehicle.readAll(userId);
     res.json(vehicles);
   } catch (err) {
     next(err);
@@ -12,19 +13,6 @@ const browse = async (_, res, next) => {
 const read = async (req, res, next) => {
   try {
     const vehicle = await tables.vehicle.read(req.params.id);
-    if (vehicle == null) {
-      res.sendStatus(404);
-    } else {
-      res.json(vehicle);
-    }
-  } catch (err) {
-    next(err);
-  }
-};
-
-const readVehicles = async (req, res, next) => {
-  try {
-    const vehicle = await tables.vehicle.readUserVehicles(req.params.userId);
     if (vehicle == null) {
       res.sendStatus(404);
     } else {
@@ -67,5 +55,4 @@ module.exports = {
   read,
   add,
   destroy,
-  readVehicles,
 };

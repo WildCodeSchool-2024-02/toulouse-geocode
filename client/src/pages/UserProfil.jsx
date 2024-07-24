@@ -101,7 +101,9 @@ function UserProfile() {
 
   useEffect(() => {
     if (showVehicles) {
-      fetch(`${hostUrl}/api/vehicle/my-vehicles/${userId}`)
+      fetch(`${hostUrl}/api/vehicle?userId=${userId}`, {
+        credentials: "include",
+      })
         .then((res) => res.json())
         .then((data) => setVehicles(data))
         .catch((err) => console.error(err));

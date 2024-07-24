@@ -40,34 +40,14 @@ class VehicleRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async readUserVehicles(userId) {
-    // Execute the SQL SELECT query to retrieve a specific vehicle by its ID
+  async readAll(userId) {
+    const query = userId ? `where user_id = ?` : "";
     const [rows] = await this.database.query(
-      `select * from ${this.table} where user_id = ?`,
+      `select * from ${this.table} ${query}`,
       [userId]
     );
-
-    // Return the first row of the result, which represents the vehicle
     return rows;
   }
-
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all vehicles from the "vehicle" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
-
-    // Return the array of vehicles
-    return rows;
-  }
-
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing vehicle
-
-  // async update(vehicle) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an vehicle by its ID
 
   async delete(id) {
     const [result] = await this.database.query(
