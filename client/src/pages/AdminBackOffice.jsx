@@ -7,7 +7,6 @@ import { hostUrl } from "./Register";
 import AdminChargingStations from "../components/AdminChargingStations";
 import AdminMessage from "../components/AdminMessage";
 import AdminUser from "../components/AdminUser";
-import AdminPersonnalInfo from "../components/AdminPersonnalInfo";
 import AdminReservations from "../components/AdminReservations";
 import useAuth from "../utils/useAuth";
 
@@ -30,9 +29,6 @@ function AdminBackOffice() {
           <AdminUser hostUrl={hostUrl} />
           <AdminReservations hostUrl={hostUrl} />
           <AdminChargingStations hostUrl={hostUrl} />
-        </section>
-        <section className="personal-info">
-          <AdminPersonnalInfo hostUrl={hostUrl} user={user} />
         </section>
       </div>
     </div>

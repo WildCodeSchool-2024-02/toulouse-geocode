@@ -1,15 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./UserProfil.scss";
 import { hostUrl } from "./Register";
 import useAuth from "../utils/useAuth";
+import { formatTime } from "../services/utils";
 
 function UserProfile() {
   const { user } = useAuth();
 
-  const navigate = useNavigate();
-
-  const userId = user ? user.id : navigate("/login");
+  const userId = user.id;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -37,16 +36,6 @@ function UserProfile() {
   }, [userId]);
 
   const [bookingFieldIsOpen, setBookingFieldIsOpen] = useState();
-
-  const bookingFields = [
-    { label: "Id :", value: "id" },
-    { label: "Durée :", value: "duration" },
-    { label: "Heure de début :", value: "starting_time" },
-    { label: "Heure de fin :", value: "ending_time" },
-    { label: "Prix :", value: "price" },
-    { label: "Id utilisateur :", value: "user_id" },
-    { label: "Id borne de recharge :", value: "charging_station_id" },
-  ];
 
   const [bookings, setBookings] = useState([]);
 
@@ -187,7 +176,7 @@ function UserProfile() {
         </header>
 
         <div className="personal-info-container">
-          <h2>Informations personnelles</h2>
+          <h2>Informations</h2>
           <div className="info-item">
             <div>
               <h3>Nom :</h3>
@@ -276,15 +265,19 @@ function UserProfile() {
             </button>
           </div>
           <div className="user-reservations-container">
-            {bookingFieldIsOpen &&
+            {bookingFieldIsOpen && bookings.length < 0 ? (
               bookings.map((booking) => (
-                <ul key={booking.id}>
-                  {bookingFields.map((field) => (
-                    <li key={field.value}>
-                      <h4>{field.label}</h4>
-                      <p>{booking[field.value]}</p>
-                    </li>
-                  ))}
+                <div className="user-reservation-details" key={booking.id}>
+                  <p>Id : {booking.id}</p>
+                  <p>Adresse : {booking.station_adress}</p>
+                  <p>Durée : {booking.duration} minutes</p>
+                  <p>Début : {formatTime(booking.starting_time)}</p>
+                  <p>Fin : {formatTime(booking.ending_time)}</p>
+                  <p>Prix : {booking.price} €</p>
+                  <p>
+                    Id de la borne de recharge : {booking.charging_station_id}
+                  </p>
+                  <p>Id utilisateur : {booking.user_id}</p>
                   <div className="button-container">
                     <button
                       type="button"
@@ -294,8 +287,19 @@ function UserProfile() {
                       Supprimer
                     </button>
                   </div>
-                </ul>
-              ))}
+                </div>
+              ))
+            ) : (
+              <div className="user-reservation-empty-container">
+                <p>
+                  Vous n'avez pas de réservations enregistrées. Rendez-vous sur
+                  la carte pour sélectionner puis réserver une borne
+                </p>
+                <Link className="button-md-olive-outlined" to="/map">
+                  Carte
+                </Link>
+              </div>
+            )}
           </div>
           <div className="info-item">
             <h3>Mes véhicules</h3>

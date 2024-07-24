@@ -1,19 +1,9 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { formatTime } from "../services/utils";
 
 function AdminReservations({ hostUrl }) {
   const [bookingFieldIsOpen, setBookingFieldIsOpen] = useState();
-
-  const bookingFields = [
-    { label: "Id :", value: "id" },
-    { label: "Durée :", value: "duration" },
-    { label: "Heure de début :", value: "starting_time" },
-    { label: "Heure de fin :", value: "ending_time" },
-    { label: "Prix :", value: "price" },
-    { label: "Payé ?", value: "is_paid" },
-    { label: "Id utilisateur :", value: "user_id" },
-    { label: "Id borne de recharge :", value: "charging_station_id" },
-  ];
 
   const [bookings, setBookings] = useState([]);
 
@@ -55,13 +45,15 @@ function AdminReservations({ hostUrl }) {
       <div className="info-item">
         {bookingFieldIsOpen &&
           bookings.map((booking) => (
-            <ul key={booking.id}>
-              {bookingFields.map((field) => (
-                <li key={field.value}>
-                  <h4>{field.label}</h4>
-                  <p>{booking[field.value]}</p>
-                </li>
-              ))}
+            <div className="admin-reservation-details" key={booking.id}>
+              <p>Id : {booking.id}</p>
+              <p>Adresse : {booking.station_adress}</p>
+              <p>Durée : {booking.duration} minutes</p>
+              <p>Début : {formatTime(booking.starting_time)}</p>
+              <p>Fin : {formatTime(booking.ending_time)}</p>
+              <p>Prix : {booking.price} €</p>
+              <p>Id de la borne de recharge : {booking.charging_station_id}</p>
+              <p>Id utilisateur : {booking.user_id}</p>
               <div className="button-container">
                 <button
                   type="button"
@@ -71,9 +63,8 @@ function AdminReservations({ hostUrl }) {
                   Supprimer
                 </button>
               </div>
-            </ul>
+            </div>
           ))}
-
         <button
           type="button"
           className="button-md-olive-outlined admin-back-office-buttons"

@@ -24,15 +24,20 @@
 
       .user-reservations-container {
         width: 100%;
-        min-height: 58px;
-        @include flex(column, flex-start, flex-start, $spacing);
+        @include flex(column, flex-start, flex-start, $spacingDouble);
 
-        .user-reservation-container {
+        .user-reservation-details {
+          @include flex(column, flex-start, flex-start, $spacing);
+
           width: 100%;
 
           div {
             @include flex(row, flex-start, flex-start, $spacing);
           }
+        }
+
+        .user-reservation-empty-container {
+          @include flex(column, flex-start, center, $spacingDouble);
         }
       }
 
@@ -66,7 +71,7 @@
 
       .vehicle-info {
         width: 100%;
-        @include flex(column, left, flex-start, $spacing);
+        @include flex(column, left, flex-start, $spacingDouble);
 
         & > div {
           width: 100%;
