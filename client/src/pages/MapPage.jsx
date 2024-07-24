@@ -8,6 +8,7 @@ import PopupCard from "../components/PopupCard";
 import useFetchData from "../utils/useFetchData";
 import FilteringMenu from "../components/FilteringMenu";
 import Hud from "../components/Hud";
+import CustomGeocoder from "../components/CustomGeocoder";
 
 function MapPage() {
   const mapRef = useRef();
@@ -136,6 +137,16 @@ function MapPage() {
       .then((d) => setStationDetails(d));
   };
 
+  const handleLocationSelect = (location) => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [location.lon, location.lat],
+        zoom: 12,
+        essential: true,
+      });
+    }
+  };
+
   return (
     <>
       {isOpenedFilteringMenu && (
@@ -151,7 +162,7 @@ function MapPage() {
         setisOpenedFilteringMenu={setisOpenedFilteringMenu}
         isOpenedFilteringMenu={isOpenedFilteringMenu}
       />
-
+      <CustomGeocoder onLocationSelect={handleLocationSelect} />
       {filteredPlug.length && (
         <Map
           initialViewState={{
@@ -176,6 +187,7 @@ function MapPage() {
             trackUserLocation
             showUserHeading
             showAccuracyCircle
+            position="bottom-left"
           />
           {clusters &&
             clusters.map((cluster) => {

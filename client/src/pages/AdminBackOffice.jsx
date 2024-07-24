@@ -2,16 +2,25 @@ import "../style/input.scss";
 import "../style/button.scss";
 import "../style/colors.scss";
 import "./AdminBackOffice.scss";
+import { useNavigate } from "react-router-dom";
 import { hostUrl } from "./Register";
 import AdminChargingStations from "../components/AdminChargingStations";
 import AdminMessage from "../components/AdminMessage";
 import AdminUser from "../components/AdminUser";
 import AdminPersonnalInfo from "../components/AdminPersonnalInfo";
 import AdminReservations from "../components/AdminReservations";
+import useAuth from "../utils/useAuth";
 
 function AdminBackOffice() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  if (!user) {
+    navigate("/login");
+  }
+
   return (
-    <div className="page-container">
+    <div className="admin-back-office-container">
       <div className="admin-back">
         <header className="header">
           <h1>Espace administrateur</h1>
@@ -23,7 +32,7 @@ function AdminBackOffice() {
           <AdminChargingStations hostUrl={hostUrl} />
         </section>
         <section className="personal-info">
-          <AdminPersonnalInfo />
+          <AdminPersonnalInfo hostUrl={hostUrl} user={user} />
         </section>
       </div>
     </div>

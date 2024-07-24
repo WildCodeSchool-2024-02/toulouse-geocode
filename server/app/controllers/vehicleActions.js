@@ -22,6 +22,19 @@ const read = async (req, res, next) => {
   }
 };
 
+const readVehicles = async (req, res, next) => {
+  try {
+    const vehicle = await tables.vehicle.readUserVehicles(req.params.userId);
+    if (vehicle == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(vehicle);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const add = async (req, res, next) => {
   // Extract the vehicle data from the request body
   const vehicle = req.body;
@@ -54,4 +67,5 @@ module.exports = {
   read,
   add,
   destroy,
+  readVehicles,
 };

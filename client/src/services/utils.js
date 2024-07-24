@@ -5,3 +5,15 @@ export const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString("fr-FR", options);
 };
+
+export const formatTime = (dateString) => {
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minutes: "2-digit",
+  };
+  const date = new Date(dateString);
+  return date.toLocaleDateString("fr-FR", options);
+};

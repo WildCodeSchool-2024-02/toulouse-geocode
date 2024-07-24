@@ -77,7 +77,7 @@ function AdminChargingStations({ hostUrl }) {
             <button
               type="button"
               onClick={handleSearch}
-              className="button-md-olive-outlined"
+              className="button-md-olive-outlined admin-back-office-buttons"
             >
               Rechercher
             </button>
@@ -153,7 +153,7 @@ function AdminChargingStations({ hostUrl }) {
                 </div>
                 <button
                   type="button"
-                  className="button-md-olive-outlined"
+                  className="button-md-olive-outlined admin-back-office-buttons"
                   onClick={() => {
                     if (openDetailId === chargingStation.id) {
                       setOpenDetailId(null);
@@ -178,7 +178,7 @@ function AdminChargingStations({ hostUrl }) {
           <>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-md-olive-outlined admin-back-office-buttons"
               onClick={() => {
                 setOffset((prevOffset) => prevOffset + 10);
               }}
@@ -188,7 +188,7 @@ function AdminChargingStations({ hostUrl }) {
             {offset >= 10 && (
               <button
                 type="button"
-                className="button-md-olive-outlined"
+                className="button-md-olive-outlined admin-back-office-buttons"
                 onClick={() => {
                   setOffset((prevOffset) => prevOffset - 10);
                 }}
@@ -200,7 +200,7 @@ function AdminChargingStations({ hostUrl }) {
         )}
         <button
           type="button"
-          className="button-md-olive-outlined"
+          className="button-md-olive-outlined admin-back-office-buttons"
           onClick={() => {
             setChargingStationsFieldIsOpen(!chargingStationsFieldIsOpen);
           }}

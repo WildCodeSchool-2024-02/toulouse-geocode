@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-function AdminPersonnalInfo() {
+function AdminPersonnalInfo({ user, hostUrl }) {
+  const userIdDetails = user;
+
+  const [formData, setFormData] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    password: "************",
+  });
+
+  useEffect(() => {
+    if (userIdDetails) {
+      fetch(`${hostUrl}/api/user/${userIdDetails}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFormData({
+            name: data.firstname,
+            surname: data.lastname,
+            email: data.email,
+            password: "",
+          });
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [userIdDetails]);
+
   const [isEditing, setIsEditing] = useState({
     email: false,
     password: false,
-  });
-
-  const [formData, setFormData] = useState({
-    email: "superwan32@gerson.fr",
-    password: "************",
   });
 
   const handleEditClick = (field) => {
@@ -75,3 +96,14 @@ function AdminPersonnalInfo() {
 }
 
 export default AdminPersonnalInfo;
+
+AdminPersonnalInfo.defaultProps = {
+  user: null,
+};
+
+AdminPersonnalInfo.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }),
+  hostUrl: PropTypes.string.isRequired,
+};

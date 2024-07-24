@@ -1,71 +1,72 @@
 @import "../style/style.scss";
 @import "../style/colors.scss";
 
-.page-container {
+.admin-back-office-container {
   width: 100dvw;
   @include colorAndWeight();
 
-  @include flex(column, center, center, 2rem);
+  @include flex(column, center, center, calc($spacingDouble * 2));
 
   .admin-back {
     width: 90dvw;
     max-width: 85ch;
     padding-block: 1rem;
 
-    @include flex(column, flex-start, flex-start, 2rem);
+    @include flex(column, flex-start, flex-start, calc($spacingDouble * 2));
 
     @include mq() {
-      @include flex(column, flex-start, flex-start, 2rem);
+      @include flex(column, flex-start, flex-start, calc($spacingDouble * 2));
     }
 
     .info-item {
-      @include flex(column, space-between, flex-start, $spacingDouble);
+      @include flex(column, space-between, none, $spacingDouble);
       width: 100%;
       padding-block: 1rem;
     }
-  }
 
-  section {
-    width: 100%;
-
-    .button-container {
-      @include flex(row, flex-start, flex-start, $spacing);
-    }
-  }
-
-  ul > li {
-    @include flex(column, flex-start, flex-start, $spacing);
-    padding: 0.5rem;
-    width: 100%;
-    height: fit-content;
-    border-radius: 0.5rem;
-  }
-
-  .info-item > li {
-    @include flex(column, center, flex-start, $spacing);
-    padding: 1rem;
-    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.422);
-    width: 100%;
-    height: fit-content;
-    border-radius: 0.5rem;
-
-    div {
+    .admin-back-office-buttons {
       width: 100%;
     }
 
-    .charging-station-card {
+    section {
+      width: 100%;
+
+      .button-container {
+        @include flex(row, flex-start, flex-start, $spacing);
+      }
+    }
+
+    ul > li {
+      @include flex(column, flex-start, flex-start, $spacing);
+      padding: 0.5rem;
+      width: 100%;
+      height: fit-content;
+      border-radius: 0.5rem;
+    }
+
+    .info-item > li {
       @include flex(column, center, flex-start, $spacing);
+      padding: 1rem;
+      box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.422);
+      width: 100%;
+      height: fit-content;
+      border-radius: 0.5rem;
 
-      @include mq() {
-        @include flex(row, center, flex-start, $spacing);
-
-        button {
-          max-width: 10rem;
-        }
+      div {
+        width: 100%;
       }
 
-      .charging-station-text-container {
+      .charging-station-card {
         @include flex(column, center, flex-start, $spacing);
+
+        @include mq() {
+          @include flex(row, center, flex-start, $spacing);
+        }
+
+        .charging-station-text-container {
+          @include flex(column, center, flex-start, $spacing);
+          width: 100%;
+        }
       }
     }
   }

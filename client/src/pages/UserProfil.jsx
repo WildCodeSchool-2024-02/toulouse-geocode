@@ -1,9 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./UserProfil.scss";
-import "../style/input.scss";
-import "../style/button.scss";
-import "../style/colors.scss";
 import { hostUrl } from "./Register";
 import useAuth from "../utils/useAuth";
 
@@ -36,6 +33,54 @@ function UserProfile() {
         .catch((err) => console.error(err));
     }
   }, [userId]);
+
+  const [bookingFieldIsOpen, setBookingFieldIsOpen] = useState();
+
+  const bookingFields = [
+    { label: "Id :", value: "id" },
+    { label: "Durée :", value: "duration" },
+    { label: "Heure de début :", value: "starting_time" },
+    { label: "Heure de fin :", value: "ending_time" },
+    { label: "Prix :", value: "price" },
+    { label: "Payé ?", value: "is_paid" },
+    { label: "Id utilisateur :", value: "user_id" },
+    { label: "Id borne de recharge :", value: "charging_station_id" },
+  ];
+
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const response = await fetch(`${hostUrl}/api/reservation`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        credentials: "include",
+      });
+      const data = await response.json();
+      setBookings(data);
+    };
+    fetchBookings();
+  }, [hostUrl]);
+
+  const handleDeleteBooking = async (id) => {
+    try {
+      const response = await fetch(`${hostUrl}/api/reservation/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to delete booking: ${response.status}`);
+      }
+      setBookings(bookings.filter((booking) => booking.id !== id));
+    } catch (error) {
+      console.error("Error deleting booking:", error);
+      throw error;
+    }
+  };
+
   const [vehicles, setVehicles] = useState([]);
   const [newVehicle, setNewVehicle] = useState({
     userId,
@@ -56,7 +101,7 @@ function UserProfile() {
 
   useEffect(() => {
     if (showVehicles) {
-      fetch(`${hostUrl}/api/vehicle/`)
+      fetch(`${hostUrl}/api/vehicle/my-vehicles/${userId}`)
         .then((res) => res.json())
         .then((data) => setVehicles(data))
         .catch((err) => console.error(err));
@@ -129,7 +174,7 @@ function UserProfile() {
   };
 
   return (
-    <div className="page-container">
+    <div className="personal-space-container">
       <div className="user-profile">
         <header className="header">
           <h1>Espace personnel</h1>
@@ -138,84 +183,92 @@ function UserProfile() {
         <div className="personal-info-container">
           <h2>Informations personnelles</h2>
           <div className="info-item">
-            <h3>Nom :</h3>
-            {isEditing.name ? (
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <h3>{formData.name}</h3>
-            )}
+            <div>
+              <h3>Nom :</h3>
+              {isEditing.name ? (
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <p>{formData.name}</p>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("name")}
             >
               {isEditing.name ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
-            <h3>Prénom :</h3>
-            {isEditing.surname ? (
-              <input
-                type="text"
-                name="surname"
-                value={formData.surname}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <h3>{formData.surname}</h3>
-            )}
+            <div>
+              <h3>Prénom :</h3>
+              {isEditing.surname ? (
+                <input
+                  type="text"
+                  name="surname"
+                  value={formData.surname}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <p>{formData.surname}</p>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("surname")}
             >
               {isEditing.surname ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
-            <h3>Email :</h3>
-            {isEditing.email ? (
-              <input
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <h3>{formData.email}</h3>
-            )}
+            <div>
+              <h3>Email :</h3>
+              {isEditing.email ? (
+                <input
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <p>{formData.email}</p>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("email")}
             >
               {isEditing.email ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
-            <h3>Mot de passe :</h3>
-            {isEditing.password ? (
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <p>********</p>
-            )}
+            <div>
+              <h3>Mot de passe :</h3>
+              {isEditing.password ? (
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <h3>********</h3>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("password")}
             >
               {isEditing.password ? "Enregistrer" : "Modifier"}
@@ -223,112 +276,138 @@ function UserProfile() {
           </div>
           <div className="info-item">
             <h3>Mes réservations</h3>
-            <button type="button" className="button-md-olive-outlined">
-              Voir
+            {bookingFieldIsOpen &&
+              bookings.map((booking) => (
+                <ul key={booking.id}>
+                  {bookingFields.map((field) => (
+                    <li key={field.value}>
+                      <h4>{field.label}</h4>
+                      <p>{booking[field.value]}</p>
+                    </li>
+                  ))}
+                  <div className="button-container">
+                    <button
+                      type="button"
+                      className="button-sm-olive-outlined"
+                      onClick={() => handleDeleteBooking(booking.id)}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </ul>
+              ))}
+
+            <button
+              type="button"
+              className="button-sm-olive-outlined"
+              onClick={() => {
+                setBookingFieldIsOpen(!bookingFieldIsOpen);
+              }}
+            >
+              {bookingFieldIsOpen ? "Fermer" : "Voir"}
             </button>
           </div>
           <div className="info-item">
-            <h2>Mes véhicules</h2>
+            <h3>Mes véhicules</h3>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => setShowVehicles(!showVehicles)}
             >
               {showVehicles ? "Fermer" : "Voir"}
             </button>
           </div>
+          {showVehicles && (
+            <section className="vehicle-info">
+              {vehicles.length === 0 ? (
+                <div>
+                  <p>Aucun véhicule trouvé.</p>
+                  <button
+                    type="button"
+                    className="button-sm-olive-outlined"
+                    onClick={() => setShowAddVehicle(true)}
+                  >
+                    Ajouter votre premier véhicule
+                  </button>
+                </div>
+              ) : (
+                <ul>
+                  {vehicles.map((vehicle) => (
+                    <li key={vehicle.id}>
+                      <p>Marque : {vehicle.brand}</p>
+                      <p>Modèle : {vehicle.model}</p>
+                      <p>Année : {vehicle.year}</p>
+                      <p>Tension : {vehicle.power_voltage}V</p>
+                      <p>Type de prise : {vehicle.plug_type}</p>
+                      <button
+                        type="button"
+                        className="button-sm-olive-outlined"
+                        onClick={() => handleDeleteVehicle(vehicle.id)}
+                      >
+                        Supprimer le véhicule
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {showAddVehicle && (
+                <div className="add-vehicle-form">
+                  <input
+                    type="text"
+                    name="brand"
+                    value={newVehicle.brand}
+                    onChange={handleInputChange}
+                    placeholder="Marque"
+                    className="input-sm-gray-outlined"
+                  />
+                  <input
+                    type="text"
+                    name="model"
+                    value={newVehicle.model}
+                    onChange={handleInputChange}
+                    placeholder="Modèle"
+                    className="input-sm-gray-outlined"
+                  />
+                  <input
+                    type="number"
+                    name="year"
+                    value={newVehicle.year}
+                    onChange={handleInputChange}
+                    placeholder="Année"
+                    className="input-sm-gray-outlined"
+                  />
+                  <input
+                    type="number"
+                    name="powerVoltage"
+                    value={newVehicle.powerVoltage}
+                    onChange={handleInputChange}
+                    placeholder="Tension (V)"
+                    className="input-sm-gray-outlined"
+                  />
+                  <select
+                    name="plugType"
+                    value={newVehicle.plugType}
+                    onChange={handleInputChange}
+                    className="input-sm-gray-outlined"
+                  >
+                    <option value="">Sélectionner le type de prise</option>
+                    <option value="Type1">Type 1</option>
+                    <option value="Type2">Type 2</option>
+                    <option value="CCS">CCS</option>
+                    <option value="CHAdeMO">CHAdeMO</option>
+                  </select>
+                  <button
+                    type="button"
+                    className="button-sm-olive-outlined"
+                    onClick={handleAddVehicle}
+                  >
+                    Ajouter véhicule
+                  </button>
+                </div>
+              )}
+            </section>
+          )}
         </div>
-
-        {showVehicles && (
-          <section className="vehicle-info">
-            {vehicles.length > 0 ? (
-              <ul>
-                {vehicles.map((vehicle) => (
-                  <li key={vehicle.id}>
-                    <p>Marque : {vehicle.brand}</p>
-                    <p>Modèle : {vehicle.model}</p>
-                    <p>Année : {vehicle.year}</p>
-                    <p>Tension : {vehicle.power_voltage}V</p>
-                    <p>Type de prise : {vehicle.plug_type}</p>
-                    <button
-                      type="button"
-                      className="button-sm-olive-outlined"
-                      onClick={() => handleDeleteVehicle(vehicle.id)}
-                    >
-                      Supprimer le véhicule
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Aucun véhicule trouvé.</p>
-            )}
-            <div>
-              <button
-                type="button"
-                className="button-md-olive-outlined"
-                onClick={() => setShowAddVehicle(true)}
-              >
-                Ajouter un véhicule
-              </button>
-            </div>
-            {showAddVehicle && (
-              <div className="add-vehicle-form">
-                <input
-                  type="text"
-                  name="brand"
-                  value={newVehicle.brand}
-                  onChange={handleInputChange}
-                  placeholder="Marque"
-                  className="input-sm-gray-outlined"
-                />
-                <input
-                  type="text"
-                  name="model"
-                  value={newVehicle.model}
-                  onChange={handleInputChange}
-                  placeholder="Modèle"
-                  className="input-sm-gray-outlined"
-                />
-                <input
-                  type="number"
-                  name="year"
-                  value={newVehicle.year}
-                  onChange={handleInputChange}
-                  placeholder="Année"
-                  className="input-sm-gray-outlined"
-                />
-                <input
-                  type="number"
-                  name="powerVoltage"
-                  value={newVehicle.powerVoltage}
-                  onChange={handleInputChange}
-                  placeholder="Tension (V)"
-                  className="input-sm-gray-outlined"
-                />
-                <select
-                  name="plugType"
-                  value={newVehicle.plugType}
-                  onChange={handleInputChange}
-                  className="input-sm-gray-outlined"
-                >
-                  <option value="">Sélectionner le type de prise</option>
-                  <option value="Type1">Type 1</option>
-                  <option value="Type2">Type 2</option>
-                  <option value="CCS">CCS</option>
-                  <option value="CHAdeMO">CHAdeMO</option>
-                </select>
-                <button
-                  type="button"
-                  className="button-md-olive-outlined"
-                  onClick={handleAddVehicle}
-                >
-                  Ajouter véhicule
-                </button>
-              </div>
-            )}
-          </section>
-        )}
       </div>
     </div>
   );

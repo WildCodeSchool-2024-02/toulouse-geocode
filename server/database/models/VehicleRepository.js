@@ -40,6 +40,17 @@ class VehicleRepository extends AbstractRepository {
     return rows[0];
   }
 
+  async readUserVehicles(userId) {
+    // Execute the SQL SELECT query to retrieve a specific vehicle by its ID
+    const [rows] = await this.database.query(
+      `select * from ${this.table} where user_id = ?`,
+      [userId]
+    );
+
+    // Return the first row of the result, which represents the vehicle
+    return rows;
+  }
+
   async readAll() {
     // Execute the SQL SELECT query to retrieve all vehicles from the "vehicle" table
     const [rows] = await this.database.query(`select * from ${this.table}`);
