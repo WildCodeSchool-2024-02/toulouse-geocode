@@ -1,6 +1,11 @@
 @import "../style/style.scss";
 @import "../style/colors.scss";
 
+.admin-reservation-empty-container {
+  @include flex(column, center, center, $spacingDouble);
+  padding-top: 2rem;
+}
+
 .admin-back-office-container {
   width: 100dvw;
   @include colorAndWeight();

@@ -9,7 +9,7 @@ import { hostUrl } from "../pages/Register";
 
 function Navbar() {
   const { user } = useAuth();
-  const userId = user && user.id;
+  const userId = user?.id;
   const location = useLocation();
   const [userDetails, setUserDetails] = useState(null);
 

@@ -8,7 +8,7 @@ import { formatTime } from "../services/utils";
 function UserProfile() {
   const { user } = useAuth();
 
-  const userId = user.id;
+  const userId = user?.id;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -168,7 +168,7 @@ function UserProfile() {
     }
   };
 
-  return (
+  return userId ? (
     <div className="personal-space-container">
       <div className="user-profile">
         <header className="header">
@@ -401,6 +401,13 @@ function UserProfile() {
           )}
         </div>
       </div>
+    </div>
+  ) : (
+    <div className="admin-reservation-empty-container">
+      <p>Connectez vous pour accéder à cette page.</p>
+      <Link className="button-md-olive-outlined" to="/login">
+        Connexion
+      </Link>
     </div>
   );
 }
