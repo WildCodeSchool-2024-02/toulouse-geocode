@@ -11,8 +11,8 @@ function UserProfile() {
   const userId = user?.id;
 
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
+    lastname: "",
+    firstname: "",
     email: "",
     password: "************",
   });
@@ -25,8 +25,8 @@ function UserProfile() {
         .then((res) => res.json())
         .then((data) => {
           setFormData({
-            name: data.firstname,
-            surname: data.lastname,
+            firstname: data.firstname,
+            lastname: data.lastname,
             email: data.email,
             password: "",
           });
@@ -86,8 +86,8 @@ function UserProfile() {
   const [showVehicles, setShowVehicles] = useState(false);
   const [showAddVehicle, setShowAddVehicle] = useState(false);
   const [isEditing, setIsEditing] = useState({
-    name: false,
-    surname: false,
+    lastname: false,
+    firstname: false,
     email: false,
     password: false,
   });
@@ -111,11 +111,23 @@ function UserProfile() {
     }));
   };
 
+  const handleAddPersonnalInformation = () => {
+    fetch(`${hostUrl}/api/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+      credentials: "include",
+    });
+  };
+
   const handleEditClick = (field) => {
     setIsEditing((prev) => ({
       ...prev,
       [field]: !prev[field],
     }));
+    handleAddPersonnalInformation();
   };
 
   const handleFormInputChange = (e) => {
@@ -180,52 +192,53 @@ function UserProfile() {
           <div className="info-item">
             <div>
               <h3>Nom :</h3>
-              {isEditing.name ? (
+              {isEditing.lastname ? (
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="lastname"
+                  value={formData.lastname}
                   onChange={handleFormInputChange}
                   className="input-sm-gray-outlined"
                 />
               ) : (
-                <p>{formData.name}</p>
+                <p>{formData.lastname}</p>
               )}
             </div>
             <button
               type="button"
               className="button-sm-olive-outlined"
-              onClick={() => handleEditClick("name")}
+              onClick={() => handleEditClick("lastname")}
             >
-              {isEditing.name ? "Enregistrer" : "Modifier"}
+              {isEditing.lastname ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
             <div>
               <h3>Prénom :</h3>
-              {isEditing.surname ? (
+              {isEditing.firstname ? (
                 <input
                   type="text"
-                  name="surname"
-                  value={formData.surname}
+                  name="firstname"
+                  value={formData.firstname}
                   onChange={handleFormInputChange}
                   className="input-sm-gray-outlined"
                 />
               ) : (
-                <p>{formData.surname}</p>
+                <p>{formData.firstname}</p>
               )}
             </div>
             <button
               type="button"
               className="button-sm-olive-outlined"
-              onClick={() => handleEditClick("surname")}
+              onClick={() => handleEditClick("firstname")}
             >
-              {isEditing.surname ? "Enregistrer" : "Modifier"}
+              {isEditing.firstname ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
             <div>
               <h3>Email :</h3>
+
               <p>{formData.email}</p>
             </div>
           </div>
