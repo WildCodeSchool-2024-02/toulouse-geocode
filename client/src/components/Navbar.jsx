@@ -15,7 +15,9 @@ function Navbar() {
 
   useEffect(() => {
     if (userId) {
-      fetch(`${hostUrl}/api/user/${userId}`, { credentials: "include" })
+      fetch(`${hostUrl}/api/user/${userId}`, {
+        credentials: "include",
+      })
         .then((res) => res.json())
         .then((data) => setUserDetails(data))
         .catch((err) => console.error(err));
