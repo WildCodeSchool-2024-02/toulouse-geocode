@@ -5,17 +5,17 @@
   width: 100dvw;
   @include colorAndWeight();
 
-  @include flex(column, center, center, 2rem);
+  @include flex(column, center, center, calc($spacingDouble * 2));
 
   .admin-back {
     width: 90dvw;
     max-width: 85ch;
     padding-block: 1rem;
 
-    @include flex(column, flex-start, flex-start, 2rem);
+    @include flex(column, flex-start, flex-start, calc($spacingDouble * 2));
 
     @include mq() {
-      @include flex(column, flex-start, flex-start, 2rem);
+      @include flex(column, flex-start, flex-start, calc($spacingDouble * 2));
     }
 
     .info-item {
