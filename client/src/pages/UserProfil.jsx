@@ -20,7 +20,9 @@ function UserProfile() {
 
   useEffect(() => {
     if (userId) {
-      fetch(`${hostUrl}/api/user/${userId}`)
+      fetch(`${hostUrl}/api/user/${userId}`, {
+        credentials: "include",
+      })
         .then((res) => res.json())
         .then((data) => {
           setFormData({

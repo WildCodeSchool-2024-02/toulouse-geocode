@@ -15,7 +15,7 @@ class ReservationRepository extends AbstractRepository {
         reservation.price,
         reservation.userId,
         reservation.chargingStationId,
-      ]
+      ],
     );
     return result.insertId;
   }
@@ -23,7 +23,7 @@ class ReservationRepository extends AbstractRepository {
   async findByHorary(startingTime, endingTime) {
     const [rows] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE starting_time = ? AND ending_time = ?`,
-      [startingTime, endingTime]
+      [startingTime, endingTime],
     );
     return rows[0];
   }
@@ -35,7 +35,7 @@ class ReservationRepository extends AbstractRepository {
              JOIN user ON reservation.user_id = user.id
              JOIN charging_station ON reservation.charging_station_id = charging_station.id
              WHERE reservation.id = ?`,
-      [id]
+      [id],
     );
     return rows[0];
   }
@@ -45,7 +45,7 @@ class ReservationRepository extends AbstractRepository {
       `SELECT r.*, u.firstname, u.lastname, u.email, cs.station_name, cs.station_adress
              FROM ${this.table} r
              JOIN user u ON r.user_id = u.id
-             JOIN charging_station cs ON r.charging_station_id = cs.id`
+             JOIN charging_station cs ON r.charging_station_id = cs.id`,
     );
     return rows;
   }
@@ -56,7 +56,7 @@ class ReservationRepository extends AbstractRepository {
       duration = ?, 
       starting_time = ?, 
       ending_time = ?, 
-      price = ?, 
+      price = ?
       WHERE id = ?`,
       [
         reservation.duration,
@@ -64,16 +64,13 @@ class ReservationRepository extends AbstractRepository {
         reservation.ending_time,
         reservation.price,
         reservation.id,
-      ]
+      ],
     );
     return result.affectedRows > 0;
   }
 
   async delete(id) {
-    const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id = ?`,
-      [id]
-    );
+    const [result] = await this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
     return result.affectedRows > 0;
   }
 }
