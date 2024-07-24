@@ -25,7 +25,7 @@ function Connect() {
   return (
     <div className="contact-form-div">
       <Form method="post" onSubmit={handleSubmit}>
-        <img className="logo-css" src={logo} alt="Logo du site WEB" />
+        <img className="logo" src={logo} alt="Logo du site WEB" />
 
         <h1>Se connecter</h1>
         <section className="email">
@@ -54,7 +54,7 @@ function Connect() {
             required
           />
         </section>
-        <section>
+        <section className="section-validate">
           <LoginButton requestBody={requestBody} />
         </section>
       </Form>

@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Navbar.scss";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import LogoutButton from "./LogoutButton";
 
 function Navbar() {
   const { user } = useAuth();
+  const location = useLocation();
 
   const pathAndLabels = () => {
     const paths = ["/map", "/contact", "/login", "/register"];
@@ -53,7 +54,9 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="navbar">
+    <div
+      className={`navbar ${location.pathname === "/map" && device === "mobile" ? "invisible" : ""}`}
+    >
       <div className="logo-user-container">
         <Link to="/" onClick={() => setIsOpen(false)}>
           <img className="logo-upya" src={logo} alt="Logo upya" />

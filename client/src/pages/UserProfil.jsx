@@ -56,7 +56,7 @@ function UserProfile() {
 
   useEffect(() => {
     if (showVehicles) {
-      fetch(`/api/vehicles/${userId}`)
+      fetch(`${hostUrl}/api/vehicle/`)
         .then((res) => res.json())
         .then((data) => setVehicles(data))
         .catch((err) => console.error(err));
@@ -98,7 +98,6 @@ function UserProfile() {
       .then(() => {
         setVehicles([...vehicles, newVehicle]);
         setNewVehicle({
-          userId,
           brand: "",
           model: "",
           year: "",
@@ -108,6 +107,25 @@ function UserProfile() {
         setShowAddVehicle(false);
       })
       .catch((err) => console.error(err));
+  };
+
+  const handleDeleteVehicle = async (id) => {
+    try {
+      const response = await fetch(`${hostUrl}/api/vehicle/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to delete vehicle: ${response.status}`);
+      }
+      setVehicles(vehicles.filter((vehicle) => vehicle.id !== id));
+    } catch (error) {
+      console.error("Error deleting vehicle:", error);
+      throw error;
+    }
   };
 
   return (
@@ -120,7 +138,7 @@ function UserProfile() {
         <div className="personal-info-container">
           <h2>Informations personnelles</h2>
           <div className="info-item">
-            <span>Nom :</span>
+            <h3>Nom :</h3>
             {isEditing.name ? (
               <input
                 type="text"
@@ -130,7 +148,7 @@ function UserProfile() {
                 className="input-sm-gray-outlined"
               />
             ) : (
-              <span>{formData.name}</span>
+              <h3>{formData.name}</h3>
             )}
             <button
               type="button"
@@ -141,7 +159,7 @@ function UserProfile() {
             </button>
           </div>
           <div className="info-item">
-            <span>Prénom :</span>
+            <h3>Prénom :</h3>
             {isEditing.surname ? (
               <input
                 type="text"
@@ -151,7 +169,7 @@ function UserProfile() {
                 className="input-sm-gray-outlined"
               />
             ) : (
-              <span>{formData.surname}</span>
+              <h3>{formData.surname}</h3>
             )}
             <button
               type="button"
@@ -162,7 +180,7 @@ function UserProfile() {
             </button>
           </div>
           <div className="info-item">
-            <span>Email :</span>
+            <h3>Email :</h3>
             {isEditing.email ? (
               <input
                 type="text"
@@ -172,7 +190,7 @@ function UserProfile() {
                 className="input-sm-gray-outlined"
               />
             ) : (
-              <span>{formData.email}</span>
+              <h3>{formData.email}</h3>
             )}
             <button
               type="button"
@@ -183,7 +201,7 @@ function UserProfile() {
             </button>
           </div>
           <div className="info-item">
-            <span>Mot de passe :</span>
+            <h3>Mot de passe :</h3>
             {isEditing.password ? (
               <input
                 type="password"
@@ -193,7 +211,7 @@ function UserProfile() {
                 className="input-sm-gray-outlined"
               />
             ) : (
-              <span>********</span>
+              <p>********</p>
             )}
             <button
               type="button"
@@ -204,34 +222,48 @@ function UserProfile() {
             </button>
           </div>
           <div className="info-item">
-            <span>Mes réservations</span>
+            <h3>Mes réservations</h3>
             <button type="button" className="button-md-olive-outlined">
               Voir
             </button>
           </div>
           <div className="info-item">
-            <span>Mes itinéraires</span>
-            <button type="button" className="button-md-olive-outlined">
-              Voir
-            </button>
-          </div>
-          <div className="info-item">
-            <span>Mes véhicules</span>
+            <h2>Mes véhicules</h2>
             <button
               type="button"
               className="button-md-olive-outlined"
               onClick={() => setShowVehicles(!showVehicles)}
             >
-              Voir
+              {showVehicles ? "Fermer" : "Voir"}
             </button>
           </div>
         </div>
 
         {showVehicles && (
           <section className="vehicle-info">
-            <h2>Mes véhicules</h2>
-            <div>
+            {vehicles.length > 0 ? (
+              <ul>
+                {vehicles.map((vehicle) => (
+                  <li key={vehicle.id}>
+                    <p>Marque : {vehicle.brand}</p>
+                    <p>Modèle : {vehicle.model}</p>
+                    <p>Année : {vehicle.year}</p>
+                    <p>Tension : {vehicle.power_voltage}V</p>
+                    <p>Type de prise : {vehicle.plug_type}</p>
+                    <button
+                      type="button"
+                      className="button-sm-olive-outlined"
+                      onClick={() => handleDeleteVehicle(vehicle.id)}
+                    >
+                      Supprimer le véhicule
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
               <p>Aucun véhicule trouvé.</p>
+            )}
+            <div>
               <button
                 type="button"
                 className="button-md-olive-outlined"
@@ -240,14 +272,6 @@ function UserProfile() {
                 Ajouter un véhicule
               </button>
             </div>
-            <ul>
-              {vehicles.map((vehicle) => (
-                <li key={vehicle.id}>
-                  {vehicle.brand} {vehicle.model} ({vehicle.year}) -{" "}
-                  {vehicle.powerVoltage}V, {vehicle.plugType}
-                </li>
-              ))}
-            </ul>
             {showAddVehicle && (
               <div className="add-vehicle-form">
                 <input
