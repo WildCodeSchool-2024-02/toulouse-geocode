@@ -9,18 +9,18 @@ import { hostUrl } from "../pages/Register";
 
 function Navbar() {
   const { user } = useAuth();
-  const userIdDetails = user && user.id;
+  const userId = user && user.id;
   const location = useLocation();
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    if (userIdDetails) {
-      fetch(`${hostUrl}/api/user/${userIdDetails}`)
+    if (userId) {
+      fetch(`${hostUrl}/api/user/${userId}`, { credentials: "include" })
         .then((res) => res.json())
         .then((data) => setUserDetails(data))
         .catch((err) => console.error(err));
     }
-  }, [userIdDetails]);
+  }, [userId]);
 
   const basePathsAndLabels = [{ path: "/map", label: "Carte" }];
 

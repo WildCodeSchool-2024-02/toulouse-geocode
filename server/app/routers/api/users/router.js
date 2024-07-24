@@ -16,7 +16,11 @@ const {
   destroy,
   edit,
 } = require("../../../controllers/userActions");
-const { hashPassword, verifyPassword, verifyToken } = require("../../../services/auth");
+const {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+} = require("../../../services/auth");
 
 router.get("/", verifyToken, browse);
 router.get("/:id", verifyToken, read);

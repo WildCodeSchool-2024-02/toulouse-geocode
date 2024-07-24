@@ -22,6 +22,20 @@
       min-width: 100%;
       @include flex(column, center, center, $spacing);
 
+      .user-reservations-container {
+        width: 100%;
+        min-height: 58px;
+        @include flex(column, flex-start, flex-start, $spacing);
+
+        .user-reservation-container {
+          width: 100%;
+
+          div {
+            @include flex(row, flex-start, flex-start, $spacing);
+          }
+        }
+      }
+
       @include mq() {
         padding: $spacingDouble;
         min-width: 600px;
@@ -47,12 +61,6 @@
 
         input {
           padding: 0.2rem 0.5rem;
-        }
-
-        .user-reservations-container {
-          width: 100%;
-          min-height: 58px;
-          @include flex(column, flex-start, flex-start, $spacing);
         }
       }
 
