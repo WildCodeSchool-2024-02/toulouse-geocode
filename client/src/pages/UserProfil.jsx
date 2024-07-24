@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import "./UserProfil.scss";
-import "../style/input.scss";
-import "../style/button.scss";
-import "../style/colors.scss";
 
 function UserProfile() {
   const [vehicles, setVehicles] = useState([]);
@@ -88,7 +85,7 @@ function UserProfile() {
   };
 
   return (
-    <div className="page-container">
+    <div className="personal-space-container">
       <div className="user-profile">
         <header className="header">
           <h1>Espace personnel</h1>
@@ -97,106 +94,114 @@ function UserProfile() {
         <div className="personal-info-container">
           <h2>Informations personnelles</h2>
           <div className="info-item">
-            <span>Nom :</span>
-            {isEditing.name ? (
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <span>{formData.name}</span>
-            )}
+            <div>
+              <h3>Nom :</h3>
+              {isEditing.name ? (
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <p>{formData.name}</p>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("name")}
             >
               {isEditing.name ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
-            <span>Prénom :</span>
-            {isEditing.surname ? (
-              <input
-                type="text"
-                name="surname"
-                value={formData.surname}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <span>{formData.surname}</span>
-            )}
+            <div>
+              <h3>Prénom :</h3>
+              {isEditing.surname ? (
+                <input
+                  type="text"
+                  name="surname"
+                  value={formData.surname}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <p>{formData.surname}</p>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("surname")}
             >
               {isEditing.surname ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
-            <span>Email :</span>
-            {isEditing.email ? (
-              <input
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <span>{formData.email}</span>
-            )}
+            <div>
+              <h3>Email :</h3>
+              {isEditing.email ? (
+                <input
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <p>{formData.email}</p>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("email")}
             >
               {isEditing.email ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
-            <span>Mot de passe :</span>
-            {isEditing.password ? (
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleFormInputChange}
-                className="input-sm-gray-outlined"
-              />
-            ) : (
-              <span>********</span>
-            )}
+            <div>
+              <h3>Mot de passe :</h3>
+              {isEditing.password ? (
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleFormInputChange}
+                  className="input-sm-gray-outlined"
+                />
+              ) : (
+                <h3>********</h3>
+              )}
+            </div>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => handleEditClick("password")}
             >
               {isEditing.password ? "Enregistrer" : "Modifier"}
             </button>
           </div>
           <div className="info-item">
-            <span>Mes réservations</span>
-            <button type="button" className="button-md-olive-outlined">
+            <h3>Mes réservations</h3>
+            <button type="button" className="button-sm-olive-outlined">
               Voir
             </button>
           </div>
           <div className="info-item">
-            <span>Mes itinéraires</span>
-            <button type="button" className="button-md-olive-outlined">
+            <h3>Mes itinéraires</h3>
+            <button type="button" className="button-sm-olive-outlined">
               Voir
             </button>
           </div>
           <div className="info-item">
-            <span>Mes véhicules</span>
+            <h3>Mes véhicules</h3>
             <button
               type="button"
-              className="button-md-olive-outlined"
+              className="button-sm-olive-outlined"
               onClick={() => setShowVehicles(!showVehicles)}
             >
               Voir
@@ -212,7 +217,7 @@ function UserProfile() {
                 <p>Aucun véhicule trouvé.</p>
                 <button
                   type="button"
-                  className="button-md-olive-outlined"
+                  className="button-sm-olive-outlined"
                   onClick={() => setShowAddVehicle(true)}
                 >
                   Ajouter votre premier véhicule
@@ -222,9 +227,8 @@ function UserProfile() {
               <ul>
                 {vehicles.map((vehicle) => (
                   <li key={vehicle.id}>
-                    {vehicle.make} {vehicle.model} ({vehicle.year}) -{" "}
-                    {vehicle.battery_capacity} kWh, {vehicle.voltage}V,{" "}
-                    {vehicle.plug_type}
+                    {vehicle.make} {vehicle.model} ({vehicle.year}) - {vehicle.battery_capacity}{" "}
+                    kWh, {vehicle.voltage}V, {vehicle.plug_type}
                   </li>
                 ))}
               </ul>
@@ -286,7 +290,7 @@ function UserProfile() {
                 </select>
                 <button
                   type="button"
-                  className="button-md-olive-outlined"
+                  className="button-sm-olive-outlined"
                   onClick={handleAddVehicle}
                 >
                   Ajouter véhicule

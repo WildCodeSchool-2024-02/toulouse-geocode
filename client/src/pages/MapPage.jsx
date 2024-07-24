@@ -8,6 +8,7 @@ import PopupCard from "../components/PopupCard";
 import useFetchData from "../utils/useFetchData";
 import FilteringMenu from "../components/FilteringMenu";
 import Hud from "../components/Hud";
+import CustomGeocoder from "../components/CustomGeocoder";
 
 function MapPage() {
   const mapRef = useRef();
@@ -65,7 +66,10 @@ function MapPage() {
         properties: { cluster: false, itemId: item.id },
         geometry: {
           type: "Point",
-          coordinates: [item.consolidated_longitude, item.consolidated_latitude],
+          coordinates: [
+            item.consolidated_longitude,
+            item.consolidated_latitude,
+          ],
         },
       }));
       setPoints(newPoints);
@@ -102,7 +106,9 @@ function MapPage() {
   });
 
   const selectAcluster = (clusterId) => {
-    if (!supercluster.getChildren(clusterId).some((el) => el.properties.cluster)) {
+    if (
+      !supercluster.getChildren(clusterId).some((el) => el.properties.cluster)
+    ) {
       setSelectedPoints(supercluster.getChildren(clusterId));
       setIsOpenedCluster(!isOpenedCluster);
     }
@@ -124,9 +130,21 @@ function MapPage() {
 
   const handlePopupTrigger = (point, offsetX = 0, offsetY = 0) => {
     setShowPopup({ ...point, offsetX, offsetY });
-    fetch(`http://localhost:3310/api/charging-stations/${point?.properties?.itemId}`)
+    fetch(
+      `http://localhost:3310/api/charging-stations/${point?.properties?.itemId}`
+    )
       .then((r) => r.json())
       .then((d) => setStationDetails(d));
+  };
+
+  const handleLocationSelect = (location) => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [location.lon, location.lat],
+        zoom: 12,
+        essential: true,
+      });
+    }
   };
 
   return (
@@ -144,7 +162,7 @@ function MapPage() {
         setisOpenedFilteringMenu={setisOpenedFilteringMenu}
         isOpenedFilteringMenu={isOpenedFilteringMenu}
       />
-
+      <CustomGeocoder onLocationSelect={handleLocationSelect} />
       {filteredPlug.length && (
         <Map
           initialViewState={{
@@ -155,7 +173,10 @@ function MapPage() {
           maxZoom={16}
           ref={mapRef}
           mapStyle="https://api.jawg.io/styles/b8e0346f-8b93-4cac-b7b8-816c8fd852e8.json?access-token=8zKquTOfkoI1wfzpGaP9FMbbSiRrfUW1pGAuRyTDT7BFktAeT60GIRG5WSNFLvVt"
-          style={{ width: "100dvw", height: `${device === "mobile" ? "100dvh" : "90dvh"}` }}
+          style={{
+            width: "100dvw",
+            height: `${device === "mobile" ? "100dvh" : "90dvh"}`,
+          }}
           onMoveEnd={updateBounds}
           onZoomEnd={clearSelectedPoints}
           onLoad={updateBounds}
@@ -166,11 +187,13 @@ function MapPage() {
             trackUserLocation
             showUserHeading
             showAccuracyCircle
+            position="bottom-left"
           />
           {clusters &&
             clusters.map((cluster) => {
               const [longitude, latitude] = cluster.geometry.coordinates;
-              const { cluster: isCluster, point_count: pointCount } = cluster.properties;
+              const { cluster: isCluster, point_count: pointCount } =
+                cluster.properties;
 
               if (isCluster) {
                 const size = (pointCount * 200) / points.length;
@@ -191,7 +214,7 @@ function MapPage() {
                       selectAcluster(cluster.id);
                       const expansionZoom = Math.min(
                         supercluster.getClusterExpansionZoom(cluster.id),
-                        16,
+                        16
                       );
                       mapRef.current.setZoom(expansionZoom);
                       mapRef.current.panTo({ lat: latitude, lng: longitude });
@@ -217,7 +240,8 @@ function MapPage() {
                 >
                   <i
                     className={`fi fi-rr-charging-station alone-marker ${
-                      showPopup && showPopup.properties.itemId === cluster.properties.itemId
+                      showPopup &&
+                      showPopup.properties.itemId === cluster.properties.itemId
                         ? "isActiveMarker"
                         : ""
                     }`}
@@ -228,7 +252,10 @@ function MapPage() {
           {selectedPoints.length &&
             selectedPoints.map((point, i) => {
               const [longitude, latitude] = point.geometry.coordinates;
-              const { x, y } = calculateSpiralPosition(i, selectedPoints.length);
+              const { x, y } = calculateSpiralPosition(
+                i,
+                selectedPoints.length
+              );
               return (
                 <Marker
                   latitude={latitude}
@@ -238,7 +265,8 @@ function MapPage() {
                 >
                   <motion.i
                     className={`fi fi-rr-charging-station alone-marker ${
-                      showPopup && showPopup.properties.itemId === point.properties.itemId
+                      showPopup &&
+                      showPopup.properties.itemId === point.properties.itemId
                         ? "isActiveMarker"
                         : ""
                     }`}

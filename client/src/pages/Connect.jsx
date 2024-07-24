@@ -11,7 +11,9 @@ import LoginButton from "../components/LoginButton";
 function Connect() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(location.state ? location.state.email : "");
+  const [email, setEmail] = useState(
+    location.state ? location.state.email : ""
+  );
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
@@ -24,7 +26,6 @@ function Connect() {
     <div className="contact-form-div">
       <Form method="post" onSubmit={handleSubmit}>
         <img className="logo" src={logo} alt="Logo du site WEB" />
-
         <h1>Se connecter</h1>
         <section className="email">
           <label htmlFor="email">Adresse email</label>

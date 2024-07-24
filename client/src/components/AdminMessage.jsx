@@ -68,7 +68,7 @@ function AdminMessage({ hostUrl }) {
           ))}
         <button
           type="button"
-          className="button-md-olive-outlined"
+          className="button-md-olive-outlined admin-back-office-buttons"
           onClick={() => {
             setMessageFieldIsOpen(!messageFieldIsOpen);
           }}

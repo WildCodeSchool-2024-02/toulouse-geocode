@@ -16,6 +16,7 @@ $spacingDouble: $spacing * 2;
   align-items: $alignItems;
   gap: $gap;
 }
+
 @mixin mq($breakpoint: 768px) {
   @media screen and (min-width: $breakpoint) {
     @content;
@@ -29,17 +30,21 @@ $spacingDouble: $spacing * 2;
   $font-sizeH3: $fontSize3
 ) {
   font-weight: 300;
+
   h1 {
     font-size: $fontSize1;
   }
+
   h2 {
     font-size: $fontSize2;
     color: #374151;
   }
+
   h3 {
     font-size: $fontSize3;
     color: #4b5563;
   }
+
   em {
     font-size: $fontSize4;
     color: #4b5563;
@@ -53,6 +58,7 @@ button {
   cursor: pointer;
   background-color: transparent;
 }
+
 html,
 body {
   overflow-x: hidden;

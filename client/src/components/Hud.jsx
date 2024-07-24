@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -6,20 +6,49 @@ import useAuth from "../utils/useAuth";
 import LogoutButton from "./LogoutButton";
 import "./Hud.scss";
 import "./Navbar.scss";
+import { hostUrl } from "../pages/Register";
 
 function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
   const { user } = useAuth();
-
+  const userIdDetails = user && user.id;
+  const [userDetails, setUserDetails] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const pathAndLabels = () => {
-    const paths = ["/", "/contact", "/login", "/register"];
-    const labels = ["Accueil", "Contact", "Connexion", "S'inscrire"];
-    const arr = paths.map((path, i) => ({ path, label: labels[i] }));
-    if (user) {
-      arr[2] = { path: "/profile", label: "Espace utilisateur" };
-      arr[3] = { path: "/login", label: "Se deconnecter" };
+
+  useEffect(() => {
+    if (userIdDetails) {
+      fetch(`${hostUrl}/api/user/${userIdDetails}`)
+        .then((res) => res.json())
+        .then((data) => setUserDetails(data))
+        .catch((err) => console.error(err));
     }
-    return arr;
+  }, [userIdDetails]);
+
+  const basePathsAndLabels = [{ path: "/map", label: "Carte" }];
+
+  const adminPaths = [
+    { path: "/profile", label: "Espace utilisateur" },
+    { path: "/admin", label: "Espace administrateur" },
+    { path: "/login", label: "Se deconnecter" },
+  ];
+
+  const userPaths = [
+    { path: "/contact", label: "Contact" },
+    { path: "/profile", label: "Espace utilisateur" },
+    { path: "/login", label: "Se deconnecter" },
+  ];
+
+  const guestPaths = [
+    { path: "/contact", label: "Contact" },
+    { path: "/login", label: "Connexion" },
+    { path: "/register", label: "S'inscrire" },
+  ];
+
+  const pathAndLabels = () => {
+    if (user && userDetails) {
+      const additionalPaths = userDetails.isAdmin ? adminPaths : userPaths;
+      return [...basePathsAndLabels, ...additionalPaths];
+    }
+    return [...basePathsAndLabels, ...guestPaths];
   };
 
   return (
@@ -31,14 +60,22 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
         className="links-container"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {user && <li className="welcome-message">Bienvenue {user.firstname}</li>}
+        {user && (
+          <li className="welcome-message">Bienvenue {user.firstname}</li>
+        )}
         <li>
           {user ? (
-            <button onClick={() => setisOpenedFilteringMenu(!isOpenedFilteringMenu)} type="button">
+            <button
+              onClick={() => setisOpenedFilteringMenu(!isOpenedFilteringMenu)}
+              type="button"
+            >
               Réserver
             </button>
           ) : (
-            <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/login">
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "")}
+              to="/login"
+            >
               Réserver
             </NavLink>
           )}
@@ -48,7 +85,10 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
             {user && index === 3 ? (
               <LogoutButton label={el.label} />
             ) : (
-              <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
+              <NavLink
+                className={({ isActive }) => (isActive ? "active" : "")}
+                to={el.path}
+              >
                 {el.label}
               </NavLink>
             )}
