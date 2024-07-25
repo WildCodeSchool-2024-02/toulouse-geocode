@@ -44,13 +44,13 @@ function Navbar() {
   const adminPaths = [
     { path: "/profile", label: "Espace utilisateur" },
     { path: "/admin", label: "Espace administrateur" },
-    { path: "/login", label: "Se deconnecter" },
+    { path: "/login", label: "Se déconnecter" },
   ];
 
   const userPaths = [
     { path: "/contact", label: "Contact" },
     { path: "/profile", label: "Espace utilisateur" },
-    { path: "/login", label: "Se deconnecter" },
+    { path: "/login", label: "Se déconnecter" },
   ];
 
   const guestPaths = [
