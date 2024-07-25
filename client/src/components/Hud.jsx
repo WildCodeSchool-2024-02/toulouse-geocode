@@ -11,31 +11,30 @@ const hostUrl = import.meta.env.VITE_API_URL;
 
 function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
   const { user } = useAuth();
-  const userIdDetails = user && user.id;
   const [userDetails, setUserDetails] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (userIdDetails) {
-      fetch(`${hostUrl}/api/user/${userIdDetails}`, { credentials: "include" })
+    if (user) {
+      fetch(`${hostUrl}/api/user/${user?.id}`, { credentials: "include" })
         .then((res) => res.json())
         .then((data) => setUserDetails(data))
         .catch((err) => console.error(err));
     }
-  }, [userIdDetails]);
+  }, [user]);
 
   const basePathsAndLabels = [{ path: "/map", label: "Carte" }];
 
   const adminPaths = [
     { path: "/profile", label: "Espace utilisateur" },
     { path: "/admin", label: "Espace administrateur" },
-    { path: "/login", label: "Se deconnecter" },
+    { path: "/login", label: "Se déconnecter" },
   ];
 
   const userPaths = [
     { path: "/contact", label: "Contact" },
     { path: "/profile", label: "Espace utilisateur" },
-    { path: "/login", label: "Se deconnecter" },
+    { path: "/login", label: "Se déconnecter" },
   ];
 
   const guestPaths = [
