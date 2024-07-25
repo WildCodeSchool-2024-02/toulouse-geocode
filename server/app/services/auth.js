@@ -10,8 +10,12 @@ const hashingOptions = {
 };
 
 const hashPassword = async (req, res, next) => {
+  const { password } = req.body;
+  if (!password) {
+    next();
+  }
+
   try {
-    const { password } = req.body;
     const hashedPassword = await argon2.hash(password, hashingOptions);
 
     req.body.hashedPassword = hashedPassword;
@@ -53,6 +57,8 @@ const verifyToken = (req, res, next) => {
 
     if (!token) {
       console.info("Token is missing");
+      res.clearCookie("accessToken");
+
       throw new Error("No token found in cookies");
     }
     const decodedToken = jwt.verify(token, process.env.APP_SECRET);

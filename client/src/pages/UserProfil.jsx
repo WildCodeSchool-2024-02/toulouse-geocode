@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./UserProfil.scss";
-import { hostUrl } from "./Register";
 import useAuth from "../utils/useAuth";
 import { formatTime } from "../services/utils";
 
+const hostUrl = import.meta.env.VITE_API_URL;
+
 function UserProfile() {
   const { user } = useAuth();
-
-  const userId = user?.id;
-
   const [formData, setFormData] = useState({
     lastname: "",
     firstname: "",
@@ -18,8 +16,8 @@ function UserProfile() {
   });
 
   useEffect(() => {
-    if (userId) {
-      fetch(`${hostUrl}/api/user/${userId}`, {
+    if (user) {
+      fetch(`${hostUrl}/api/user/${user.id}`, {
         credentials: "include",
       })
         .then((res) => res.json())
@@ -33,7 +31,7 @@ function UserProfile() {
         })
         .catch((err) => console.error(err));
     }
-  }, [userId]);
+  }, [user]);
 
   const [bookingFieldIsOpen, setBookingFieldIsOpen] = useState();
 
@@ -41,22 +39,21 @@ function UserProfile() {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const response = await fetch(
-        `${hostUrl}/api/reservation?userId=${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const response = await fetch(`${hostUrl}/api/reservation?userId=${user?.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-          credentials: "include",
-        }
-      );
+        credentials: "include",
+      });
       const data = await response.json();
       setBookings(data);
     };
-    fetchBookings();
-  }, [hostUrl]);
+    if (user) {
+      fetchBookings();
+    }
+  }, [user]);
 
   const handleDeleteBooking = async (id) => {
     try {
@@ -76,7 +73,7 @@ function UserProfile() {
 
   const [vehicles, setVehicles] = useState([]);
   const [newVehicle, setNewVehicle] = useState({
-    userId,
+    userId: user?.id,
     brand: "",
     model: "",
     year: "",
@@ -94,14 +91,14 @@ function UserProfile() {
 
   useEffect(() => {
     if (showVehicles) {
-      fetch(`${hostUrl}/api/vehicle?userId=${userId}`, {
+      fetch(`${hostUrl}/api/vehicle?userId=${user?.id}`, {
         credentials: "include",
       })
         .then((res) => res.json())
         .then((data) => setVehicles(data))
         .catch((err) => console.error(err));
     }
-  }, [showVehicles]);
+  }, [showVehicles, user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -112,7 +109,7 @@ function UserProfile() {
   };
 
   const handleAddPersonnalInformation = () => {
-    fetch(`${hostUrl}/api/user/${userId}`, {
+    fetch(`${hostUrl}/api/user/${user?.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -144,7 +141,7 @@ function UserProfile() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...newVehicle, user_id: userId }),
+      body: JSON.stringify({ ...newVehicle, user_id: user?.id }),
       credentials: "include",
     })
       .then(() => {
@@ -180,7 +177,7 @@ function UserProfile() {
     }
   };
 
-  return userId ? (
+  return user ? (
     <div className="personal-space-container">
       <div className="user-profile">
         <header className="header">
@@ -287,9 +284,7 @@ function UserProfile() {
                   <p>Début : {formatTime(booking.starting_time)}</p>
                   <p>Fin : {formatTime(booking.ending_time)}</p>
                   <p>Prix : {booking.price} €</p>
-                  <p>
-                    Id de la borne de recharge : {booking.charging_station_id}
-                  </p>
+                  <p>Id de la borne de recharge : {booking.charging_station_id}</p>
                   <p>Id utilisateur : {booking.user_id}</p>
                   <div className="button-container">
                     <button

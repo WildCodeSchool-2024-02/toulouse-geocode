@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 function AdminPersonnalInfo({ user, hostUrl }) {
-  const userIdDetails = user.id;
+  const userIdDetails = user?.id;
 
   const [formData, setFormData] = useState({
     name: "",

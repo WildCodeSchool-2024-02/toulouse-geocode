@@ -7,7 +7,7 @@ import "../style/input.scss";
 import "./Register.scss";
 import { newDateToSql } from "../services/utils";
 
-export const hostUrl = import.meta.env.VITE_API_URL;
+const hostUrl = import.meta.env.VITE_API_URL;
 
 function Register() {
   const [pwd, setPwd] = useState("");

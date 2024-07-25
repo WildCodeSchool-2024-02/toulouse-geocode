@@ -18,13 +18,15 @@
   min-height: 75dvh;
   .reservation-buttons-container {
     @include flex(column, center, center, $spacingDouble);
+
     .button-md-olive-fullfilled {
       width: 35dvw;
+      @include mq() {
+        width: 20dvw;
+      }
     }
   }
-  .reservation-information-container {
-    @include flex(row, space-between, center, $spacing);
-  }
+
   .reservation-informations-container {
     @include flex(column, center, space-between, $spacingDouble);
 
@@ -36,7 +38,10 @@
     width: 85%;
 
     @include mq() {
-      width: 50%;
+      width: 40%;
+    }
+    .reservation-information-container {
+      @include flex(row, space-between, center, $spacing);
     }
   }
 }
