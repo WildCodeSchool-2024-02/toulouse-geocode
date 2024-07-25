@@ -1,8 +1,15 @@
 const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
+  const { limit } = req;
+  const { offset } = req;
+  const { filter } = req;
+  const { startingDate } = req;
+  const { endingDate } = req;
+  const params = { limit, offset, filter, startingDate, endingDate };
   try {
-    const chargingStations = await tables.chargingStation.readAll();
+    const chargingStations =
+      await tables.chargingStation.readAllByFilter(params);
 
     res.json(chargingStations);
   } catch (err) {
@@ -23,7 +30,19 @@ const read = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+    await tables.chargingStation.update(id, updateData);
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
+  edit,
 };

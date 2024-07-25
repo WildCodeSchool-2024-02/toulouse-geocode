@@ -1,58 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
-$green: #24331d;
-$cream-white: #fff7ec;
-$color-signup: #d5dfd6;
-$kaki: #505a46;
-
-body {
-  font-family: "Roboto";
-}
+@import "../style/style.scss";
 
 .box-home {
-  background-color: $cream-white;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 5rem;
-  align-items: center;
-  gap: 5rem;
-}
+  padding: $spacingDouble;
+  height: 70dvh;
+  @include flex(column, center, center, $spacingDouble * 2);
 
-.text-home {
-  font-family: "judson";
-  font-size: 38px;
-  text-align: center;
-}
+  .logo-css {
+    width: 180px;
 
-.button-home {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $green;
-  color: white;
-  font-size: 32px;
-  border-radius: 80px;
-  width: 17rem;
-  height: 4.5rem;
-  font-family: "judson";
-}
+    @include mq() {
+      max-width: 200px;
+      width: 15dvw;
+      min-width: 5dvw;
+    }
+  }
 
-.logo-css {
-  width: clamp(100px, 14rem, 200px);
-}
-
-.logo-menu {
-  display: flex;
-  justify-content: space-between;
-  background-color: $cream-white;
-  padding: 15px;
-  font-size: 2.5rem;
-  color: $kaki;
-}
-
-p {
-  padding: 5px;
-  color: #403d3b;
+  .text-home {
+    font-family: "judson";
+    font-size: 38px;
+    text-align: center;
+  }
 }

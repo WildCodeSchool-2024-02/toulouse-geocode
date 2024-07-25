@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Form.scss";
-import "./button.scss";
-import "./input.scss";
+import "../style/button.scss";
+import "../style/input.scss";
 import "./Register.scss";
+import { newDateToSql } from "../services/utils";
 
-export const hostUrl = import.meta.env.VITE_API_URL;
+const hostUrl = import.meta.env.VITE_API_URL;
 
 function Register() {
   const [pwd, setPwd] = useState("");
@@ -42,16 +43,6 @@ function Register() {
             required
           />
         </section>
-        <section className="username">
-          <label htmlFor="username">Nom d'utilisateur</label>
-          <input
-            id="username"
-            name="username"
-            placeholder="Entrer votre nom d'utilisateur"
-            className="input-sm-gray-outlined"
-            required
-          />
-        </section>
         <section className="email">
           <label htmlFor="email">Email </label>
           <input
@@ -81,7 +72,7 @@ function Register() {
           <ul>
             <li>Le mot de passe doit comporter au moins :</li>
             <li>8 caractères</li>
-            <li>1 lettre</li>
+            <li>1 lettre majuscule</li>
             <li>1 chiffre</li>
           </ul>
           <label htmlFor="password-check">Vérification du mot de passe</label>
@@ -110,12 +101,14 @@ export async function postNewUser({ request }) {
   const firstname = formData.get("firstname");
   const email = formData.get("email");
   const password = formData.get("password");
+  const creationDate = newDateToSql();
 
   const requestBody = {
     lastname,
     firstname,
     email,
     password,
+    creationDate,
   };
   try {
     const response = await fetch(`${hostUrl}/api/user`, {

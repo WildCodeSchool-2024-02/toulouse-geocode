@@ -1,0 +1,65 @@
+@import "../style/style.scss";
+
+.hud-container {
+  background-color: $green;
+  border: rgba(36, 51, 29, 0.1254901961) 2px solid;
+  border-radius: 50%;
+  padding: $spacingDouble;
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  top: 89%;
+  right: 10%;
+  @include colorAndWeight();
+  @include flex(row, center, center, $spacing);
+  text-align: center;
+  @include mq() {
+    display: none;
+  }
+
+  .burger-button {
+    background-color: transparent;
+    width: fit-content;
+    i {
+      font-size: 28px;
+      line-height: 0;
+    }
+  }
+
+  .links-container {
+    background-color: $green;
+    border-radius: 15px;
+    border: rgba(36, 51, 29, 0.1254901961) 2px solid;
+    padding: $spacingDouble;
+    position: absolute;
+    z-index: 3;
+    @include flex(column, center, center, $spacingDouble);
+    .welcome-message {
+      font-weight: 400;
+    }
+    li {
+      width: 100%;
+      text-align: center;
+      align-content: center;
+      a,
+      .close-button,
+      button {
+        font-family: "Roboto";
+        font-weight: 300;
+        font-size: $fontSize4 * 1.3;
+        text-wrap: nowrap;
+        background-color: transparent;
+      }
+      .close-button {
+        i {
+          line-height: 0;
+        }
+      }
+      .active {
+        color: #4b8931;
+      }
+    }
+  }
+}

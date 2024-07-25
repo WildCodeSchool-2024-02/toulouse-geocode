@@ -2,19 +2,27 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
+const {
+  browse,
+  read,
+  edit,
+} = require("../../../controllers/chargingStationActions");
+const {
+  formatFilteredPlugQuery,
+  formatLimitResultsQuery,
+  formatReservationQuery,
+} = require("../../../services/formatQuery");
 
-// Import item-related actions
-const { browse, read } = require("../../../controllers/chargingStationActions");
+router.get(
+  "/",
+  formatFilteredPlugQuery,
+  formatReservationQuery,
+  formatLimitResultsQuery,
+  browse
+);
 
-// Route to get a list of items
-router.get("/", browse);
-
-// Route to get a specific item by ID
 router.get("/:id", read);
 
-/* ************************************************************************* */
+router.put("/:id", edit);
 
 module.exports = router;

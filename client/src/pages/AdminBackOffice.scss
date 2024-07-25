@@ -1,0 +1,68 @@
+@import "../style/style.scss";
+@import "../style/colors.scss";
+
+.admin-reservation-empty-container {
+  @include flex(column, center, center, $spacingDouble);
+  padding-top: 2rem;
+}
+
+.admin-back-office-container {
+  width: 100dvw;
+  @include colorAndWeight();
+
+  @include flex(column, center, center, calc($spacingDouble * 2));
+
+  .admin-back {
+    @include flex(column, flex-start, flex-start, calc($spacingDouble * 2));
+    width: 90dvw;
+    max-width: 85ch;
+    padding-block: 1rem;
+
+    .info-item {
+      @include flex(column, space-between, none, calc($spacingDouble * 2));
+      width: 100%;
+      padding-block: 1rem;
+
+      .admin-reservation-details {
+        @include flex(column, center, flex-start, $spacing);
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.386);
+        padding: 1rem;
+        border-radius: 8px;
+      }
+    }
+
+    .admin-back-office-buttons {
+      width: 100%;
+    }
+
+    section {
+      width: 100%;
+
+      .button-container {
+        @include flex(row, flex-start, flex-start, $spacing);
+      }
+    }
+
+    ul > li {
+      @include flex(column, flex-start, flex-start, $spacing);
+      padding: 0.5rem;
+      width: 100%;
+      height: fit-content;
+      border-radius: 0.5rem;
+    }
+
+    .charging-station-card {
+      @include flex(column, center, flex-start, $spacing);
+
+      @include mq() {
+        width: 100%;
+        @include flex(row, center, flex-start, $spacing);
+      }
+
+      .charging-station-text-container {
+        @include flex(column, center, flex-start, $spacing);
+        width: 100%;
+      }
+    }
+  }
+}

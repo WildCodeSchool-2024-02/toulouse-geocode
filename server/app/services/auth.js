@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
 const hashingOptions = {
@@ -9,8 +10,12 @@ const hashingOptions = {
 };
 
 const hashPassword = async (req, res, next) => {
+  const { password } = req.body;
+  if (!password) {
+    next();
+  }
+
   try {
-    const { password } = req.body;
     const hashedPassword = await argon2.hash(password, hashingOptions);
 
     req.body.hashedPassword = hashedPassword;
@@ -44,4 +49,25 @@ const verifyPassword = async (req, res, next) => {
   }
 };
 
-module.exports = { hashPassword, verifyPassword };
+const verifyToken = (req, res, next) => {
+  try {
+    const token = req.cookies.accessToken;
+
+    console.info("Received token:", token);
+
+    if (!token) {
+      console.info("Token is missing");
+      res.clearCookie("accessToken");
+
+      throw new Error("No token found in cookies");
+    }
+    const decodedToken = jwt.verify(token, process.env.APP_SECRET);
+    console.info("Decoded token:", decodedToken);
+
+    next();
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
+
+module.exports = { hashPassword, verifyPassword, verifyToken };

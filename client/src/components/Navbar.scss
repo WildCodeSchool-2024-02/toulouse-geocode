@@ -1,117 +1,95 @@
 @import url("https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import "../style/style.scss";
 
-body {
-  @media screen and (max-width: 700px) {
-    margin: 0;
+.navbar {
+  @include flex(row, space-between, center, 0);
 
-    .nav-container {
-      height: 80px;
-    }
-
-    .navbar {
-      z-index: 6;
-      font-family: "Judson";
-      max-height: 5rem;
-      width: 100dvw;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #d5dfd6;
-      box-shadow: 0px 1px 10px 0px #0000008a;
-      position: sticky;
-      overflow-wrap: break-word;
-
-      ul {
-        top: 5rem;
-      }
-
-      nav {
-        width: 100dvw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #d5dfd6;
-        margin-top: 85px;
-
-        li {
-          height: 4rem;
-          align-content: center;
-          text-align: center;
-          width: 100%;
-          border-bottom: 0.5px solid #24331d;
-        }
-      }
-    }
-
-    .burger {
-      z-index: 6;
-      position: relative;
-      top: -55px;
-      left: 89%;
-      background-color: #d5dfd6;
-      width: 50px;
-      color: #24331d;
-      font-size: 2rem;
-    }
-
-    .home {
-      z-index: 10;
-    }
-
-    .home {
-      width: 5rem;
-      height: 5rem;
-      position: sticky;
-      top: 0px;
-      left: 2%;
-    }
+  @include mq() {
+    @include flex(row, space-between, center, 0);
+    min-height: 100px;
+    padding-inline: $spacingDouble * 2;
+    height: 10dvh;
   }
-}
 
-@media screen and (min-width: 700px) {
-  .burger {
+  height: 100px;
+  background-color: $green;
+  box-shadow: 0 1px 6px 0 #000000;
+
+  &.invisible {
     display: none;
   }
 
-  .navbar2 {
-    z-index: 6;
-    font-family: "Judson";
-    max-height: 5rem;
-    width: 100dvw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #d5dfd6;
-    box-shadow: 0px 1px 10px 0px #0000008a;
-    position: sticky;
-    overflow-wrap: break-word;
-
-    ul {
-      width: 100dvw;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #d5dfd6;
-
-      nav {
-        padding-right: 3%;
-        gap: 3rem;
-        display: flex;
-        flex-direction: row;
+  @include colorAndWeight();
+  .logo-user-container {
+    @include flex(row, space-between, center, $spacing);
+    img {
+      height: 8dvh;
+      @include mq() {
+        min-height: 90px;
       }
     }
   }
-
-  .home {
-    z-index: 10;
+  .logo-user-container {
+    p {
+      @include mq() {
+        font-size: $fontSize3;
+      }
+    }
+  }
+  .burger-button-container {
+    padding-right: $spacing;
+    .burger-button {
+      @include flex(row, center, center, 0);
+      background-color: $green;
+    }
   }
 
-  .home {
-    width: 5rem;
-    height: 5rem;
-    position: sticky;
-    top: 0px;
-    padding-left: 3%;
+  .links-container {
+    @include flex(column, center, center, 0);
+
+    @include mq() {
+      @include flex(row, center, center, $spacingDouble * 7);
+      position: static;
+      width: fit-content;
+    }
+
+    background-color: $green;
+    position: absolute;
+    z-index: 4;
+    width: 100%;
+
+    li {
+      @include flex(row, center, center, 0);
+
+      @include mq() {
+        border-bottom: none;
+      }
+
+      height: 3rem;
+      border-bottom: 1px solid $darkGreen;
+      width: 100%;
+      text-align: center;
+      align-content: center;
+      a,
+      .close-button {
+        font-family: "Roboto";
+        font-weight: 300;
+        font-size: $fontSize4 * 1.1;
+
+        @include mq() {
+          font-size: $fontSize3;
+          text-wrap: nowrap;
+        }
+      }
+      .close-button {
+        i {
+          line-height: 0;
+        }
+      }
+      .active {
+        color: #4b8931;
+      }
+    }
   }
 }

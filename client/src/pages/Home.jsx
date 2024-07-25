@@ -9,7 +9,7 @@ function Home() {
       <p className="text-home">
         Trouvez une borne de recharge sur votre trajet
       </p>
-      <Link to="/map" className="button-home">
+      <Link to="/map" className="button-lg-olive-fullfilled">
         Commencer
       </Link>
     </div>

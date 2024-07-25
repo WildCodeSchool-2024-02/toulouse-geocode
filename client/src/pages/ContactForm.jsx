@@ -1,6 +1,6 @@
 import "./Form.scss";
-import "./button.scss";
-import "./input.scss";
+import "../style/button.scss";
+import "../style/input.scss";
 import { Form, useActionData } from "react-router-dom";
 import Modal from "../components/Modal";
 
@@ -118,6 +118,7 @@ export async function postMessageToAdmin({ request }) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(requestBody),
     });
     const responseBody = await response.json();

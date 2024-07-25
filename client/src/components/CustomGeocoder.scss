@@ -1,0 +1,24 @@
+@import "../style/style.scss";
+
+.geocode-input-container {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  z-index: 3;
+  width: 90%;
+  @include mq() {
+    max-width: 300px;
+    top: 384px;
+    left: 40px;
+    right: auto;
+    bottom: auto;
+  }
+  div {
+    border-color: $green;
+    border-radius: $spacing;
+    padding: calc($spacing/2);
+    div {
+      overflow: hidden;
+    }
+  }
+}

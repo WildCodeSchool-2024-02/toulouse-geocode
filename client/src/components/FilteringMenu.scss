@@ -1,0 +1,34 @@
+@import "../style/style.scss";
+
+.filtering-menu-container {
+  background-color: $backgroundColor;
+  border: rgba(36, 51, 29, 0.1254901961) 2px solid;
+  border-radius: $spacing;
+  padding: $spacingDouble;
+  position: absolute;
+  z-index: 4;
+  bottom: 0;
+  width: 100%;
+  @include mq() {
+    top: 128px;
+    left: 40px;
+    right: auto;
+    bottom: auto;
+    width: fit-content;
+  }
+  @include colorAndWeight();
+  .header-filter-menu {
+    i {
+      @include mq() {
+        display: none;
+      }
+    }
+    @include flex(row, space-between, center, $spacing);
+  }
+  .inputs-filter-menu {
+    @include flex(column, center, start, 0);
+    @include mq() {
+      gap: $spacingDouble;
+    }
+  }
+}
