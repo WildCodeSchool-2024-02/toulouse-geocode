@@ -98,7 +98,7 @@ function UserProfile() {
         .then((data) => setVehicles(data))
         .catch((err) => console.error(err));
     }
-  }, [showVehicles, user]);
+  }, [showVehicles, user, newVehicle]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

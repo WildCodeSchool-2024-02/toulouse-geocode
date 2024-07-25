@@ -24,17 +24,13 @@ const read = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  // Extract the vehicle data from the request body
   const vehicle = req.body;
 
   try {
-    // Insert the vehicle into the database
     const insertId = await tables.vehicle.create(vehicle);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted vehicle
     res.status(201).json({ insertId });
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };

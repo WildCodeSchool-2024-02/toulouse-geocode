@@ -73,16 +73,19 @@ CREATE TABLE reservation (
     ON UPDATE NO ACTION
     );
 
-    CREATE TABLE vehicle (
+CREATE TABLE vehicle (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     brand VARCHAR(90),
     model VARCHAR(90),
     year INT,
     power_voltage INT,
     plug_type VARCHAR(50),
-    user_id INT unsigned NOT NULL,
-    FOREIGN KEY (user_id)
-    REFERENCES user (id)
+    user_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_user_id 
+        FOREIGN KEY (user_id)
+        REFERENCES user (id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
     
