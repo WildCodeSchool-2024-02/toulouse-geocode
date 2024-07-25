@@ -36,7 +36,7 @@ function useFetchData(selectedEndpoint, queryOptions = {}) {
 
   useEffect(() => {
     try {
-      fetch(`${hostUrl}/api/${queryString()}`)
+      fetch(`${hostUrl}/api/${queryString()}`, { credentials: "include" })
         .then((response) => response.json())
         .then((data) => {
           setfetchedData(data);

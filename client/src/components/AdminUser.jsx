@@ -8,7 +8,9 @@ function AdminUser({ hostUrl }) {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch(`${hostUrl}/api/user`);
+      const response = await fetch(`${hostUrl}/api/user`, {
+        credentials: "include",
+      });
       const data = await response.json();
       setUsers(data);
     };
@@ -19,6 +21,7 @@ function AdminUser({ hostUrl }) {
     try {
       const response = await fetch(`${hostUrl}/api/user/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error(`Failed to delete user: ${response.status}`);

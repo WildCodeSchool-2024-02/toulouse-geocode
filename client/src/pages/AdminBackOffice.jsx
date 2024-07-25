@@ -1,25 +1,17 @@
-import "../style/input.scss";
-import "../style/button.scss";
-import "../style/colors.scss";
+import { Link } from "react-router-dom";
 import "./AdminBackOffice.scss";
-import { useNavigate } from "react-router-dom";
-import { hostUrl } from "./Register";
 import AdminChargingStations from "../components/AdminChargingStations";
 import AdminMessage from "../components/AdminMessage";
 import AdminUser from "../components/AdminUser";
-import AdminPersonnalInfo from "../components/AdminPersonnalInfo";
 import AdminReservations from "../components/AdminReservations";
 import useAuth from "../utils/useAuth";
 
+const hostUrl = import.meta.env.VITE_API_URL;
+
 function AdminBackOffice() {
-  const navigate = useNavigate();
   const { user } = useAuth();
 
-  if (!user) {
-    navigate("/login");
-  }
-
-  return (
+  return user ? (
     <div className="admin-back-office-container">
       <div className="admin-back">
         <header className="header">
@@ -31,10 +23,14 @@ function AdminBackOffice() {
           <AdminReservations hostUrl={hostUrl} />
           <AdminChargingStations hostUrl={hostUrl} />
         </section>
-        <section className="personal-info">
-          <AdminPersonnalInfo hostUrl={hostUrl} user={user} />
-        </section>
       </div>
+    </div>
+  ) : (
+    <div className="admin-reservation-empty-container">
+      <p>Connectez vous pour accéder à cette page.</p>
+      <Link className="button-md-olive-outlined" to="/login">
+        Connexion
+      </Link>
     </div>
   );
 }

@@ -40,12 +40,14 @@ class ReservationRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async readAll() {
+  async readAll(userId) {
+    const query = userId ? `where user_id = ?` : "";
     const [rows] = await this.database.query(
       `SELECT r.*, u.firstname, u.lastname, u.email, cs.station_name, cs.station_adress
              FROM ${this.table} r
              JOIN user u ON r.user_id = u.id
-             JOIN charging_station cs ON r.charging_station_id = cs.id`
+             JOIN charging_station cs ON r.charging_station_id = cs.id ${query}`,
+      [userId]
     );
     return rows;
   }
@@ -56,7 +58,7 @@ class ReservationRepository extends AbstractRepository {
       duration = ?, 
       starting_time = ?, 
       ending_time = ?, 
-      price = ?, 
+      price = ?
       WHERE id = ?`,
       [
         reservation.duration,

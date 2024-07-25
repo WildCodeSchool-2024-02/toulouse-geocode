@@ -5,22 +5,39 @@ import { useEffect, useState } from "react";
 import logo from "../../public/logo.svg";
 import useAuth from "../utils/useAuth";
 import LogoutButton from "./LogoutButton";
-import { hostUrl } from "../pages/Register";
+
+const hostUrl = import.meta.env.VITE_API_URL;
 
 function Navbar() {
-  const { user } = useAuth();
-  const userIdDetails = user && user.id;
+  const { user, logout } = useAuth();
   const location = useLocation();
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    if (userIdDetails) {
-      fetch(`${hostUrl}/api/user/${userIdDetails}`)
-        .then((res) => res.json())
-        .then((data) => setUserDetails(data))
-        .catch((err) => console.error(err));
-    }
-  }, [userIdDetails]);
+    const checkUserData = async () => {
+      if (user) {
+        try {
+          const response = await fetch(`${hostUrl}/api/user/${user?.id}`, {
+            credentials: "include",
+          });
+          if (response.status === 401) {
+            logout();
+            console.info("Unauthorized access - localStorage cleared");
+          } else if (response.ok) {
+            const data = await response.json();
+            setUserDetails(data);
+            console.info("User data:", data);
+          } else {
+            console.error("Error fetching user data:", response.status);
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+        }
+      }
+    };
+
+    checkUserData();
+  }, [user]);
 
   const basePathsAndLabels = [{ path: "/map", label: "Carte" }];
 
@@ -111,20 +128,14 @@ function Navbar() {
                 {user && index === pathAndLabels().length - 1 ? (
                   <LogoutButton label={el.label} />
                 ) : (
-                  <NavLink
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                    to={el.path}
-                  >
+                  <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
                     {el.label}
                   </NavLink>
                 )}
               </motion.li>
             ))}
           </motion.ul>
-          <motion.div
-            onClick={() => setIsOpen(!isOpen)}
-            className="burger-button-container"
-          >
+          <motion.div onClick={() => setIsOpen(!isOpen)} className="burger-button-container">
             <button
               onClick={handleClickToAnimate}
               type="button"
@@ -132,16 +143,8 @@ function Navbar() {
               label="toggle-menu"
             >
               <svg width="2rem" height="2rem" viewBox="0 0 24 24">
-                <motion.path
-                  stroke="#24331d"
-                  animate={isAnimate}
-                  variants={path01Variants}
-                />
-                <motion.path
-                  stroke="#24331d"
-                  animate={isAnimate}
-                  variants={path02Variants}
-                />
+                <motion.path stroke="#24331d" animate={isAnimate} variants={path01Variants} />
+                <motion.path stroke="#24331d" animate={isAnimate} variants={path02Variants} />
               </svg>
             </button>
           </motion.div>
@@ -153,10 +156,7 @@ function Navbar() {
               {user && index === pathAndLabels().length - 1 ? (
                 <LogoutButton label={el.label} />
               ) : (
-                <NavLink
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                  to={el.path}
-                >
+                <NavLink className={({ isActive }) => (isActive ? "active" : "")} to={el.path}>
                   {el.label}
                 </NavLink>
               )}

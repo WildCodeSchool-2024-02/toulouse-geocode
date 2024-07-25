@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 function AdminPersonnalInfo({ user, hostUrl }) {
-  const userIdDetails = user;
+  const userIdDetails = user?.id;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -13,14 +13,16 @@ function AdminPersonnalInfo({ user, hostUrl }) {
 
   useEffect(() => {
     if (userIdDetails) {
-      fetch(`${hostUrl}/api/user/${userIdDetails}`)
+      fetch(`${hostUrl}/api/user/${userIdDetails}`, {
+        credentials: "include",
+      })
         .then((res) => res.json())
         .then((data) => {
           setFormData({
             name: data.firstname,
             surname: data.lastname,
             email: data.email,
-            password: "",
+            password: "*********",
           });
         })
         .catch((err) => console.error(err));
@@ -52,23 +54,7 @@ function AdminPersonnalInfo({ user, hostUrl }) {
       <h2>Informations de connexions</h2>
       <div className="info-item">
         <h3>Email : </h3>
-        {isEditing.email ? (
-          <input
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className="input-sm-gray-outlined"
-          />
-        ) : (
-          <h3>{formData.email}</h3>
-        )}
-        <input
-          type="button"
-          value={isEditing.email ? "Enregistrer" : "Modifier"}
-          className="button-md-olive-outlined"
-          onClick={() => handleEditClick("email")}
-        />
+        <h3>{formData.email}</h3>
       </div>
 
       <div className="info-item">
