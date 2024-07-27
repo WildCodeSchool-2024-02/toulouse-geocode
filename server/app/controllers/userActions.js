@@ -1,4 +1,3 @@
-// Import access to database tables
 const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
@@ -12,7 +11,6 @@ const browse = async (req, res, next) => {
   }
 };
 
-// The R of BREAD - Read operation
 const read = async (req, res, next) => {
   try {
     const user = await tables.user.read(req.params.id);
@@ -28,7 +26,6 @@ const read = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  // Extract the user data from the request body
   const user = req.body;
 
   try {
@@ -60,14 +57,15 @@ const logout = async (req, res) => {
 const edit = async (req, res, next) => {
   const { id } = req.params;
   const userData = req.body;
-
   try {
-    const updatedUser = await tables.user.update(id, userData);
+    const updatedUser = userData.hashedPassword
+      ? await tables.user.updatePsw(id, userData)
+      : await tables.user.update(id, userData);
 
-    if (updatedUser == null) {
+    if (updatedUser === 0) {
       res.sendStatus(404);
     } else {
-      res.status(200).json(updatedUser);
+      res.sendStatus(202);
     }
   } catch (err) {
     next(err);

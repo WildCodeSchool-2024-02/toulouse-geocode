@@ -12,6 +12,7 @@ const hashingOptions = {
 const hashPassword = async (req, res, next) => {
   const { password } = req.body;
   if (!password) {
+    delete req.body.password;
     next();
   }
 

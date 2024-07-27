@@ -32,16 +32,22 @@ class UserRepository extends AbstractRepository {
   }
 
   async update(id, user) {
-    const query = user.hashedPassword
-      ? `, 
-      hashed_password = ?`
-      : ``;
     const [result] = await this.database.query(
       `UPDATE ${this.table} SET 
       lastname = ? ,
-      firstname = ? ${query}
+      firstname = ? 
       WHERE id = ?`,
-      [user.lastname, user.firstname, user.hashedPassword, id],
+      [user.lastname, user.firstname, id],
+    );
+    return result.affectedRows > 0;
+  }
+
+  async updatePsw(id, user) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET 
+      hashed_password = ?
+      WHERE id = ?`,
+      [user.hashedPassword, id],
     );
     return result.affectedRows > 0;
   }
