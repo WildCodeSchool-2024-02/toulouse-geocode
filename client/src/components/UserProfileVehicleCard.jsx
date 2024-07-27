@@ -15,7 +15,7 @@ function UserProfileVehicleCard() {
   const [showVehicles, setShowVehicles] = useState(false);
   const [showAddVehicle, setShowAddVehicle] = useState(false);
 
-  const getVehicles = () => {
+  const fetchVehicles = () => {
     fetch(`${hostUrl}/api/vehicle?userId=${user?.id}`, {
       credentials: "include",
     })
@@ -38,7 +38,7 @@ function UserProfileVehicleCard() {
       if (response.status === 201) {
         setNewVehicle(initialFormVehicle);
         setShowAddVehicle(false);
-        getVehicles();
+        fetchVehicles();
       }
     } catch (error) {
       console.error(error);
@@ -75,7 +75,7 @@ function UserProfileVehicleCard() {
 
   useEffect(() => {
     if (showVehicles) {
-      getVehicles();
+      fetchVehicles();
     }
   }, [showVehicles]);
 

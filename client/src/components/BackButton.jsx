@@ -1,5 +1,3 @@
-import "./BackButton.scss";
-
 function BackButton() {
   return (
     <button type="button" className="back-button">

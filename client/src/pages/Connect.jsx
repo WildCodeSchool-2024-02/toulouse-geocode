@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import "./Form.scss";
 import "./Connect.scss";
-import "../style/button.scss";
-import "../style/input.scss";
 import { Toaster } from "react-hot-toast";
 import logo from "../../public/logo.svg";
 import LoginButton from "../components/LoginButton";
@@ -11,9 +9,7 @@ import LoginButton from "../components/LoginButton";
 function Connect() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(
-    location.state ? location.state.email : ""
-  );
+  const [email, setEmail] = useState(location.state ? location.state.email : "");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {

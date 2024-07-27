@@ -26,7 +26,6 @@ function Navbar() {
           } else if (response.ok) {
             const data = await response.json();
             setUserDetails(data);
-            console.info("User data:", data);
           } else {
             console.error("Error fetching user data:", response.status);
           }
