@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 import { formatTime } from "../services/utils";
 
 const hostUrl = import.meta.env.VITE_API_URL;

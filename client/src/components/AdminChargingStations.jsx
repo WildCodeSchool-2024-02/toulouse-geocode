@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import useFetchData from "../utils/useFetchData";
+import useFetchData from "../hooks/useFetchData";
 
 function AdminChargingStations({ hostUrl }) {
   const [offset, setOffset] = useState(0);
@@ -9,8 +9,7 @@ function AdminChargingStations({ hostUrl }) {
     offset,
   });
 
-  const [chargingStationsFieldIsOpen, setChargingStationsFieldIsOpen] =
-    useState(false);
+  const [chargingStationsFieldIsOpen, setChargingStationsFieldIsOpen] = useState(false);
   const [chargingStationDetails, setChargingStationDetails] = useState([]);
   const [openDetailId, setOpenDetailId] = useState(null);
   const [editMode, setEditMode] = useState(null);
@@ -19,20 +18,17 @@ function AdminChargingStations({ hostUrl }) {
 
   const handleSave = async (stationId, key, newValue) => {
     try {
-      const response = await fetch(
-        `${hostUrl}/api/charging-stations/${stationId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ [key]: newValue }),
-        }
-      );
+      const response = await fetch(`${hostUrl}/api/charging-stations/${stationId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [key]: newValue }),
+      });
       if (response.ok) {
         setChargingStationDetails((prevDetails) =>
           prevDetails.map((detail) => ({
             ...detail,
             [key]: newValue,
-          }))
+          })),
         );
         setEditMode(null);
       } else {
@@ -89,11 +85,9 @@ function AdminChargingStations({ hostUrl }) {
               <div className="charging-station-card">
                 <div className="charging-station-text-container">
                   {openDetailId !== chargingStation.id &&
-                    Object.entries({ ...chargingStation }).map(
-                      ([key, value]) => (
-                        <div key={key}>{`${key}: ${value}`}</div>
-                      )
-                    )}
+                    Object.entries({ ...chargingStation }).map(([key, value]) => (
+                      <div key={key}>{`${key}: ${value}`}</div>
+                    ))}
                   {openDetailId === chargingStation.id &&
                     chargingStationDetails.length > 0 &&
                     chargingStationDetails.map((detail) => (
@@ -108,20 +102,12 @@ function AdminChargingStations({ hostUrl }) {
                                   <input
                                     className="input-sm-gray-outlined"
                                     value={editedValue}
-                                    onChange={(e) =>
-                                      setEditedValue(e.target.value)
-                                    }
+                                    onChange={(e) => setEditedValue(e.target.value)}
                                   />
                                   <button
                                     type="button"
                                     className="button-sm-olive-outlined"
-                                    onClick={() =>
-                                      handleSave(
-                                        chargingStation.id,
-                                        key,
-                                        editedValue
-                                      )
-                                    }
+                                    onClick={() => handleSave(chargingStation.id, key, editedValue)}
                                   >
                                     Valider
                                   </button>
@@ -158,9 +144,7 @@ function AdminChargingStations({ hostUrl }) {
                     if (openDetailId === chargingStation.id) {
                       setOpenDetailId(null);
                     } else {
-                      fetch(
-                        `${hostUrl}/api/charging-stations/${chargingStation.id}`
-                      )
+                      fetch(`${hostUrl}/api/charging-stations/${chargingStation.id}`)
                         .then((r) => r.json())
                         .then((d) => {
                           setChargingStationDetails([d]);

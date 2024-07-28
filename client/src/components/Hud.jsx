@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 import LogoutButton from "./LogoutButton";
 import "./Hud.scss";
 import "./Navbar.scss";

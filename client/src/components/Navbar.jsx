@@ -3,7 +3,7 @@ import "./Navbar.scss";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import logo from "../../public/logo.svg";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 import LogoutButton from "./LogoutButton";
 
 const hostUrl = import.meta.env.VITE_API_URL;

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./UserProfil.scss";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 import UserProfileBookingCard from "../components/UserProfileBookingCard";
 import UserProfileVehicleCard from "../components/UserProfileVehicleCard";
 

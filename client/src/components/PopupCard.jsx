@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import "./PopupCard.scss";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 
 function PopupCard({ stationDetails, available, setisOpenedFilteringMenu }) {
   const { user } = useAuth();
@@ -38,11 +38,7 @@ function PopupCard({ stationDetails, available, setisOpenedFilteringMenu }) {
       <div>{stationDetails?.station_adress}</div>
       <div>Borne n°{stationDetails?.id}</div>
       {user ? (
-        <button
-          type="button"
-          className="button-sm-olive-fullfilled"
-          onClick={handleClickToBook}
-        >
+        <button type="button" className="button-sm-olive-fullfilled" onClick={handleClickToBook}>
           Réserver
         </button>
       ) : (

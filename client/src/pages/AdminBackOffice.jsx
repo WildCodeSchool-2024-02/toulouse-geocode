@@ -4,7 +4,7 @@ import AdminChargingStations from "../components/AdminChargingStations";
 import AdminMessage from "../components/AdminMessage";
 import AdminUser from "../components/AdminUser";
 import AdminReservations from "../components/AdminReservations";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 

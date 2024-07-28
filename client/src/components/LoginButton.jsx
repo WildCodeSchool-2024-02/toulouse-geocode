@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import PropTypes from "prop-types";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 
 const hostUrl = import.meta.env.VITE_API_URL;
 
@@ -50,11 +50,7 @@ function LoginButton({ requestBody }) {
   };
 
   return (
-    <button
-      type="submit"
-      className="button-lg-olive-fullfilled"
-      onClick={handleLogin}
-    >
+    <button type="submit" className="button-lg-olive-fullfilled" onClick={handleLogin}>
       Se connecter
     </button>
   );
