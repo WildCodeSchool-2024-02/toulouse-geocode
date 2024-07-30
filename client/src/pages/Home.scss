@@ -8,7 +8,7 @@
   @include flex(column, center, center, $spacingDouble * 2);
 
   .logo-css {
-    width: 180px;
+    max-width: 180px;
 
     @include mq() {
       max-width: 200px;

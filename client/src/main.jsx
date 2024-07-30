@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Connect from "./pages/Connect";
-import Plug from "./pages/Plug";
 import ContactForm, { postMessageToAdmin } from "./pages/ContactForm";
 import Register, { postNewUser } from "./pages/Register";
 import NavbarLayout from "./components/NavbarLayout";
@@ -45,10 +44,6 @@ const router = createBrowserRouter([
         element: <UserProfile />,
       },
       {
-        path: "/plug",
-        element: <Plug />,
-      },
-      {
         path: "/admin",
         element: <AdminBackOffice />,
       },
@@ -71,5 +66,5 @@ root.render(
     <AuthContextProvider>
       <RouterProvider router={router} />
     </AuthContextProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
