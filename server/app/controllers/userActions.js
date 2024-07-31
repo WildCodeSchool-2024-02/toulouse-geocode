@@ -40,7 +40,7 @@ const login = async (req, res, next) => {
   try {
     const { lastname, firstname, id, ...payload } = req.user;
 
-    const token = jwt.sign(payload, process.env.APP_SECRET);
+    const token = jwt.sign({ id, ...payload }, process.env.APP_SECRET);
 
     res.cookie("accessToken", token, {
       maxAge: 86400000,
@@ -63,9 +63,12 @@ const edit = async (req, res, next) => {
   const { id } = req.params;
   const userData = req.body;
   try {
-    const updatedUser = userData.hashedPassword
-      ? await tables.user.updatePsw(id, userData)
-      : await tables.user.update(id, userData);
+    let updatedUser;
+    if (userData.hashedPassword) {
+      updatedUser = await tables.user.updatePsw(id, userData);
+    } else {
+      updatedUser = await tables.user.update(id, userData);
+    }
 
     if (updatedUser === 0) {
       res.sendStatus(404);
@@ -73,7 +76,7 @@ const edit = async (req, res, next) => {
       res.sendStatus(202);
     }
   } catch (err) {
-    next(err);
+    if (!res.headersSent) next(err);
   }
 };
 

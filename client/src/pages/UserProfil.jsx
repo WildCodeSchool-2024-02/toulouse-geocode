@@ -18,7 +18,7 @@ function UserProfile() {
 
   useEffect(() => {
     if (user) {
-      fetch(`${hostUrl}/api/users/${user.id}`, {
+      fetch(`${hostUrl}/api/users/${user?.id}`, {
         credentials: "include",
       })
         .then((res) => res.json())
@@ -57,7 +57,6 @@ function UserProfile() {
       ...prev,
       [field]: !prev[field],
     }));
-    handleAddPersonnalInformation();
   };
 
   const handleFormInputChange = (e) => {
@@ -92,13 +91,26 @@ function UserProfile() {
                 <p>{formData.lastname}</p>
               )}
             </div>
-            <button
-              type="button"
-              className="button-sm-olive-outlined"
-              onClick={() => handleEditClick("lastname")}
-            >
-              {isEditing.lastname ? "Enregistrer" : "Modifier"}
-            </button>
+            {isEditing.lastname ? (
+              <button
+                type="button"
+                className="button-sm-olive-outlined"
+                onClick={() => {
+                  handleAddPersonnalInformation();
+                  handleEditClick("lastname");
+                }}
+              >
+                Enregistrer
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="button-sm-olive-outlined"
+                onClick={() => handleEditClick("lastname")}
+              >
+                Modifier
+              </button>
+            )}
           </div>
           <div className="info-item">
             <div>
@@ -115,13 +127,26 @@ function UserProfile() {
                 <p>{formData.firstname}</p>
               )}
             </div>
-            <button
-              type="button"
-              className="button-sm-olive-outlined"
-              onClick={() => handleEditClick("firstname")}
-            >
-              {isEditing.firstname ? "Enregistrer" : "Modifier"}
-            </button>
+            {isEditing.firstname ? (
+              <button
+                type="button"
+                className="button-sm-olive-outlined"
+                onClick={() => {
+                  handleAddPersonnalInformation();
+                  handleEditClick("firstname");
+                }}
+              >
+                Enregistrer
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="button-sm-olive-outlined"
+                onClick={() => handleEditClick("firstname")}
+              >
+                Modifier
+              </button>
+            )}
           </div>
           <div className="info-item">
             <div>
@@ -145,13 +170,26 @@ function UserProfile() {
                 <h3>********</h3>
               )}
             </div>
-            <button
-              type="button"
-              className="button-sm-olive-outlined"
-              onClick={() => handleEditClick("password")}
-            >
-              {isEditing.password ? "Enregistrer" : "Modifier"}
-            </button>
+            {isEditing.password ? (
+              <button
+                type="button"
+                className="button-sm-olive-outlined"
+                onClick={() => {
+                  handleAddPersonnalInformation();
+                  handleEditClick("password");
+                }}
+              >
+                Enregistrer
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="button-sm-olive-outlined"
+                onClick={() => handleEditClick("password")}
+              >
+                Modifier
+              </button>
+            )}
           </div>
           <UserProfileBookingCard />
           <UserProfileVehicleCard />

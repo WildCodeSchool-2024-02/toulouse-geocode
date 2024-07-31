@@ -9,7 +9,7 @@ function AdminReservations({ hostUrl }) {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const response = await fetch(`${hostUrl}/api/reservation`, {
+      const response = await fetch(`${hostUrl}/api/reservations`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -25,7 +25,7 @@ function AdminReservations({ hostUrl }) {
 
   const handleDeleteBooking = async (id) => {
     try {
-      const response = await fetch(`${hostUrl}/api/reservation/${id}`, {
+      const response = await fetch(`${hostUrl}/api/reservations/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

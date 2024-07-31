@@ -21,6 +21,7 @@ function AdminChargingStations({ hostUrl }) {
       const response = await fetch(`${hostUrl}/api/charging-stations/${stationId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ [key]: newValue }),
       });
       if (response.ok) {

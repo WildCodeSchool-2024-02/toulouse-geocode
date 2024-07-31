@@ -13,7 +13,7 @@ function UserProfileBookingCard() {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const response = await fetch(`${hostUrl}/api/reservation?userId=${user?.id}`, {
+      const response = await fetch(`${hostUrl}/api/reservations?userId=${user?.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +31,7 @@ function UserProfileBookingCard() {
 
   const handleDeleteBooking = async (id) => {
     try {
-      const response = await fetch(`${hostUrl}/api/reservation/${id}`, {
+      const response = await fetch(`${hostUrl}/api/reservations/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

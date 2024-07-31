@@ -64,7 +64,7 @@ CREATE TABLE reservation (
   CONSTRAINT fk_reservation_user1
     FOREIGN KEY (user_id)
     REFERENCES user (id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT fk_reservation_charging_station1
     FOREIGN KEY (charging_station_id)
@@ -84,7 +84,7 @@ CREATE TABLE vehicle (
     CONSTRAINT fk_user_id 
         FOREIGN KEY (user_id)
         REFERENCES user (id)
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION
 );
 

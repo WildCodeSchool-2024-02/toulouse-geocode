@@ -16,7 +16,7 @@ function UserProfileVehicleCard() {
   const [showAddVehicle, setShowAddVehicle] = useState(false);
 
   const fetchVehicles = () => {
-    fetch(`${hostUrl}/api/vehicle?userId=${user?.id}`, {
+    fetch(`${hostUrl}/api/vehicles?userId=${user?.id}`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -27,12 +27,12 @@ function UserProfileVehicleCard() {
   const handleAddVehicle = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${hostUrl}/api/vehicle`, {
+      const response = await fetch(`${hostUrl}/api/vehicles`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...newVehicle, user_id: user?.id }),
+        body: JSON.stringify({ ...newVehicle, userId: user?.id }),
         credentials: "include",
       });
       if (response.status === 201) {
@@ -48,7 +48,7 @@ function UserProfileVehicleCard() {
 
   const handleDeleteVehicle = async (id) => {
     try {
-      const response = await fetch(`${hostUrl}/api/vehicle/${id}`, {
+      const response = await fetch(`${hostUrl}/api/vehicles/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

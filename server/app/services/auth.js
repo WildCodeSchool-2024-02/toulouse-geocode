@@ -14,6 +14,7 @@ const hashPassword = async (req, res, next) => {
   if (!password) {
     delete req.body.password;
     next();
+    return;
   }
 
   try {
@@ -64,11 +65,98 @@ const verifyToken = (req, res, next) => {
     }
     const decodedToken = jwt.verify(token, process.env.APP_SECRET);
     console.info("Decoded token:", decodedToken);
-
+    req.user = decodedToken;
     next();
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
 };
 
-module.exports = { hashPassword, verifyPassword, verifyToken };
+const authorizeAdmin = (req, res, next) => {
+  if (req.user.isAdmin !== 1) {
+    return res.status(403).json({ error: "Forbidden: Admin access required" });
+  }
+  return next();
+};
+
+const authorizeSelfOrAdmin = (req, res, next) => {
+  const userId = parseInt(req.params.id, 10);
+  if (req.user.isAdmin !== 1 && req.user.id !== userId) {
+    return res.status(403).json({ error: "Forbidden: Access denied" });
+  }
+  return next();
+};
+
+const authorizeSelfOrAdminWithQueryParams = (req, res, next) => {
+  const userId = parseInt(req.query.userId, 10);
+  if (req.user.isAdmin !== 1 && req.user.id !== userId) {
+    return res.status(403).json({ error: "Forbidden: Access denied" });
+  }
+  return next();
+};
+
+const authorizeSelfOrAdminWithIdInBody = (req, res, next) => {
+  const userId = parseInt(req.body.userId, 10);
+  if (req.user.isAdmin !== 1 && req.user.id !== userId) {
+    return res.status(403).json({ error: "Forbidden: Access denied" });
+  }
+  return next();
+};
+
+const authorizeVehicleDelete = async (req, res, next) => {
+  try {
+    const vehicleId = parseInt(req.params.id, 10);
+    const currentUserId = req.user.id;
+    const isAdmin = req.user.isAdmin === 1;
+
+    const vehicle = await tables.vehicle.read(vehicleId);
+
+    if (!vehicle) {
+      return res.status(404).json({ error: "Vehicle not found" });
+    }
+
+    if (!isAdmin && vehicle.user_id !== currentUserId) {
+      return res.status(403).json({ error: "Forbidden: Access denied" });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Authorization error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+  return null;
+};
+
+const authorizeReservationDelete = async (req, res, next) => {
+  try {
+    const reservationId = parseInt(req.params.id, 10);
+    const currentUserId = req.user.id;
+    const isAdmin = req.user.isAdmin === 1;
+
+    const reservation = await tables.reservation.read(reservationId);
+    if (!reservation) {
+      return res.status(404).json({ error: "reservation not found" });
+    }
+
+    if (!isAdmin && reservation.user_id !== currentUserId) {
+      return res.status(403).json({ error: "Forbidden: Access denied" });
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+  return null;
+};
+
+module.exports = {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  authorizeAdmin,
+  authorizeSelfOrAdmin,
+  authorizeSelfOrAdminWithQueryParams,
+  authorizeSelfOrAdminWithIdInBody,
+  authorizeVehicleDelete,
+  authorizeReservationDelete,
+};
