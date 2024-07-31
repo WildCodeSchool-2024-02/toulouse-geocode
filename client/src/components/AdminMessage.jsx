@@ -8,13 +8,16 @@ function AdminMessage({ hostUrl }) {
     { label: "Nom :", value: "name" },
     { label: "Adresse email :", value: "email" },
     { label: "Message :", value: "message" },
+    { label: "Catégorie :", value: "topic" },
   ];
 
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const fetchMessages = async () => {
-      const response = await fetch(`${hostUrl}/api/contact-messages`);
+      const response = await fetch(`${hostUrl}/api/contact-messages`, {
+        credentials: "include",
+      });
       const data = await response.json();
       setMessages(data);
     };
@@ -25,6 +28,7 @@ function AdminMessage({ hostUrl }) {
     try {
       const response = await fetch(`${hostUrl}/api/contact-messages/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error(`Failed to delete message: ${response.status}`);
@@ -46,14 +50,11 @@ function AdminMessage({ hostUrl }) {
               {messageFields.map((field) => (
                 <li key={field.value}>
                   <h4>{field.label}</h4>
-                  <p>{message[field.value]}</p>
+                  <p>{message[field.value] || "Catégorie non renseignée"}</p>
                 </li>
               ))}
               <div className="button-container">
-                <a
-                  href={`mailto:${message.email}`}
-                  className="button-sm-olive-outlined"
-                >
+                <a href={`mailto:${message.email}`} className="button-sm-olive-outlined">
                   Répondre
                 </a>
                 <button

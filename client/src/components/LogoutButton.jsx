@@ -11,7 +11,7 @@ function LogoutButton({ label = "" }) {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${hostUrl}/api/user/logout`, {
+      const response = await fetch(`${hostUrl}/api/users/logout`, {
         method: "POST",
         credentials: "include",
       });

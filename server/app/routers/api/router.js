@@ -13,9 +13,8 @@ const reservationRouter = require("./reservation/router");
 const vehicleRouter = require("./vehicles/router");
 
 router.use("/charging-stations", chargingStationsRouter);
-router.use("/contact", contactFormRouter);
 router.use("/contact-messages", contactFormRouter);
-router.use("/user", userRouter);
+router.use("/users", userRouter);
 router.use("/reservation", reservationRouter);
 router.use("/vehicle", vehicleRouter);
 

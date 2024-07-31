@@ -109,7 +109,7 @@ export async function postNewUser({ request }) {
     creationDate,
   };
   try {
-    const response = await fetch(`${hostUrl}/api/user`, {
+    const response = await fetch(`${hostUrl}/api/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -16,7 +16,7 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
 
   useEffect(() => {
     if (user) {
-      fetch(`${hostUrl}/api/user/${user?.id}`, { credentials: "include" })
+      fetch(`${hostUrl}/api/users/${user?.id}`, { credentials: "include" })
         .then((res) => res.json())
         .then((data) => setIsAdmin(data.isAdmin))
         .catch((err) => console.error(err));

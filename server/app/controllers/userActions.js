@@ -43,7 +43,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign(payload, process.env.APP_SECRET);
 
     res.cookie("accessToken", token, {
-      maxAge: 900000,
+      maxAge: 86400000,
       httpOnly: true,
       secure: true,
       sameSite: "strict",

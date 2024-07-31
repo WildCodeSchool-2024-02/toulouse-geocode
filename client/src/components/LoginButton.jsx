@@ -12,7 +12,7 @@ function LoginButton({ requestBody }) {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${hostUrl}/api/user/login`, {
+      const response = await fetch(`${hostUrl}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

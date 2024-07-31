@@ -8,7 +8,7 @@ function AdminUser({ hostUrl }) {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch(`${hostUrl}/api/user`, {
+      const response = await fetch(`${hostUrl}/api/users`, {
         credentials: "include",
       });
       const data = await response.json();
@@ -19,7 +19,7 @@ function AdminUser({ hostUrl }) {
 
   const handleDeleteUser = async (id) => {
     try {
-      const response = await fetch(`${hostUrl}/api/user/${id}`, {
+      const response = await fetch(`${hostUrl}/api/users/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -44,9 +44,7 @@ function AdminUser({ hostUrl }) {
                 <p>Nom : {user.lastname}</p>
                 <p>Prénom : {user.firstname}</p>
                 <p>Adresse email : {user.email}</p>
-                <p>
-                  Date de création du compte: {formatDate(user.creation_date)}
-                </p>
+                <p>Date de création du compte: {formatDate(user.creation_date)}</p>
                 <button
                   type="button"
                   className="button-sm-olive-outlined"

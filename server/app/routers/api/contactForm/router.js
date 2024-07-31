@@ -7,18 +7,14 @@ const router = express.Router();
 /* ************************************************************************* */
 
 // Import item-related actions
-const {
-  add,
-  browse,
-  read,
-  destroy,
-} = require("../../../controllers/contactFormActions");
+const { add, browse, read, destroy } = require("../../../controllers/contactFormActions");
+const { verifyToken } = require("../../../services/auth");
 
 // Route to get a list of items
-router.get("/", browse);
-router.get("/:id", read);
+router.get("/", verifyToken, browse);
+router.get("/:id", verifyToken, read);
 router.post("/", add);
-router.delete("/:id", destroy);
+router.delete("/:id", verifyToken, destroy);
 
 /* ************************************************************************* */
 

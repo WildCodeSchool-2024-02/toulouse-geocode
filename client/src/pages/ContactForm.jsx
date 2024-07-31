@@ -91,7 +91,7 @@ export async function postMessageToAdmin({ request }) {
     topic,
   };
   try {
-    const response = await fetch(`${hostUrl}/api/contact`, {
+    const response = await fetch(`${hostUrl}/api/contact-messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -17,7 +17,7 @@ function Navbar() {
     const checkUserData = async () => {
       if (user) {
         try {
-          const response = await fetch(`${hostUrl}/api/user/${user?.id}`, {
+          const response = await fetch(`${hostUrl}/api/users/${user?.id}`, {
             credentials: "include",
           });
           if (response.status === 401) {

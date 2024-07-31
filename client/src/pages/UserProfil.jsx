@@ -18,7 +18,7 @@ function UserProfile() {
 
   useEffect(() => {
     if (user) {
-      fetch(`${hostUrl}/api/user/${user.id}`, {
+      fetch(`${hostUrl}/api/users/${user.id}`, {
         credentials: "include",
       })
         .then((res) => res.json())
@@ -42,7 +42,7 @@ function UserProfile() {
   });
 
   const handleAddPersonnalInformation = () => {
-    fetch(`${hostUrl}/api/user/${user?.id}`, {
+    fetch(`${hostUrl}/api/users/${user?.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
