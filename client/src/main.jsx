@@ -48,10 +48,6 @@ const router = createBrowserRouter([
         element: <AdminBackOffice />,
       },
       {
-        path: "/user-profile",
-        element: <UserProfile />,
-      },
-      {
         path: "/reservation",
         element: <Reservation />,
       },

@@ -2,11 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
-
-// Import item-related actions
 const {
   browse,
   read,
@@ -31,7 +26,5 @@ router.delete("/:id", verifyToken, authorizeSelfOrAdmin, destroy);
 router.put("/:id", verifyToken, authorizeSelfOrAdmin, hashPassword, edit);
 router.post("/login", verifyPassword, login);
 router.post("/logout", logout);
-
-/* ************************************************************************* */
 
 module.exports = router;

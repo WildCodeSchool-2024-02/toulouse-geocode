@@ -2,10 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Import And Use Routers Here
-/* ************************************************************************* */
-
 const chargingStationsRouter = require("./chargingStations/router");
 const contactFormRouter = require("./contactForm/router");
 const userRouter = require("./users/router");
@@ -17,7 +13,5 @@ router.use("/contact-messages", contactFormRouter);
 router.use("/users", userRouter);
 router.use("/reservations", reservationRouter);
 router.use("/vehicles", vehicleRouter);
-
-/* ************************************************************************* */
 
 module.exports = router;
