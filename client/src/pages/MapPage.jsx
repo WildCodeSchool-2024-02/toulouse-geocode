@@ -136,7 +136,7 @@ function MapPage() {
     if (mapRef.current) {
       mapRef.current.flyTo({
         center: [location.lon, location.lat],
-        zoom: 12,
+        zoom: 12.67,
         essential: true,
       });
     }

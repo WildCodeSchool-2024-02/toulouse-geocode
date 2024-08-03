@@ -6,7 +6,10 @@ class ChargingStationRepository extends AbstractRepository {
   }
 
   async read(id) {
-    const [rows] = await this.database.query(`select * from ${this.table} where id = ?`, [id]);
+    const [rows] = await this.database.query(
+      `select * from ${this.table} join plug_type on ${this.table}.id = plug_type.id where ${this.table}.id = ?`,
+      [id],
+    );
     return rows[0];
   }
 
