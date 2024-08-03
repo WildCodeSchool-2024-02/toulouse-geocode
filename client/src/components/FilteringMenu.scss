@@ -7,8 +7,9 @@
   padding: $spacingDouble;
   position: absolute;
   z-index: 4;
-  bottom: 0;
-  width: 100%;
+  bottom: 2dvw;
+  width: 96dvw;
+  left: 2dvw;
   @include mq() {
     top: 128px;
     left: 40px;

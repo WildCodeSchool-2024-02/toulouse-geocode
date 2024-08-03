@@ -11,9 +11,7 @@ function CustomGeocoder({ onLocationSelect }) {
       return callback([]);
     }
 
-    fetch(
-      `https://nominatim.openstreetmap.org/search?q=${enteredValue}&format=jsonv2`
-    )
+    fetch(`https://nominatim.openstreetmap.org/search?q=${enteredValue}&format=jsonv2`)
       .then((r) => r.json())
       .then((d) => {
         const formattedOptions = d.map((item) => ({
