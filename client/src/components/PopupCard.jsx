@@ -61,8 +61,8 @@ function PopupCard({ stationDetails, available, setisOpenedFilteringMenu }) {
   return (
     <>
       <h2>{stationDetails?.station_name}</h2>
-      <div>{stationDetails?.station_adress}</div>
-      <div>Borne n°{stationDetails?.id}</div>
+      <p>{stationDetails?.station_adress}</p>
+      <p>Borne n°{stationDetails?.id}</p>
       {plugTypes.length > 0 && (
         <ul>
           Prise :

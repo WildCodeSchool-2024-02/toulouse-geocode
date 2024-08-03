@@ -8,9 +8,17 @@
   padding: $spacingDouble;
   @include colorAndWeight();
   div {
-    @include flex(column, start, start, 4px);
+    @include flex(column, start, start, calc($spacing/2));
     @include mq() {
-      @include flex(column, start, start, $spacing);
+      @include flex(column, start, start, calc($spacing));
+    }
+    button {
+      margin: 0;
+      width: fit-content;
+      align-self: center;
+    }
+    p {
+      line-height: 1.1;
     }
   }
 
@@ -20,5 +28,6 @@
 
   button {
     margin: 0;
+    width: 100%;
   }
 }
