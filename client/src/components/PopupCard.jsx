@@ -10,7 +10,7 @@ function PopupCard({ stationDetails, available, setisOpenedFilteringMenu }) {
   const navigate = useNavigate();
 
   const getPlugTypes = (data) => {
-    if (!data) return {};
+    if (!data) return [];
     const plugTypeIds = Object.keys(data).filter(
       (key) => key.startsWith("plug_type_") && data[key] === 1,
     );
