@@ -3,7 +3,7 @@ import "./Navbar.scss";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import logo from "../../public/logo.svg";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 import LogoutButton from "./LogoutButton";
 
 const hostUrl = import.meta.env.VITE_API_URL;
@@ -11,13 +11,13 @@ const hostUrl = import.meta.env.VITE_API_URL;
 function Navbar() {
   const { user, logout } = useAuth();
   const location = useLocation();
-  const [userDetails, setUserDetails] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
 
   useEffect(() => {
     const checkUserData = async () => {
       if (user) {
         try {
-          const response = await fetch(`${hostUrl}/api/user/${user?.id}`, {
+          const response = await fetch(`${hostUrl}/api/users/${user?.id}`, {
             credentials: "include",
           });
           if (response.status === 401) {
@@ -25,8 +25,7 @@ function Navbar() {
             console.info("Unauthorized access - localStorage cleared");
           } else if (response.ok) {
             const data = await response.json();
-            setUserDetails(data);
-            console.info("User data:", data);
+            setIsAdmin(data.isAdmin);
           } else {
             console.error("Error fetching user data:", response.status);
           }
@@ -60,8 +59,8 @@ function Navbar() {
   ];
 
   const pathAndLabels = () => {
-    if (user && userDetails) {
-      const additionalPaths = userDetails.isAdmin ? adminPaths : userPaths;
+    if (user) {
+      const additionalPaths = isAdmin ? adminPaths : userPaths;
       return [...basePathsAndLabels, ...additionalPaths];
     }
     return [...basePathsAndLabels, ...guestPaths];
@@ -111,7 +110,7 @@ function Navbar() {
           <Link to="/profile" onClick={() => setIsOpen(false)}>
             <p>Bienvenue {user.firstname}</p>
           </Link>
-        )}
+        )}{" "}
       </div>
 
       {device === "mobile" ? (

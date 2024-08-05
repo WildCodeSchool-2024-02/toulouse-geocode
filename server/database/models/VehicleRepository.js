@@ -9,7 +9,7 @@ class VehicleRepository extends AbstractRepository {
     const [result] = await this.database.query(
       `insert into ${this.table} (user_id, brand, model, year, power_voltage, plug_type) values ( ? , ? , ? , ? , ? , ? ) `,
       [
-        vehicle.user_id,
+        vehicle.userId,
         vehicle.brand,
         vehicle.model,
         vehicle.year,

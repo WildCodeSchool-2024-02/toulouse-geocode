@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import useAuth from "../utils/useAuth";
+import useAuth from "../hooks/useAuth";
 import LogoutButton from "./LogoutButton";
 import "./Hud.scss";
 import "./Navbar.scss";
@@ -11,14 +11,14 @@ const hostUrl = import.meta.env.VITE_API_URL;
 
 function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
   const { user } = useAuth();
-  const [userDetails, setUserDetails] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
-      fetch(`${hostUrl}/api/user/${user?.id}`, { credentials: "include" })
+      fetch(`${hostUrl}/api/users/${user?.id}`, { credentials: "include" })
         .then((res) => res.json())
-        .then((data) => setUserDetails(data))
+        .then((data) => setIsAdmin(data.isAdmin))
         .catch((err) => console.error(err));
     }
   }, [user]);
@@ -44,8 +44,8 @@ function Hud({ setisOpenedFilteringMenu, isOpenedFilteringMenu }) {
   ];
 
   const pathAndLabels = () => {
-    if (user && userDetails) {
-      const additionalPaths = userDetails.isAdmin ? adminPaths : userPaths;
+    if (user) {
+      const additionalPaths = isAdmin ? adminPaths : userPaths;
       return [...basePathsAndLabels, ...additionalPaths];
     }
     return [...basePathsAndLabels, ...guestPaths];

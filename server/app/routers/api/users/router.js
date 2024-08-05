@@ -2,11 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
-
-// Import item-related actions
 const {
   browse,
   read,
@@ -16,16 +11,20 @@ const {
   destroy,
   edit,
 } = require("../../../controllers/userActions");
-const { hashPassword, verifyPassword, verifyToken } = require("../../../services/auth");
+const {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  authorizeAdmin,
+  authorizeSelfOrAdmin,
+} = require("../../../services/auth");
 
-router.get("/", verifyToken, browse);
-router.get("/:id", verifyToken, read);
+router.get("/", verifyToken, authorizeAdmin, browse);
+router.get("/:id", verifyToken, authorizeSelfOrAdmin, read);
 router.post("/", hashPassword, add);
-router.delete("/:id", verifyToken, destroy);
-router.put("/:id", verifyToken, hashPassword, edit);
+router.delete("/:id", verifyToken, authorizeSelfOrAdmin, destroy);
+router.put("/:id", verifyToken, authorizeSelfOrAdmin, hashPassword, edit);
 router.post("/login", verifyPassword, login);
 router.post("/logout", logout);
-
-/* ************************************************************************* */
 
 module.exports = router;

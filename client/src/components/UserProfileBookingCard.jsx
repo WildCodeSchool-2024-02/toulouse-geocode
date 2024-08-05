@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import useAuth from "../hooks/useAuth";
 import { formatTime } from "../services/utils";
 
-function AdminReservations({ hostUrl }) {
+const hostUrl = import.meta.env.VITE_API_URL;
+
+function UserProfileBookingCard() {
+  const { user } = useAuth();
+
   const [bookingFieldIsOpen, setBookingFieldIsOpen] = useState();
 
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const response = await fetch(`${hostUrl}/api/reservations`, {
+      const response = await fetch(`${hostUrl}/api/reservations?userId=${user?.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -20,8 +24,10 @@ function AdminReservations({ hostUrl }) {
       const data = await response.json();
       setBookings(data);
     };
-    fetchBookings();
-  }, [hostUrl]);
+    if (user) {
+      fetchBookings();
+    }
+  }, [user]);
 
   const handleDeleteBooking = async (id) => {
     try {
@@ -40,12 +46,24 @@ function AdminReservations({ hostUrl }) {
   };
 
   return (
-    <div>
-      <h3>Réservations en cours</h3>
+    <>
+      {" "}
       <div className="info-item">
+        <h3>Mes réservations</h3>
+        <button
+          type="button"
+          className="button-sm-olive-outlined"
+          onClick={() => {
+            setBookingFieldIsOpen(!bookingFieldIsOpen);
+          }}
+        >
+          {bookingFieldIsOpen ? "Fermer" : "Voir"}
+        </button>
+      </div>
+      <div className="user-reservations-container">
         {bookingFieldIsOpen &&
           bookings.map((booking) => (
-            <div className="admin-reservation-details" key={booking.id}>
+            <div className="user-reservation-details" key={booking.id}>
               <p>Id : {booking.id}</p>
               <p>Adresse : {booking.station_adress}</p>
               <p>Durée : {booking.duration} minutes</p>
@@ -65,22 +83,9 @@ function AdminReservations({ hostUrl }) {
               </div>
             </div>
           ))}
-        <button
-          type="button"
-          className="button-md-olive-outlined admin-back-office-buttons"
-          onClick={() => {
-            setBookingFieldIsOpen(!bookingFieldIsOpen);
-          }}
-        >
-          {bookingFieldIsOpen ? "Fermer" : "Voir"}
-        </button>
       </div>
-    </div>
+    </>
   );
 }
 
-export default AdminReservations;
-
-AdminReservations.propTypes = {
-  hostUrl: PropTypes.string.isRequired,
-};
+export default UserProfileBookingCard;

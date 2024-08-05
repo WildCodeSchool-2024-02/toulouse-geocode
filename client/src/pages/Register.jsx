@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./Form.scss";
-import "../style/button.scss";
-import "../style/input.scss";
 import "./Register.scss";
 import { newDateToSql } from "../services/utils";
 
@@ -111,7 +109,7 @@ export async function postNewUser({ request }) {
     creationDate,
   };
   try {
-    const response = await fetch(`${hostUrl}/api/user`, {
+    const response = await fetch(`${hostUrl}/api/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

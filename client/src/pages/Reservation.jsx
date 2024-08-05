@@ -23,8 +23,7 @@ function Reservation() {
     if (!startingTime || !endingTime) {
       return 0;
     }
-    const diffInMilis =
-      new Date(endingTime).getTime() - new Date(startingTime).getTime();
+    const diffInMilis = new Date(endingTime).getTime() - new Date(startingTime).getTime();
     return Math.floor(diffInMilis / 60000);
   };
   const getPrice = () => (getDuration() * coeff).toFixed(2);
@@ -40,7 +39,7 @@ function Reservation() {
     };
 
     try {
-      const response = await fetch(`${hostUrl}/api/reservation`, {
+      const response = await fetch(`${hostUrl}/api/reservations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,11 +103,7 @@ function Reservation() {
           <p>{getPrice()} €</p>
         </div>
         <div className="reservation-buttons-container">
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="button-md-olive-fullfilled"
-          >
+          <button type="button" onClick={handleSubmit} className="button-md-olive-fullfilled">
             Confirmer
           </button>
           <Link to="/map" className="button-md-olive-fullfilled">

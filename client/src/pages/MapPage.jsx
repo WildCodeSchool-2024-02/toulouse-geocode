@@ -5,7 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./MapPage.scss";
 import { motion } from "framer-motion";
 import PopupCard from "../components/PopupCard";
-import useFetchData from "../utils/useFetchData";
+import useFetchData from "../hooks/useFetchData";
 import FilteringMenu from "../components/FilteringMenu";
 import Hud from "../components/Hud";
 import CustomGeocoder from "../components/CustomGeocoder";
@@ -136,7 +136,7 @@ function MapPage() {
     if (mapRef.current) {
       mapRef.current.flyTo({
         center: [location.lon, location.lat],
-        zoom: 12,
+        zoom: 12.67,
         essential: true,
       });
     }

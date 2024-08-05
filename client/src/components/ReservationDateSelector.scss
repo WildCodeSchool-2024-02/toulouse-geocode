@@ -7,8 +7,11 @@
     @include mq() {
       @include flex(column, center, start, $spacing);
     }
-  }
-  section {
-    @include flex(column, center, start, 4px);
+    section {
+      @include flex(column, center, start, 4px);
+      #ending-date {
+        max-width: 75px;
+      }
+    }
   }
 }
