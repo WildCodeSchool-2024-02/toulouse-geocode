@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AdminBackOffice.scss";
 import AdminChargingStations from "../components/AdminChargingStations";
@@ -9,9 +10,36 @@ import useAuth from "../hooks/useAuth";
 const hostUrl = import.meta.env.VITE_API_URL;
 
 function AdminBackOffice() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
-  return user ? (
+  const [isAdmin, setIsAdmin] = useState(null);
+
+  useEffect(() => {
+    const checkUserData = async () => {
+      if (user) {
+        try {
+          const response = await fetch(`${hostUrl}/api/users/${user?.id}`, {
+            credentials: "include",
+          });
+          if (response.status === 401) {
+            logout();
+            console.info("Unauthorized access - localStorage cleared");
+          } else if (response.ok) {
+            const data = await response.json();
+            setIsAdmin(data.isAdmin);
+          } else {
+            console.error("Error fetching user data:", response.status);
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+        }
+      }
+    };
+
+    checkUserData();
+  }, [user]);
+
+  return user && isAdmin ? (
     <div className="admin-back-office-container">
       <div className="admin-back">
         <header className="header">
