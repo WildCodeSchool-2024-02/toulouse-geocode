@@ -8,7 +8,7 @@ import UserProfileVehicleCard from "../components/UserProfileVehicleCard";
 const hostUrl = import.meta.env.VITE_API_URL;
 
 function UserProfile() {
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const [formData, setFormData] = useState({
     lastname: "",
     firstname: "",
@@ -49,7 +49,15 @@ function UserProfile() {
       },
       body: JSON.stringify(formData),
       credentials: "include",
-    });
+    })
+      .then(() => {
+        login({
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          id: user?.id,
+        });
+      })
+      .catch((err) => console.error(err));
   };
 
   const handleEditClick = (field) => {

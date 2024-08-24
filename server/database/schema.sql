@@ -1,4 +1,4 @@
-create table user (
+CREATE TABLE user (
   id int unsigned primary key auto_increment NOT NULL,
   lastname varchar(255) NOT NULL,
   firstname varchar(255) NOT NULL,
